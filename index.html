@@ -18,6 +18,7 @@ select:focus{border-color:#888}
 .tabs{display:flex;gap:2px;margin-bottom:18px;border-bottom:1px solid #d3d1c7;overflow-x:auto}
 .tab{font-size:13px;padding:9px 16px;cursor:pointer;color:#73726c;border-bottom:2px solid transparent;margin-bottom:-1px;font-weight:400;transition:color .15s;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none}
 .tab.active{color:#1a1a18;border-bottom-color:#1a1a18;font-weight:600}
+.tab.fitness-tab.active{color:#1D9E75;border-bottom-color:#1D9E75}
 .tab:hover{color:#1a1a18}
 .section{display:none}.section.active{display:block}
 .metric-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
@@ -25,10 +26,13 @@ select:focus{border-color:#888}
 .metric-card .label{font-size:10px;color:#888780;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em;font-weight:500}
 .metric-card .val{font-size:24px;font-weight:600;color:#1a1a18}
 .metric-card .sub{font-size:11px;margin-top:4px}
+.metric-card.accent{border-color:#9FE1CB;background:#f4fdf9}
 .pos{color:#1D9E75}.neg{color:#E24B4A}.neu{color:#73726c}
 .card{background:#fff;border:1px solid #e8e6df;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.card.fitness{border-color:#9FE1CB}
 .card-title{font-size:13px;font-weight:600;color:#1a1a18;margin-bottom:14px}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
 table{width:100%;border-collapse:collapse;font-size:12px}
 th{font-size:10px;font-weight:600;color:#888780;text-align:left;padding:6px 8px;border-bottom:1px solid #e8e6df;white-space:nowrap;text-transform:uppercase;letter-spacing:.04em}
 th.r{text-align:right}
@@ -38,28 +42,43 @@ tr:last-child td{border-bottom:none}
 tr:hover td{background:#fafaf8}
 .rank-num{font-size:11px;color:#888780;font-weight:600}
 .badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
-.bg{background:#EAF3DE;color:#2d6b0e}.br{background:#FCEBEB;color:#8c2020}.bn{background:#f1efe8;color:#5f5e5a}.bi{background:#e6f1fb;color:#0c447c}
+.bg{background:#EAF3DE;color:#2d6b0e}.br{background:#FCEBEB;color:#8c2020}.bn{background:#f1efe8;color:#5f5e5a}.bi{background:#e6f1fb;color:#0c447c}.bfit{background:#E1F5EE;color:#0F6E56}
 .chart-wrap{position:relative;height:220px;width:100%}
 .chart-wrap2{position:relative;height:260px;width:100%}
 .chart-wrap3{position:relative;height:300px;width:100%}
 .seg-btn{font-size:11px;padding:5px 12px;border:1px solid #d3d1c7;border-radius:20px;cursor:pointer;background:#fff;color:#73726c;transition:all .15s;font-weight:500}
 .seg-btn.active{background:#1a1a18;color:#fff;border-color:#1a1a18}
+.seg-btn.fit-btn.active{background:#1D9E75;border-color:#1D9E75}
 .seg-btn:hover:not(.active){background:#f8f8f6}
 .seg-nav{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
 .profile-header{display:flex;align-items:center;gap:16px;padding:18px;background:#fff;border:1px solid #e8e6df;border-radius:12px;margin-bottom:14px}
-.avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;flex-shrink:0;letter-spacing:.5px}
-.profile-name{font-size:17px;font-weight:600;color:#1a1a18}
+.avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;flex-shrink:0}
+.profile-name{font-size:17px;font-weight:600}
 .profile-sub{font-size:12px;color:#73726c;margin-top:3px}
 .profile-badges{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
 .kpi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}
 .kpi-mini{background:#fff;border:1px solid #e8e6df;border-radius:10px;padding:12px;text-align:center}
 .kpi-mini .kv{font-size:22px;font-weight:600;color:#1a1a18}
 .kpi-mini .kl{font-size:10px;color:#888780;text-transform:uppercase;letter-spacing:.05em;margin-top:3px;font-weight:500}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;flex-shrink:0}
+.wave-header{background:linear-gradient(135deg,#E1F5EE 0%,#f4fdf9 100%);border:1px solid #9FE1CB;border-radius:12px;padding:18px 20px;margin-bottom:16px;display:flex;align-items:center;gap:16px}
+.wave-icon{width:44px;height:44px;border-radius:50%;background:#1D9E75;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wave-title{font-size:16px;font-weight:700;color:#085041}
+.wave-sub{font-size:12px;color:#0F6E56;margin-top:3px}
+.wave-stats{display:flex;gap:20px;margin-left:auto;flex-wrap:wrap}
+.wave-stat{text-align:center}
+.wave-stat .wv{font-size:22px;font-weight:700;color:#085041}
+.wave-stat .wl{font-size:10px;color:#0F6E56;text-transform:uppercase;letter-spacing:.05em;font-weight:500}
+.progress-bar{height:8px;background:#e8e6df;border-radius:4px;overflow:hidden;margin-top:4px}
+.progress-fill{height:100%;border-radius:4px;background:#1D9E75}
+.ncram-card{background:#fff;border:1px solid #e8e6df;border-radius:10px;padding:14px;margin-bottom:8px}
+.ncram-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.ncram-card-name{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px}
 @media(max-width:640px){
   .metric-row{grid-template-columns:1fr 1fr}
-  .two-col{grid-template-columns:1fr}
+  .two-col,.three-col{grid-template-columns:1fr}
   .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .wave-stats{margin-left:0}
 }
 </style>
 </head>
@@ -89,11 +108,12 @@ tr:hover td{background:#fafaf8}
 </div>
 
 <div class="tabs">
-  <button class="tab active" onclick="switchTab('national')">National Overview</button>
-  <button class="tab" onclick="switchTab('kpi')">KPI Scorecard</button>
-  <button class="tab" onclick="switchTab('volume')">Volume Performance</button>
-  <button class="tab" onclick="switchTab('ncram')">NCRAM Rankings</button>
-  <button class="tab" onclick="switchTab('profile')">Individual Profile</button>
+  <button class="tab active" onclick="switchTab('national',this)">National Overview</button>
+  <button class="tab" onclick="switchTab('kpi',this)">KPI Scorecard</button>
+  <button class="tab" onclick="switchTab('volume',this)">Volume Performance</button>
+  <button class="tab" onclick="switchTab('ncram',this)">NCRAM Rankings</button>
+  <button class="tab" onclick="switchTab('profile',this)">Individual Profile</button>
+  <button class="tab fitness-tab" onclick="switchTab('fitness',this)">&#127947; Focus Wave — Fitness</button>
 </div>
 
 <!-- NATIONAL -->
@@ -190,24 +210,78 @@ tr:hover td{background:#fafaf8}
   <div style="margin-bottom:14px">
     <select id="profileSelect" onchange="renderProfile()" style="font-size:13px;padding:8px 12px">
       <option value="">— Select an NCRAM —</option>
-      <option>Sierra Ford</option>
-      <option>Katie Naviaux</option>
-      <option>Rudy Wagner</option>
-      <option>Meg Flom</option>
-      <option>TJ McGowan</option>
-      <option>Greg Drillock</option>
-      <option>Montana Renno</option>
-      <option>Chris Trott</option>
-      <option>Carroll Jenkins</option>
-      <option>Josh Queja</option>
-      <option>Jenny Lynch</option>
-      <option>Amy Quinet</option>
+      <option>Sierra Ford</option><option>Katie Naviaux</option><option>Rudy Wagner</option>
+      <option>Meg Flom</option><option>TJ McGowan</option><option>Greg Drillock</option>
+      <option>Montana Renno</option><option>Chris Trott</option><option>Carroll Jenkins</option>
+      <option>Josh Queja</option><option>Jenny Lynch</option><option>Amy Quinet</option>
     </select>
   </div>
   <div id="profileContent">
-    <div style="padding:48px;text-align:center;color:#888780;font-size:13px;background:#fff;border:1px solid #e8e6df;border-radius:12px">
-      Select an NCRAM above to view their individual performance profile.
+    <div style="padding:48px;text-align:center;color:#888780;font-size:13px;background:#fff;border:1px solid #e8e6df;border-radius:12px">Select an NCRAM above to view their individual performance profile.</div>
+  </div>
+</div>
+
+<!-- FITNESS FOCUS WAVE -->
+<div id="fitness" class="section">
+  <div class="wave-header">
+    <div class="wave-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v16M18 4v16M3 8h3M15 8h6M3 16h6M15 16h3M9 4h6M9 20h6"/></svg>
     </div>
+    <div>
+      <div class="wave-title">Focus Wave 1 — Zero Missed Workouts</div>
+      <div class="wave-sub">Fitness Pillar &nbsp;·&nbsp; Jan – Feb 2026 &nbsp;·&nbsp; All 5 Regions</div>
+    </div>
+    <div class="wave-stats">
+      <div class="wave-stat"><div class="wv">33</div><div class="wl">Chain Wins</div></div>
+      <div class="wave-stat"><div class="wv">305</div><div class="wl">New Reach Locs</div></div>
+      <div class="wave-stat"><div class="wv">116</div><div class="wl">New SKUs</div></div>
+      <div class="wave-stat"><div class="wv">67</div><div class="wl">Equip Placed</div></div>
+      <div class="wave-stat"><div class="wv">203</div><div class="wl">Activations</div></div>
+    </div>
+  </div>
+
+  <!-- NCRAM filter for fitness -->
+  <div class="seg-nav">
+    <button class="seg-btn fit-btn active" onclick="setFitView('all',this)">All NCRAMs</button>
+    <button class="seg-btn fit-btn" onclick="setFitView('Central',this)">Central</button>
+    <button class="seg-btn fit-btn" onclick="setFitView('Midwest',this)">Midwest</button>
+    <button class="seg-btn fit-btn" onclick="setFitView('Northeast',this)">Northeast</button>
+    <button class="seg-btn fit-btn" onclick="setFitView('Southeast',this)">Southeast</button>
+    <button class="seg-btn fit-btn" onclick="setFitView('West',this)">West</button>
+  </div>
+
+  <div class="metric-row" id="fit-metrics"></div>
+
+  <div class="two-col">
+    <div class="card fitness">
+      <div class="card-title">New Reach Locations by NCRAM</div>
+      <div class="chart-wrap2"><canvas id="fitReachChart"></canvas></div>
+    </div>
+    <div class="card fitness">
+      <div class="card-title">Output by Region</div>
+      <div class="chart-wrap2"><canvas id="fitRegChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card fitness">
+      <div class="card-title">Equipment Placed by NCRAM</div>
+      <div class="chart-wrap"><canvas id="fitEquipChart"></canvas></div>
+    </div>
+    <div class="card fitness">
+      <div class="card-title">Pillar Activations by NCRAM</div>
+      <div class="chart-wrap"><canvas id="fitActChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card fitness">
+    <div class="card-title">Account-Level Detail — Fitness Focus Wave</div>
+    <table id="fitDetailTable"></table>
+  </div>
+
+  <div class="card fitness" style="margin-top:14px">
+    <div class="card-title">NCRAM Leaderboard — Fitness Focus Wave</div>
+    <table id="fitLeaderTable"></table>
   </div>
 </div>
 
@@ -341,8 +415,49 @@ const wins=[
   {ram:'TJ McGowan',type:'BD',seg:'Vending',acct:'A&M Vending',locs:0,vol:0},
 ];
 
+// FITNESS FOCUS WAVE DATA
+const fitnessData=[
+  {region:'Central',ncram:'Sierra Ford',account:'Tru Fit Athletics',chain:1,reach:40,skus:4,skuTypes:'ED, SF, SFPE, SFSBE',equipType:'',equipQty:0,activations:0},
+  {region:'Central',ncram:'Sierra Ford',account:'Alphaland',chain:1,reach:1,skus:4,skuTypes:'ED, SF, Zero, SF Pink',equipType:'',equipQty:0,activations:1},
+  {region:'Central',ncram:'Sierra Ford',account:'Elysian Strength',chain:1,reach:1,skus:2,skuTypes:'ED, SF',equipType:'',equipQty:0,activations:0},
+  {region:'Central',ncram:'Sierra Ford',account:'Athletic Empire',chain:1,reach:1,skus:4,skuTypes:'ED, SF, SF Pink, Zero',equipType:'Slim Medium',equipQty:1,activations:0},
+  {region:'Central',ncram:'Sierra Ford',account:'Iron City',chain:1,reach:1,skus:3,skuTypes:'SF, SF Pink, SF Juneberry',equipType:'',equipQty:0,activations:0},
+  {region:'Central',ncram:'Sierra Ford',account:'Austin Bouldering Project',chain:1,reach:2,skus:4,skuTypes:'ED, SF, Peach, Red, Juneberry',equipType:'Mega Slim',equipQty:2,activations:0},
+  {region:'Central',ncram:'Katie Naviaux',account:'Vasa Fitness',chain:1,reach:72,skus:5,skuTypes:'ED, SF, Zero, SF Pink, SF Sea Blue',equipType:'',equipQty:0,activations:72},
+  {region:'Central',ncram:'Katie Naviaux',account:'Defined Fitness',chain:1,reach:8,skus:7,skuTypes:'ED, SF, YE, AE, SBE, CE, RE',equipType:'Mega Slim',equipQty:7,activations:3},
+  {region:'Northeast',ncram:'Greg Drillock',account:'Rumble',chain:1,reach:3,skus:2,skuTypes:'WPE, ZERO',equipType:'Slim Medium',equipQty:3,activations:3},
+  {region:'Northeast',ncram:'Montana Renno',account:'Crunch Fitness',chain:1,reach:1,skus:0,skuTypes:'',equipType:'',equipQty:0,activations:1},
+  {region:'Northeast',ncram:'Montana Renno',account:'Fit Fusion',chain:1,reach:1,skus:2,skuTypes:'ED, SF',equipType:'',equipQty:0,activations:1},
+  {region:'Northeast',ncram:'Montana Renno',account:'Onyx Gyms',chain:1,reach:1,skus:2,skuTypes:'ED, SF',equipType:'',equipQty:0,activations:0},
+  {region:'Southeast',ncram:'Carroll Jenkins',account:'Legacy Fit',chain:1,reach:7,skus:3,skuTypes:'ED, SF, RE',equipType:'',equipQty:0,activations:1},
+  {region:'Southeast',ncram:'Carroll Jenkins',account:'Amped Fitness',chain:1,reach:1,skus:2,skuTypes:'ED, SF',equipType:'',equipQty:0,activations:0},
+  {region:'Southeast',ncram:'Carroll Jenkins',account:'Camp Fitness',chain:1,reach:1,skus:2,skuTypes:'ED, SF',equipType:'',equipQty:0,activations:1},
+  {region:'Southeast',ncram:'Carroll Jenkins',account:'CR Fitness',chain:1,reach:1,skus:2,skuTypes:'ED, SF',equipType:'',equipQty:0,activations:5},
+  {region:'Southeast',ncram:'Carroll Jenkins',account:'Cressey Fitness',chain:1,reach:2,skus:6,skuTypes:'ED, SF, SFRE, PE, SFSBE',equipType:'Slim Medium',equipQty:2,activations:0},
+  {region:'Southeast',ncram:'Carroll Jenkins',account:'Miami Strong',chain:1,reach:1,skus:3,skuTypes:'ED, SF, ZERO',equipType:'',equipQty:0,activations:1},
+  {region:'Southeast',ncram:'Josh Queja',account:'Hylo Fitness',chain:1,reach:4,skus:5,skuTypes:'ED, SF, SFRE, SBE, AE',equipType:'Slim Medium',equipQty:4,activations:4},
+  {region:'Southeast',ncram:'Josh Queja',account:'Triangle Rock Club',chain:1,reach:6,skus:5,skuTypes:'ED, SF, SFSBE, YE, SFAE',equipType:'Baby Cooler',equipQty:1,activations:1},
+  {region:'Southeast',ncram:'Josh Queja',account:'Inner Peaks Climbing',chain:1,reach:3,skus:6,skuTypes:'ED, SF, SFRE, ZERO, AE, SBE',equipType:'Slim Medium',equipQty:3,activations:3},
+  {region:'West',ncram:'Jenny Lynch',account:'Mountainside Fitness',chain:1,reach:22,skus:3,skuTypes:'ED, SF, Zero',equipType:'',equipQty:0,activations:0},
+  {region:'West',ncram:'Jenny Lynch',account:'UFC Gym',chain:1,reach:22,skus:4,skuTypes:'12ED, 8ED, SF, Zero',equipType:'Small GDC',equipQty:6,activations:22},
+  {region:'West',ncram:'Amy Quinet',account:'Bouldering Project',chain:1,reach:1,skus:4,skuTypes:'ED, SF, Zero, Winter',equipType:'Mega Slim',equipQty:2,activations:0},
+  {region:'Midwest',ncram:'Meg Flom',account:'Powerhouse Gym',chain:1,reach:14,skus:5,skuTypes:'ED, SF, TZ, SF, SB, SF Pink',equipType:'Mega Slim',equipQty:14,activations:17},
+  {region:'Midwest',ncram:'Meg Flom',account:'Indiana Fitness Club',chain:1,reach:4,skus:2,skuTypes:'ED, SF',equipType:'',equipQty:0,activations:0},
+  {region:'Midwest',ncram:'Rudy Wagner',account:'Club Fitness',chain:1,reach:2,skus:2,skuTypes:'SF Peach, SF Iced',equipType:'',equipQty:0,activations:2},
+  {region:'Midwest',ncram:'Rudy Wagner',account:'F45',chain:1,reach:4,skus:4,skuTypes:'ED, SF, Zero, SF Peach',equipType:'',equipQty:0,activations:4},
+  {region:'Midwest',ncram:'TJ McGowan',account:'FFC',chain:1,reach:10,skus:5,skuTypes:'ED, SF, Zero, SF Peach, SF Sea Blue',equipType:'Slim Medium',equipQty:7,activations:10},
+  {region:'West',ncram:'Amy Quinet',account:'In Shape',chain:1,reach:42,skus:3,skuTypes:'Zero, White Peach SF, Vanilla Iced Berry SF',equipType:'Small GDC',equipQty:4,activations:25},
+  {region:'West',ncram:'Amy Quinet',account:'UFC (6 new)',chain:1,reach:22,skus:4,skuTypes:'12oz ED, 8oz ED, SF, Zero',equipType:'Small GDC',equipQty:6,activations:22},
+  {region:'West',ncram:'Amy Quinet',account:'Bouldering Project (2)',chain:1,reach:1,skus:4,skuTypes:'SF ED, Zero, Winter',equipType:'Mega Slim',equipQty:1,activations:1},
+  {region:'West',ncram:'Amy Quinet',account:'Silicon Valley Athletic Club',chain:0,reach:1,skus:0,skuTypes:'',equipType:'',equipQty:0,activations:0},
+  {region:'West',ncram:'Amy Quinet',account:'Medline',chain:0,reach:0,skus:0,skuTypes:'',equipType:'Mega Slim',equipQty:2,activations:0},
+  {region:'West',ncram:'Amy Quinet',account:'Amazon',chain:0,reach:0,skus:0,skuTypes:'',equipType:'Vending Machine',equipQty:2,activations:0},
+  {region:'Northeast',ncram:'Chris Trott',account:'Central Rock Gym',chain:1,reach:2,skus:3,skuTypes:'ED, SF, YE, AE, SBE',equipType:'',equipQty:0,activations:2},
+];
+
 let charts={};
 let currentVolSeg='Big 3';
+let currentFitView='all';
 
 const pct=v=>(v>=0?'+':'')+Math.round(v*100)+'%';
 const fmt=v=>v>=1000?(v/1000).toFixed(1)+'K':Math.round(v);
@@ -356,9 +471,9 @@ const getStats=n=>{
 };
 const getVolRanks=()=>RAMs.map(r=>({...r,...getStats(r.name)})).sort((a,b)=>b.vs-a.vs).map((r,i)=>({...r,volRank:i+1}));
 
-function switchTab(id){
+function switchTab(id,el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  event.target.classList.add('active');
+  el.classList.add('active');
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   if(id==='national') renderNational();
@@ -366,25 +481,26 @@ function switchTab(id){
   if(id==='volume') renderVolume();
   if(id==='ncram') renderNcramRankings();
   if(id==='profile') renderProfile();
+  if(id==='fitness') renderFitness();
 }
 
 function applyFilters(){
-  const active=document.querySelector('.tab.active').textContent.trim();
-  if(active==='National Overview') renderNational();
-  if(active==='KPI Scorecard') renderKPI();
-  if(active==='Volume Performance') renderVolume();
+  const active=document.querySelector('.section.active').id;
+  if(active==='national') renderNational();
+  if(active==='kpi') renderKPI();
+  if(active==='volume') renderVolume();
 }
 
+/* ---- NATIONAL ---- */
 function renderNational(){
   const data=volData.filter(d=>d.month==='January');
-  const totalAct=data.reduce((a,d)=>a+d.act,0),totalPY=data.reduce((a,d)=>a+d.py,0),totalBP=data.reduce((a,d)=>a+d.bp,0);
-  const vsPY=(totalAct-totalPY)/totalPY,vsBP=(totalAct-totalBP)/totalBP;
+  const tAct=data.reduce((a,d)=>a+d.act,0),tPY=data.reduce((a,d)=>a+d.py,0),tBP=data.reduce((a,d)=>a+d.bp,0);
+  const vsPY=(tAct-tPY)/tPY,vsBP=(tAct-tBP)/tBP;
   document.getElementById('nat-metrics').innerHTML=`
-    <div class="metric-card"><div class="label">Total Volume ACT</div><div class="val">${(totalAct/1000).toFixed(0)}K</div><div class="sub ${vc(vsPY)}">${pct(vsPY)} vs PY</div></div>
-    <div class="metric-card"><div class="label">vs Business Plan</div><div class="val ${vc(vsBP)}">${pct(vsBP)}</div><div class="sub neu">BP: ${(totalBP/1000).toFixed(0)}K</div></div>
+    <div class="metric-card"><div class="label">Total Volume ACT</div><div class="val">${(tAct/1000).toFixed(0)}K</div><div class="sub ${vc(vsPY)}">${pct(vsPY)} vs PY</div></div>
+    <div class="metric-card"><div class="label">vs Business Plan</div><div class="val ${vc(vsBP)}">${pct(vsBP)}</div><div class="sub neu">BP: ${(tBP/1000).toFixed(0)}K</div></div>
     <div class="metric-card"><div class="label">Total Wins (Jan+Feb)</div><div class="val">${wins.length}</div><div class="sub neu">BD + Chain Wins</div></div>
-    <div class="metric-card"><div class="label">Projected Vol Impact</div><div class="val">${(wins.reduce((a,w)=>a+(w.vol||0),0)/1000).toFixed(0)}K</div><div class="sub neu">TR1/Year</div></div>
-  `;
+    <div class="metric-card"><div class="label">Projected Vol Impact</div><div class="val">${(wins.reduce((a,w)=>a+(w.vol||0),0)/1000).toFixed(0)}K</div><div class="sub neu">TR1/Year</div></div>`;
   const segs=['Big 3','Vending','C&U','Travel'];
   destroy('natSegChart');
   charts['natSegChart']=new Chart(document.getElementById('natSegChart'),{type:'bar',data:{labels:segs,datasets:[
@@ -399,10 +515,8 @@ function renderNational(){
     return`<tr><td><span class="dot" style="background:${REGION_COLORS[r]}"></span>${r}</td><td class="r">${fmt(act)}</td><td class="r">${fmt(py)}</td><td class="r"><span class="badge ${vs>=0?'bg':'br'}">${pct(vs)}</span></td><td class="r"><span class="badge ${vbp>=0?'bg':'br'}">${pct(vbp)}</span></td></tr>`;
   }).join('')+'</tbody>';
 }
-
 function natSegChart(seg,btn){
-  document.querySelectorAll('#national .seg-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
+  document.querySelectorAll('#national .seg-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
   const data=volData.filter(d=>d.month==='January'&&(seg==='all'||d.seg===seg));
   const labels=[],acts=[],pys=[];
   RAMs.forEach(r=>{const rows=data.filter(d=>d.ram===r.name);if(rows.length){labels.push(r.name.split(' ')[0]);acts.push(Math.round(rows.reduce((a,d)=>a+d.act,0)));pys.push(Math.round(rows.reduce((a,d)=>a+d.py,0)));}});
@@ -410,14 +524,14 @@ function natSegChart(seg,btn){
   charts['natSegChart']=new Chart(document.getElementById('natSegChart'),{type:'bar',data:{labels,datasets:[{label:'Actual',data:acts,backgroundColor:'#378ADD',borderRadius:3},{label:'PY',data:pys,backgroundColor:'rgba(136,135,128,0.25)',borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:10}},grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}});
 }
 
+/* ---- KPI ---- */
 function renderKPI(){
   const tBD=scorecard.reduce((a,s)=>a+s.bd,0),tCh=scorecard.reduce((a,s)=>a+s.chain,0),tRe=scorecard.reduce((a,s)=>a+s.reach,0),tEq=scorecard.reduce((a,s)=>a+s.equip,0);
   document.getElementById('kpi-metrics').innerHTML=`
     <div class="metric-card"><div class="label">BD Wins</div><div class="val">${tBD}</div><div class="sub neu">Jan + Feb</div></div>
     <div class="metric-card"><div class="label">Chain Wins</div><div class="val">${tCh}</div><div class="sub neu">New chain partners</div></div>
     <div class="metric-card"><div class="label">Net New Reach</div><div class="val">${tRe}</div><div class="sub neu">Wins</div></div>
-    <div class="metric-card"><div class="label">Cold Equip Placed</div><div class="val">${tEq}</div><div class="sub neu">Placements</div></div>
-  `;
+    <div class="metric-card"><div class="label">Cold Equip Placed</div><div class="val">${tEq}</div><div class="sub neu">Placements</div></div>`;
   document.getElementById('kpiRankTable').innerHTML=`<thead><tr><th>Rank</th><th>NCRAM</th><th class="r">BD</th><th class="r">Chain</th><th class="r">Reach</th><th class="r">Equip</th><th class="r">Score</th></tr></thead><tbody>`+scorecard.map(s=>{
     const m=getRam(s.name);
     return`<tr><td><span class="rank-num">#${s.rank}</span></td><td><span class="dot" style="background:${m.color}"></span>${s.name}</td><td class="r">${s.bd}</td><td class="r">${s.chain}</td><td class="r">${s.reach}</td><td class="r">${s.equip}</td><td class="r"><strong>${s.score}</strong></td></tr>`;
@@ -435,13 +549,10 @@ function renderKPI(){
   }).join('')+'</tbody>';
 }
 
+/* ---- VOLUME ---- */
 function setVolSeg(seg,btn){
-  currentVolSeg=seg;
-  document.querySelectorAll('#volSegNav .seg-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderVolume();
+  currentVolSeg=seg;document.querySelectorAll('#volSegNav .seg-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderVolume();
 }
-
 function renderVolume(){
   const seg=currentVolSeg,data=volData.filter(d=>d.seg===seg&&d.month==='January');
   const tAct=data.reduce((a,d)=>a+d.act,0),tPY=data.reduce((a,d)=>a+d.py,0),tBP=data.reduce((a,d)=>a+d.bp,0);
@@ -450,8 +561,7 @@ function renderVolume(){
     <div class="metric-card"><div class="label">${seg} Total ACT</div><div class="val">${fmt(tAct)}</div><div class="sub ${vc(vsPY)}">${pct(vsPY)} vs PY</div></div>
     <div class="metric-card"><div class="label">vs Business Plan</div><div class="val ${vc(vsBP)}">${pct(vsBP)}</div><div class="sub neu">BP: ${fmt(tBP)}</div></div>
     <div class="metric-card"><div class="label">Growth Goal</div><div class="val">${Math.round(goal*100)}%</div><div class="sub neu">YTD target</div></div>
-    <div class="metric-card"><div class="label">Goal Status</div><div class="val ${vsPY>=goal?'pos':'neg'}">${vsPY>=goal?'On Track':'Below'}</div><div class="sub ${vsPY>=goal?'pos':'neg'}">${pct(vsPY-goal)} vs goal</div></div>
-  `;
+    <div class="metric-card"><div class="label">Goal Status</div><div class="val ${vsPY>=goal?'pos':'neg'}">${vsPY>=goal?'On Track':'Below'}</div><div class="sub ${vsPY>=goal?'pos':'neg'}">${pct(vsPY-goal)} vs goal</div></div>`;
   const sorted=[...data].sort((a,b)=>((b.act-b.py)/b.py)-((a.act-a.py)/a.py));
   const vsVals=sorted.map(d=>Math.round(((d.act-d.py)/d.py)*100));
   destroy('volRamChart');
@@ -468,14 +578,14 @@ function renderVolume(){
   }).join('')+'</tbody>';
 }
 
+/* ---- NCRAM RANKINGS ---- */
 function renderNcramRankings(){
   const vr=getVolRanks(),tAct=vr.reduce((a,r)=>a+r.act,0),tPY=vr.reduce((a,r)=>a+r.py,0),vsPY=(tAct-tPY)/tPY;
   document.getElementById('ncram-summary-metrics').innerHTML=`
     <div class="metric-card"><div class="label">Team Total Volume</div><div class="val">${fmt(tAct)}</div><div class="sub ${vc(vsPY)}">${pct(vsPY)} vs PY</div></div>
     <div class="metric-card"><div class="label">NCRAMs Above PY</div><div class="val">${vr.filter(r=>r.vs>0).length} / 12</div><div class="sub pos">Positive growth</div></div>
     <div class="metric-card"><div class="label">Top Vol Performer</div><div class="val" style="font-size:15px">${vr[0]?.name.split(' ')[0]}</div><div class="sub pos">${pct(vr[0]?.vs)} vs PY</div></div>
-    <div class="metric-card"><div class="label">Top KPI Performer</div><div class="val" style="font-size:15px">${scorecard[0]?.name.split(' ')[0]}</div><div class="sub neu">Score: ${scorecard[0]?.score}</div></div>
-  `;
+    <div class="metric-card"><div class="label">Top KPI Performer</div><div class="val" style="font-size:15px">${scorecard[0]?.name.split(' ')[0]}</div><div class="sub neu">Score: ${scorecard[0]?.score}</div></div>`;
   document.getElementById('ncramVolRankTable').innerHTML=`<thead><tr><th>Rank</th><th>NCRAM</th><th class="r">ACT</th><th class="r">vs PY</th><th class="r">vs BP</th></tr></thead><tbody>`+vr.map((r,i)=>`<tr><td><span class="rank-num">#${i+1}</span></td><td><span class="dot" style="background:${r.color}"></span>${r.name}<br><span style="font-size:10px;color:#888780">${r.region}</span></td><td class="r">${fmt(r.act)}</td><td class="r"><span class="badge ${r.vs>=0?'bg':'br'}">${pct(r.vs)}</span></td><td class="r"><span class="badge ${r.vbp>=0?'bg':'br'}">${pct(r.vbp)}</span></td></tr>`).join('')+'</tbody>';
   document.getElementById('ncramKpiRankTable').innerHTML=`<thead><tr><th>Rank</th><th>NCRAM</th><th class="r">Wins</th><th class="r">Reach</th><th class="r">Score</th><th class="r">Vol Rank</th></tr></thead><tbody>`+scorecard.map(s=>{
     const m=getRam(s.name),volR=vr.find(r=>r.name===s.name);
@@ -491,21 +601,25 @@ function renderNcramRankings(){
   ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{font:{size:10},boxWidth:8}}},scales:{x:{ticks:{font:{size:9}},grid:{display:false}},y:{position:'left',title:{display:true,text:'Vol % vs PY',font:{size:10}},ticks:{callback:v=>v+'%'},grid:{color:'rgba(0,0,0,0.05)'}},y2:{position:'right',title:{display:true,text:'KPI Score',font:{size:10}},grid:{display:false}}}}});
 }
 
+/* ---- INDIVIDUAL PROFILE ---- */
 function renderProfile(){
   const name=document.getElementById('profileSelect').value;
   if(!name){document.getElementById('profileContent').innerHTML=`<div style="padding:48px;text-align:center;color:#888780;font-size:13px;background:#fff;border:1px solid #e8e6df;border-radius:12px">Select an NCRAM above to view their individual performance profile.</div>`;return;}
   const m=getRam(name),kpi=scorecard.find(s=>s.name===name)||{},stats=getStats(name),vr=getVolRanks(),volRank=vr.findIndex(r=>r.name===name)+1,myWins=wins.filter(w=>w.ram===name);
   const segs=['Big 3','Vending','C&U','Travel'];
+  const fitRows=fitnessData.filter(f=>f.ncram===name);
+  const fitReach=fitRows.reduce((a,f)=>a+f.reach,0),fitEquip=fitRows.reduce((a,f)=>a+f.equipQty,0),fitActs=fitRows.reduce((a,f)=>a+f.activations,0),fitAccts=fitRows.length;
   document.getElementById('profileContent').innerHTML=`
     <div class="profile-header">
       <div class="avatar" style="background:${m.color}22;color:${m.color}">${m.initials}</div>
       <div style="flex:1">
-        <div class="profile-name">${name}</div>
+        <div class="profile-name" style="color:${m.color}">${name}</div>
         <div class="profile-sub">${m.region} Region &nbsp;·&nbsp; Non-Commercial RAM</div>
         <div class="profile-badges">
           <span class="badge bi">Vol Rank #${volRank} of 12</span>
           <span class="badge bn">KPI Rank #${kpi.rank||'—'} of 12</span>
           <span class="badge ${stats.vs>=0?'bg':'br'}">${pct(stats.vs)} vs PY</span>
+          ${fitAccts>0?`<span class="badge bfit">&#127947; ${fitAccts} Fitness Accts</span>`:''}
         </div>
       </div>
       <div style="text-align:right">
@@ -523,15 +637,20 @@ function renderProfile(){
       <div class="kpi-mini"><div class="kv" style="font-size:18px">${kpi.score||'—'}</div><div class="kl">KPI Score</div></div>
     </div>
     <div class="two-col">
-      <div class="card">
-        <div class="card-title">Segment Breakdown — January</div>
-        <table id="profileSegTable"></table>
-      </div>
-      <div class="card">
-        <div class="card-title">Volume by Segment vs PY</div>
-        <div class="chart-wrap"><canvas id="profileSegChart"></canvas></div>
-      </div>
+      <div class="card"><div class="card-title">Segment Breakdown — January</div><table id="profileSegTable"></table></div>
+      <div class="card"><div class="card-title">Volume by Segment vs PY</div><div class="chart-wrap"><canvas id="profileSegChart"></canvas></div></div>
     </div>
+    ${fitAccts>0?`
+    <div class="card fitness">
+      <div class="card-title" style="color:#0F6E56">&#127947; Focus Wave — Fitness Output</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px">
+        <div class="kpi-mini" style="border-color:#9FE1CB"><div class="kv" style="color:#085041">${fitAccts}</div><div class="kl">Accounts</div></div>
+        <div class="kpi-mini" style="border-color:#9FE1CB"><div class="kv" style="color:#085041">${fitReach}</div><div class="kl">New Reach</div></div>
+        <div class="kpi-mini" style="border-color:#9FE1CB"><div class="kv" style="color:#085041">${fitEquip}</div><div class="kl">Equip Placed</div></div>
+        <div class="kpi-mini" style="border-color:#9FE1CB"><div class="kv" style="color:#085041">${fitActs}</div><div class="kl">Activations</div></div>
+      </div>
+      <table id="profileFitTable"></table>
+    </div>`:''}
     ${myWins.length?`<div class="card"><div class="card-title">Wins & Business Development Log</div><table id="profileWinsTable"></table></div>`:''}
   `;
   document.getElementById('profileSegTable').innerHTML=`<thead><tr><th>Segment</th><th class="r">Actual</th><th class="r">PY</th><th class="r">vs PY</th><th class="r">vs BP</th></tr></thead><tbody>`+segs.map(s=>{
@@ -545,9 +664,104 @@ function renderProfile(){
     {label:'Actual',data:segs.map(s=>{const r=volData.find(d=>d.ram===name&&d.seg===s&&d.month==='January');return r?r.act:0;}),backgroundColor:segs.map(s=>SEG_COLORS[s]),borderRadius:4},
     {label:'PY',data:segs.map(s=>{const r=volData.find(d=>d.ram===name&&d.seg===s&&d.month==='January');return r?r.py:0;}),backgroundColor:'rgba(136,135,128,0.25)',borderRadius:4}
   ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  if(fitAccts>0){
+    document.getElementById('profileFitTable').innerHTML=`<thead><tr><th>Account</th><th class="r">Chain?</th><th class="r">Reach Locs</th><th class="r">New SKUs</th><th>Equipment</th><th class="r">Activations</th></tr></thead><tbody>`+fitRows.map(f=>`<tr><td>${f.account}</td><td class="r">${f.chain?'<span class="badge bfit">Yes</span>':'<span class="badge bn">No</span>'}</td><td class="r">${f.reach}</td><td class="r">${f.skus||'—'}</td><td>${f.equipType?f.equipType+(f.equipQty?' ('+f.equipQty+')'):'—'}</td><td class="r">${f.activations||'—'}</td></tr>`).join('')+'</tbody>';
+  }
   if(myWins.length){
     document.getElementById('profileWinsTable').innerHTML=`<thead><tr><th>Type</th><th>Segment</th><th>Account</th><th class="r">Locations</th><th class="r">Vol Impact</th></tr></thead><tbody>`+myWins.map(w=>`<tr><td><span class="badge ${w.type==='BD'?'bn':'bg'}">${w.type}</span></td><td>${w.seg}</td><td>${w.acct}</td><td class="r">${w.locs||'—'}</td><td class="r">${w.vol?'$'+fmt(w.vol):'TBD'}</td></tr>`).join('')+'</tbody>';
   }
+}
+
+/* ---- FITNESS FOCUS WAVE ---- */
+function setFitView(view,btn){
+  currentFitView=view;
+  document.querySelectorAll('#fitness .seg-nav .seg-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderFitness();
+}
+
+function renderFitness(){
+  const filtered=currentFitView==='all'?fitnessData:fitnessData.filter(f=>f.region===currentFitView);
+  const totalReach=filtered.reduce((a,f)=>a+f.reach,0);
+  const totalEquip=filtered.reduce((a,f)=>a+f.equipQty,0);
+  const totalActs=filtered.reduce((a,f)=>a+f.activations,0);
+  const totalChains=filtered.reduce((a,f)=>a+f.chain,0);
+  const totalSkus=filtered.reduce((a,f)=>a+f.skus,0);
+  const totalAccts=filtered.length;
+
+  document.getElementById('fit-metrics').innerHTML=`
+    <div class="metric-card accent"><div class="label">Accounts Activated</div><div class="val">${totalAccts}</div><div class="sub neu">Fitness venues</div></div>
+    <div class="metric-card accent"><div class="label">New Reach Locations</div><div class="val">${totalReach}</div><div class="sub pos">Chain wins: ${totalChains}</div></div>
+    <div class="metric-card accent"><div class="label">Equipment Placed</div><div class="val">${totalEquip}</div><div class="sub neu">Cold equipment units</div></div>
+    <div class="metric-card accent"><div class="label">Pillar Activations</div><div class="val">${totalActs}</div><div class="sub neu">Mkt pillar activations</div></div>`;
+
+  // Reach by NCRAM
+  const ncramMap={};
+  filtered.forEach(f=>{
+    if(!ncramMap[f.ncram]) ncramMap[f.ncram]={reach:0,equip:0,acts:0,accounts:0,chains:0,skus:0,region:f.region};
+    ncramMap[f.ncram].reach+=f.reach;
+    ncramMap[f.ncram].equip+=f.equipQty;
+    ncramMap[f.ncram].acts+=f.activations;
+    ncramMap[f.ncram].accounts+=1;
+    ncramMap[f.ncram].chains+=f.chain;
+    ncramMap[f.ncram].skus+=f.skus;
+  });
+  const ncramNames=Object.keys(ncramMap).sort((a,b)=>ncramMap[b].reach-ncramMap[a].reach);
+  const ncramColors=ncramNames.map(n=>getRam(n).color);
+
+  destroy('fitReachChart');
+  charts['fitReachChart']=new Chart(document.getElementById('fitReachChart'),{type:'bar',data:{labels:ncramNames.map(n=>n.split(' ')[0]),datasets:[{label:'New Reach Locations',data:ncramNames.map(n=>ncramMap[n].reach),backgroundColor:ncramColors,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}});
+
+  // Region rollup chart
+  const regions=['Central','Midwest','Northeast','Southeast','West'];
+  const regReach=regions.map(r=>fitnessData.filter(f=>f.region===r).reduce((a,f)=>a+f.reach,0));
+  const regEquip=regions.map(r=>fitnessData.filter(f=>f.region===r).reduce((a,f)=>a+f.equipQty,0));
+  const regActs=regions.map(r=>fitnessData.filter(f=>f.region===r).reduce((a,f)=>a+f.activations,0));
+  destroy('fitRegChart');
+  charts['fitRegChart']=new Chart(document.getElementById('fitRegChart'),{type:'bar',data:{labels:regions,datasets:[
+    {label:'New Reach',data:regReach,backgroundColor:regions.map(r=>REGION_COLORS[r]),borderRadius:4},
+    {label:'Equipment',data:regEquip,backgroundColor:regions.map(r=>REGION_COLORS[r]+'77'),borderRadius:4},
+    {label:'Activations',data:regActs,backgroundColor:regions.map(r=>REGION_COLORS[r]+'44'),borderRadius:4},
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{font:{size:10},boxWidth:8}}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}});
+
+  // Equipment by NCRAM
+  const equipSorted=Object.keys(ncramMap).sort((a,b)=>ncramMap[b].equip-ncramMap[a].equip);
+  destroy('fitEquipChart');
+  charts['fitEquipChart']=new Chart(document.getElementById('fitEquipChart'),{type:'bar',data:{labels:equipSorted.map(n=>n.split(' ')[0]),datasets:[{label:'Equipment',data:equipSorted.map(n=>ncramMap[n].equip),backgroundColor:equipSorted.map(n=>getRam(n).color),borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}});
+
+  // Activations by NCRAM
+  const actSorted=Object.keys(ncramMap).sort((a,b)=>ncramMap[b].acts-ncramMap[a].acts);
+  destroy('fitActChart');
+  charts['fitActChart']=new Chart(document.getElementById('fitActChart'),{type:'bar',data:{labels:actSorted.map(n=>n.split(' ')[0]),datasets:[{label:'Activations',data:actSorted.map(n=>ncramMap[n].acts),backgroundColor:'#1D9E75',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}});
+
+  // Account detail table
+  const sortedAccts=[...filtered].sort((a,b)=>b.reach-a.reach);
+  document.getElementById('fitDetailTable').innerHTML=`<thead><tr><th>Region</th><th>NCRAM</th><th>Account</th><th class="r">Chain?</th><th class="r">Reach Locs</th><th class="r">New SKUs</th><th>SKU Types</th><th>Equipment</th><th class="r">Activations</th></tr></thead><tbody>`+sortedAccts.map(f=>{
+    const m=getRam(f.ncram);
+    return`<tr><td><span class="dot" style="background:${REGION_COLORS[f.region]||'#888'}"></span>${f.region}</td><td><span class="dot" style="background:${m.color}"></span>${f.ncram}</td><td>${f.account}</td><td class="r">${f.chain?'<span class="badge bfit">Yes</span>':'<span class="badge bn">No</span>'}</td><td class="r"><strong>${f.reach}</strong></td><td class="r">${f.skus||'—'}</td><td style="font-size:11px;color:#73726c;max-width:180px">${f.skuTypes||'—'}</td><td style="font-size:11px">${f.equipType?f.equipType+(f.equipQty?' × '+f.equipQty):'—'}</td><td class="r">${f.activations||'—'}</td></tr>`;
+  }).join('')+'</tbody>';
+
+  // NCRAM Leaderboard
+  const leaderSorted=Object.keys(ncramMap).sort((a,b)=>{
+    const scoreA=ncramMap[a].reach*2+ncramMap[a].acts+ncramMap[a].equip*3;
+    const scoreB=ncramMap[b].reach*2+ncramMap[b].acts+ncramMap[b].equip*3;
+    return scoreB-scoreA;
+  });
+  const maxReach=Math.max(...leaderSorted.map(n=>ncramMap[n].reach),1);
+  document.getElementById('fitLeaderTable').innerHTML=`<thead><tr><th>Rank</th><th>NCRAM</th><th>Region</th><th class="r">Accounts</th><th class="r">Chain Wins</th><th class="r">New Reach</th><th class="r">Equip</th><th class="r">Activations</th><th>Reach Progress</th></tr></thead><tbody>`+leaderSorted.map((n,i)=>{
+    const d=ncramMap[n],m=getRam(n),pct_fill=Math.round((d.reach/maxReach)*100);
+    return`<tr>
+      <td><span class="rank-num">#${i+1}</span></td>
+      <td><span class="dot" style="background:${m.color}"></span><strong>${n}</strong></td>
+      <td><span style="font-size:11px;color:#73726c">${d.region}</span></td>
+      <td class="r">${d.accounts}</td>
+      <td class="r">${d.chains}</td>
+      <td class="r"><strong>${d.reach}</strong></td>
+      <td class="r">${d.equip}</td>
+      <td class="r">${d.acts}</td>
+      <td style="min-width:100px"><div class="progress-bar"><div class="progress-fill" style="width:${pct_fill}%;background:${m.color}"></div></div></td>
+    </tr>`;
+  }).join('')+'</tbody>';
 }
 
 renderNational();
