@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NC-RAM Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8f8f6;color:#1a1a18;font-size:14px}
+.dash{padding:20px;max-width:1100px;margin:0 auto}
+.topbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+.topbar h1{font-size:18px;font-weight:600;color:#1a1a18}
+.topbar p{font-size:12px;color:#73726c;margin-top:3px}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+select{font-size:12px;padding:6px 10px;border:1px solid #d3d1c7;border-radius:8px;background:#fff;color:#1a1a18;cursor:pointer;outline:none}
+select:focus{border-color:#888}
+.tabs{display:flex;gap:2px;margin-bottom:18px;border-bottom:1px solid #d3d1c7;overflow-x:auto}
+.tab{font-size:13px;padding:9px 16px;cursor:pointer;color:#73726c;border-bottom:2px solid transparent;margin-bottom:-1px;font-weight:400;transition:color .15s;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none}
+.tab.active{color:#1a1a18;border-bottom-color:#1a1a18;font-weight:600}
+.tab:hover{color:#1a1a18}
+.section{display:none}.section.active{display:block}
+.metric-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.metric-card{background:#fff;border:1px solid #e8e6df;border-radius:10px;padding:14px 16px}
+.metric-card .label{font-size:10px;color:#888780;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em;font-weight:500}
+.metric-card .val{font-size:24px;font-weight:600;color:#1a1a18}
+.metric-card .sub{font-size:11px;margin-top:4px}
+.pos{color:#1D9E75}.neg{color:#E24B4A}.neu{color:#73726c}
+.card{background:#fff;border:1px solid #e8e6df;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.card-title{font-size:13px;font-weight:600;color:#1a1a18;margin-bottom:14px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{font-size:10px;font-weight:600;color:#888780;text-align:left;padding:6px 8px;border-bottom:1px solid #e8e6df;white-space:nowrap;text-transform:uppercase;letter-spacing:.04em}
+th.r{text-align:right}
+td{padding:7px 8px;border-bottom:1px solid #f1efe8;color:#1a1a18;vertical-align:middle}
+td.r{text-align:right}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafaf8}
+.rank-num{font-size:11px;color:#888780;font-weight:600}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.bg{background:#EAF3DE;color:#2d6b0e}.br{background:#FCEBEB;color:#8c2020}.bn{background:#f1efe8;color:#5f5e5a}.bi{background:#e6f1fb;color:#0c447c}
+.chart-wrap{position:relative;height:220px;width:100%}
+.chart-wrap2{position:relative;height:260px;width:100%}
+.chart-wrap3{position:relative;height:300px;width:100%}
+.seg-btn{font-size:11px;padding:5px 12px;border:1px solid #d3d1c7;border-radius:20px;cursor:pointer;background:#fff;color:#73726c;transition:all .15s;font-weight:500}
+.seg-btn.active{background:#1a1a18;color:#fff;border-color:#1a1a18}
+.seg-btn:hover:not(.active){background:#f8f8f6}
+.seg-nav{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.profile-header{display:flex;align-items:center;gap:16px;padding:18px;background:#fff;border:1px solid #e8e6df;border-radius:12px;margin-bottom:14px}
+.avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;flex-shrink:0;letter-spacing:.5px}
+.profile-name{font-size:17px;font-weight:600;color:#1a1a18}
+.profile-sub{font-size:12px;color:#73726c;margin-top:3px}
+.profile-badges{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.kpi-mini{background:#fff;border:1px solid #e8e6df;border-radius:10px;padding:12px;text-align:center}
+.kpi-mini .kv{font-size:22px;font-weight:600;color:#1a1a18}
+.kpi-mini .kl{font-size:10px;color:#888780;text-transform:uppercase;letter-spacing:.05em;margin-top:3px;font-weight:500}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+@media(max-width:640px){
+  .metric-row{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="dash">
+
+<div class="topbar">
+  <div>
+    <h1>NC-RAM Regional Non-Commercial Dashboard</h1>
+    <p>Regional Non-Commercial Key Account Team &nbsp;·&nbsp; Jan–Feb 2026 &nbsp;·&nbsp; 12 NCRAMs</p>
+  </div>
+  <div class="filters">
+    <select id="monthFilter" onchange="applyFilters()">
+      <option value="all">All Months</option>
+      <option value="January">January</option>
+      <option value="December">December (FY YTD)</option>
+    </select>
+    <select id="regionFilter" onchange="applyFilters()">
+      <option value="all">All Regions</option>
+      <option value="Central">Central</option>
+      <option value="Midwest">Midwest</option>
+      <option value="Northeast">Northeast</option>
+      <option value="Southeast">Southeast</option>
+      <option value="West">West</option>
+    </select>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('national')">National Overview</button>
+  <button class="tab" onclick="switchTab('kpi')">KPI Scorecard</button>
+  <button class="tab" onclick="switchTab('volume')">Volume Performance</button>
+  <button class="tab" onclick="switchTab('ncram')">NCRAM Rankings</button>
+  <button class="tab" onclick="switchTab('profile')">Individual Profile</button>
+</div>
+
+<!-- NATIONAL -->
+<div id="national" class="section active">
+  <div class="metric-row" id="nat-metrics"></div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Volume vs Prior Year by Segment</div>
+      <div class="seg-nav">
+        <button class="seg-btn active" onclick="natSegChart('all',this)">All</button>
+        <button class="seg-btn" onclick="natSegChart('Big 3',this)">Big 3</button>
+        <button class="seg-btn" onclick="natSegChart('Vending',this)">Vending</button>
+        <button class="seg-btn" onclick="natSegChart('C&U',this)">C&U</button>
+        <button class="seg-btn" onclick="natSegChart('Travel',this)">Travel</button>
+      </div>
+      <div class="chart-wrap"><canvas id="natSegChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Volume Share by Region — January</div>
+      <div class="chart-wrap"><canvas id="natRegChart"></canvas></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Region Performance Summary — January YTD</div>
+    <table id="natRegTable"></table>
+  </div>
+</div>
+
+<!-- KPI -->
+<div id="kpi" class="section">
+  <div class="metric-row" id="kpi-metrics"></div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">KPI Scorecard Rankings — Jan + Feb</div>
+      <table id="kpiRankTable"></table>
+    </div>
+    <div class="card">
+      <div class="card-title">KPI Activity by NCRAM</div>
+      <div class="chart-wrap2"><canvas id="kpiChart"></canvas></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Business Development & Chain Wins Log</div>
+    <table id="winsTable"></table>
+  </div>
+</div>
+
+<!-- VOLUME -->
+<div id="volume" class="section">
+  <div class="seg-nav" id="volSegNav">
+    <button class="seg-btn active" onclick="setVolSeg('Big 3',this)">Big 3</button>
+    <button class="seg-btn" onclick="setVolSeg('Vending',this)">Vending</button>
+    <button class="seg-btn" onclick="setVolSeg('C&U',this)">C&amp;U</button>
+    <button class="seg-btn" onclick="setVolSeg('Travel',this)">Travel</button>
+  </div>
+  <div class="metric-row" id="vol-metrics"></div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Volume vs PY % by NCRAM</div>
+      <div class="chart-wrap3"><canvas id="volRamChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Volume vs PY by Region</div>
+      <div class="chart-wrap3"><canvas id="volRegChart"></canvas></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">NCRAM Volume Detail</div>
+    <table id="volDetailTable"></table>
+  </div>
+</div>
+
+<!-- NCRAM RANKINGS -->
+<div id="ncram" class="section">
+  <div class="metric-row" id="ncram-summary-metrics"></div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Volume Rankings — January vs PY</div>
+      <table id="ncramVolRankTable"></table>
+    </div>
+    <div class="card">
+      <div class="card-title">KPI Scorecard Rankings — Jan + Feb</div>
+      <table id="ncramKpiRankTable"></table>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Combined View — Volume % vs PY &amp; KPI Score</div>
+    <div class="chart-wrap2"><canvas id="ncramCombinedChart"></canvas></div>
+  </div>
+</div>
+
+<!-- INDIVIDUAL PROFILE -->
+<div id="profile" class="section">
+  <div style="margin-bottom:14px">
+    <select id="profileSelect" onchange="renderProfile()" style="font-size:13px;padding:8px 12px">
+      <option value="">— Select an NCRAM —</option>
+      <option>Sierra Ford</option>
+      <option>Katie Naviaux</option>
+      <option>Rudy Wagner</option>
+      <option>Meg Flom</option>
+      <option>TJ McGowan</option>
+      <option>Greg Drillock</option>
+      <option>Montana Renno</option>
+      <option>Chris Trott</option>
+      <option>Carroll Jenkins</option>
+      <option>Josh Queja</option>
+      <option>Jenny Lynch</option>
+      <option>Amy Quinet</option>
+    </select>
+  </div>
+  <div id="profileContent">
+    <div style="padding:48px;text-align:center;color:#888780;font-size:13px;background:#fff;border:1px solid #e8e6df;border-radius:12px">
+      Select an NCRAM above to view their individual performance profile.
+    </div>
+  </div>
+</div>
+
+</div><!-- end .dash -->
+
+<script>
+const RAMs=[
+  {name:'Sierra Ford',region:'Central',initials:'SF',color:'#378ADD'},
+  {name:'Katie Naviaux',region:'Central',initials:'KN',color:'#185FA5'},
+  {name:'Rudy Wagner',region:'Midwest',initials:'RW',color:'#1D9E75'},
+  {name:'Meg Flom',region:'Midwest',initials:'MF',color:'#0F6E56'},
+  {name:'TJ McGowan',region:'Midwest',initials:'TM',color:'#085041'},
+  {name:'Greg Drillock',region:'Northeast',initials:'GD',color:'#EF9F27'},
+  {name:'Montana Renno',region:'Northeast',initials:'MR',color:'#BA7517'},
+  {name:'Chris Trott',region:'Northeast',initials:'CT',color:'#854F0B'},
+  {name:'Carroll Jenkins',region:'Southeast',initials:'CJ',color:'#E24B4A'},
+  {name:'Josh Queja',region:'Southeast',initials:'JQ',color:'#A32D2D'},
+  {name:'Jenny Lynch',region:'West',initials:'JL',color:'#7F77DD'},
+  {name:'Amy Quinet',region:'West',initials:'AQ',color:'#534AB7'},
+];
+const REGION_COLORS={Central:'#378ADD',Midwest:'#1D9E75',Northeast:'#EF9F27',Southeast:'#E24B4A',West:'#7F77DD'};
+const SEG_COLORS={'Big 3':'#378ADD',Vending:'#1D9E75','C&U':'#EF9F27',Travel:'#7F77DD'};
+
+const scorecard=[
+  {rank:1,name:'Sierra Ford',bd:3,chain:1,reach:53,equip:57,pipeline:11,vending:668,score:42},
+  {rank:2,name:'Amy Quinet',bd:2,chain:2,reach:19,equip:11,pipeline:6,vending:1958,score:49},
+  {rank:3,name:'Jenny Lynch',bd:2,chain:2,reach:49,equip:8,pipeline:5,vending:2193,score:51},
+  {rank:4,name:'Chris Trott',bd:3,chain:1,reach:15,equip:10,pipeline:5,vending:3124,score:52},
+  {rank:5,name:'Katie Naviaux',bd:0,chain:2,reach:81,equip:13,pipeline:3,vending:1755,score:54},
+  {rank:6,name:'TJ McGowan',bd:3,chain:2,reach:40,equip:1,pipeline:5,vending:961,score:55},
+  {rank:7,name:'Josh Queja',bd:1,chain:3,reach:15,equip:4,pipeline:2,vending:2594,score:65},
+  {rank:8,name:'Greg Drillock',bd:3,chain:0,reach:70,equip:4,pipeline:5,vending:800,score:66},
+  {rank:9,name:'Rudy Wagner',bd:5,chain:0,reach:11,equip:17,pipeline:3,vending:1681,score:70},
+  {rank:10,name:'Meg Flom',bd:1,chain:1,reach:14,equip:21,pipeline:1,vending:2521,score:73},
+  {rank:11,name:'Montana Renno',bd:3,chain:0,reach:6,equip:9,pipeline:4,vending:475,score:86},
+  {rank:12,name:'Carroll Jenkins',bd:1,chain:0,reach:2,equip:3,pipeline:2,vending:960,score:110},
+];
+
+const volData=[
+  {ram:'Josh Queja',region:'Southeast',seg:'Big 3',month:'January',py:4339,act:4918,bp:4989.85,goal:.15},
+  {ram:'Sierra Ford',region:'Central',seg:'Big 3',month:'January',py:6298,act:7084,bp:7242.70,goal:.15},
+  {ram:'Amy Quinet',region:'West',seg:'Big 3',month:'January',py:7179,act:6620,bp:8255.85,goal:.15},
+  {ram:'Jenny Lynch',region:'West',seg:'Big 3',month:'January',py:4026,act:6185,bp:4629.90,goal:.15},
+  {ram:'Katie Naviaux',region:'Central',seg:'Big 3',month:'January',py:3929,act:4029,bp:4518.35,goal:.15},
+  {ram:'Rudy Wagner',region:'Midwest',seg:'Big 3',month:'January',py:3446,act:3505,bp:3962.90,goal:.15},
+  {ram:'TJ McGowan',region:'Midwest',seg:'Big 3',month:'January',py:2560,act:2350,bp:2944,goal:.15},
+  {ram:'Meg Flom',region:'Midwest',seg:'Big 3',month:'January',py:2858,act:3070,bp:3286.70,goal:.15},
+  {ram:'Montana Renno',region:'Northeast',seg:'Big 3',month:'January',py:3801,act:3529,bp:4371.15,goal:.15},
+  {ram:'Carroll Jenkins',region:'Southeast',seg:'Big 3',month:'January',py:4833,act:5289,bp:5557.95,goal:.15},
+  {ram:'Chris Trott',region:'Northeast',seg:'Big 3',month:'January',py:3089,act:3355,bp:3552.35,goal:.15},
+  {ram:'Greg Drillock',region:'Northeast',seg:'Big 3',month:'January',py:4856,act:4399,bp:5584.40,goal:.15},
+  {ram:'Amy Quinet',region:'West',seg:'Vending',month:'January',py:8228,act:9149,bp:9462.20,goal:.15},
+  {ram:'Carroll Jenkins',region:'Southeast',seg:'Vending',month:'January',py:4452,act:7096,bp:5119.80,goal:.15},
+  {ram:'Chris Trott',region:'Northeast',seg:'Vending',month:'January',py:4632,act:5167,bp:5326.80,goal:.15},
+  {ram:'Greg Drillock',region:'Northeast',seg:'Vending',month:'January',py:4421,act:5962,bp:5084.15,goal:.15},
+  {ram:'Jenny Lynch',region:'West',seg:'Vending',month:'January',py:5110,act:5569,bp:5876.50,goal:.15},
+  {ram:'Josh Queja',region:'Southeast',seg:'Vending',month:'January',py:3981,act:5130,bp:4578.15,goal:.15},
+  {ram:'Katie Naviaux',region:'Central',seg:'Vending',month:'January',py:4165,act:4764,bp:4789.75,goal:.15},
+  {ram:'Meg Flom',region:'Midwest',seg:'Vending',month:'January',py:2499,act:3010,bp:2873.85,goal:.15},
+  {ram:'Montana Renno',region:'Northeast',seg:'Vending',month:'January',py:3372,act:4628,bp:3877.80,goal:.15},
+  {ram:'Rudy Wagner',region:'Midwest',seg:'Vending',month:'January',py:5586,act:9605,bp:6423.90,goal:.15},
+  {ram:'Sierra Ford',region:'Central',seg:'Vending',month:'January',py:9474,act:13374,bp:10895.10,goal:.15},
+  {ram:'TJ McGowan',region:'Midwest',seg:'Vending',month:'January',py:3043,act:3127,bp:3499.45,goal:.15},
+  {ram:'Amy Quinet',region:'West',seg:'C&U',month:'January',py:2112,act:2202,bp:2428.80,goal:.10},
+  {ram:'Carroll Jenkins',region:'Southeast',seg:'C&U',month:'January',py:1142,act:1294,bp:1313.30,goal:.10},
+  {ram:'Chris Trott',region:'Northeast',seg:'C&U',month:'January',py:575,act:494,bp:661.25,goal:.10},
+  {ram:'Katie Naviaux',region:'Central',seg:'C&U',month:'January',py:2273,act:3079,bp:2613.95,goal:.10},
+  {ram:'Greg Drillock',region:'Northeast',seg:'C&U',month:'January',py:501,act:725,bp:576.15,goal:.10},
+  {ram:'Jenny Lynch',region:'West',seg:'C&U',month:'January',py:2844,act:4436,bp:3270.60,goal:.10},
+  {ram:'Josh Queja',region:'Southeast',seg:'C&U',month:'January',py:1845,act:1399,bp:2121.75,goal:.10},
+  {ram:'Meg Flom',region:'Midwest',seg:'C&U',month:'January',py:987,act:1463,bp:1135.05,goal:.10},
+  {ram:'Montana Renno',region:'Northeast',seg:'C&U',month:'January',py:732,act:718,bp:841.80,goal:.10},
+  {ram:'Rudy Wagner',region:'Midwest',seg:'C&U',month:'January',py:878,act:1189,bp:1009.70,goal:.10},
+  {ram:'Sierra Ford',region:'Central',seg:'C&U',month:'January',py:525,act:434,bp:603.75,goal:.10},
+  {ram:'TJ McGowan',region:'Midwest',seg:'C&U',month:'January',py:377,act:356,bp:433.55,goal:.10},
+  {ram:'Amy Quinet',region:'West',seg:'Travel',month:'January',py:862,act:742,bp:965.44,goal:.12},
+  {ram:'Carroll Jenkins',region:'Southeast',seg:'Travel',month:'January',py:1097,act:957,bp:1228.64,goal:.12},
+  {ram:'Chris Trott',region:'Northeast',seg:'Travel',month:'January',py:134,act:126,bp:150.08,goal:.12},
+  {ram:'Greg Drillock',region:'Northeast',seg:'Travel',month:'January',py:708,act:628,bp:792.96,goal:.12},
+  {ram:'Jenny Lynch',region:'West',seg:'Travel',month:'January',py:1430,act:1054,bp:1601.60,goal:.12},
+  {ram:'Josh Queja',region:'Southeast',seg:'Travel',month:'January',py:1145,act:807,bp:1282.40,goal:.12},
+  {ram:'Katie Naviaux',region:'Central',seg:'Travel',month:'January',py:450,act:296,bp:504,goal:.12},
+  {ram:'Meg Flom',region:'Midwest',seg:'Travel',month:'January',py:246,act:210,bp:275.52,goal:.12},
+  {ram:'Montana Renno',region:'Northeast',seg:'Travel',month:'January',py:247,act:185,bp:276.64,goal:.12},
+  {ram:'Rudy Wagner',region:'Midwest',seg:'Travel',month:'January',py:316,act:71,bp:353.92,goal:.12},
+  {ram:'Sierra Ford',region:'Central',seg:'Travel',month:'January',py:829,act:935,bp:928.48,goal:.12},
+  {ram:'TJ McGowan',region:'Midwest',seg:'Travel',month:'January',py:434,act:206,bp:486.08,goal:.12},
+];
+
+const wins=[
+  {ram:'Amy Quinet',type:'BD',seg:'Vending',acct:'Canteen / SFSU',locs:13,vol:1000},
+  {ram:'Amy Quinet',type:'BD',seg:'Vending',acct:'Canteen / Google',locs:1,vol:2000},
+  {ram:'Amy Quinet',type:'Chain',seg:'Fitness',acct:'UFC Gym',locs:6,vol:600},
+  {ram:'Amy Quinet',type:'Chain',seg:'Fitness',acct:'In Shape Fitness',locs:42,vol:2500},
+  {ram:'Carroll Jenkins',type:'BD',seg:'C&U',acct:'Valencia College',locs:1,vol:2000},
+  {ram:'Chris Trott',type:'BD',seg:'C&U',acct:'Union College',locs:3,vol:750},
+  {ram:'Chris Trott',type:'Chain',seg:'Fitness',acct:'Central Rock Gym',locs:2,vol:6700},
+  {ram:'Chris Trott',type:'BD',seg:'Vending',acct:'Buffalo Stive/Canteen',locs:10,vol:3200},
+  {ram:'Chris Trott',type:'BD',seg:'C&U',acct:'Husson University',locs:2,vol:750},
+  {ram:'Greg Drillock',type:'BD',seg:'Travel',acct:'Villa Restaurant Group',locs:50,vol:500},
+  {ram:'Greg Drillock',type:'BD',seg:'Travel',acct:'Villa Restaurant Group',locs:70,vol:1800},
+  {ram:'Greg Drillock',type:'BD',seg:'B&I',acct:'Jane Street',locs:1,vol:250},
+  {ram:'Jenny Lynch',type:'Chain',seg:'Fitness',acct:'Mountainside Fitness',locs:22,vol:5000},
+  {ram:'Jenny Lynch',type:'Chain',seg:'Travel',acct:'Crews of California',locs:27,vol:5000},
+  {ram:'Jenny Lynch',type:'BD',seg:'B&I',acct:'Eurest / BoA',locs:0,vol:0},
+  {ram:'Jenny Lynch',type:'BD',seg:'Fitness',acct:'UFC Gyms',locs:0,vol:0},
+  {ram:'Josh Queja',type:'Chain',seg:'Fitness',acct:'Hylo Fitness',locs:4,vol:200},
+  {ram:'Josh Queja',type:'Chain',seg:'Fitness',acct:'Triangle Rock Club',locs:6,vol:200},
+  {ram:'Josh Queja',type:'Chain',seg:'Fitness',acct:'Inner Peak Climbing',locs:3,vol:200},
+  {ram:'Josh Queja',type:'BD',seg:'Healthcare',acct:'Baptist Hospital',locs:2,vol:2800},
+  {ram:'Katie Naviaux',type:'Chain',seg:'Fitness',acct:'Vasa Fitness',locs:72,vol:2500},
+  {ram:'Katie Naviaux',type:'Chain',seg:'Fitness',acct:'Defined Fitness',locs:8,vol:500},
+  {ram:'Meg Flom',type:'Chain',seg:'Fitness',acct:'Powerhouse Gym',locs:14,vol:1000},
+  {ram:'Meg Flom',type:'BD',seg:'B&I',acct:'Ford',locs:1,vol:1000},
+  {ram:'Montana Renno',type:'BD',seg:'B&I',acct:'Proctor & Gamble',locs:5,vol:500},
+  {ram:'Montana Renno',type:'BD',seg:'B&I',acct:'Ohio Health',locs:1,vol:500},
+  {ram:'Montana Renno',type:'BD',seg:'Vending',acct:'Canteen Roanoke',locs:1,vol:5000},
+  {ram:'Rudy Wagner',type:'BD',seg:'Healthcare',acct:'SSM Healthcare',locs:5,vol:1000},
+  {ram:'Rudy Wagner',type:'BD',seg:'Travel',acct:'OHM',locs:0,vol:0},
+  {ram:'Rudy Wagner',type:'BD',seg:'B&I',acct:'Boeing / Eurest',locs:0,vol:1500},
+  {ram:'Rudy Wagner',type:'BD',seg:'B&I',acct:'John Deere',locs:2,vol:200},
+  {ram:'Rudy Wagner',type:'BD',seg:'Fitness',acct:'F45',locs:4,vol:0},
+  {ram:'Sierra Ford',type:'BD',seg:'Healthcare',acct:'Baylor Scott & White',locs:1,vol:2000},
+  {ram:'Sierra Ford',type:'BD',seg:'Healthcare',acct:'Memorial Herman',locs:1,vol:1500},
+  {ram:'Sierra Ford',type:'BD',seg:'Travel',acct:'Star Concessions',locs:8,vol:2500},
+  {ram:'Sierra Ford',type:'Chain',seg:'Fitness',acct:'Tru Fit',locs:40,vol:1500},
+  {ram:'TJ McGowan',type:'Chain',seg:'Fitness',acct:'FFC',locs:10,vol:800},
+  {ram:'TJ McGowan',type:'Chain',seg:'Fitness',acct:'Harman / Crunch',locs:30,vol:0},
+  {ram:'TJ McGowan',type:'BD',seg:'C&U',acct:'Eastern Illinois Univ.',locs:0,vol:0},
+  {ram:'TJ McGowan',type:'BD',seg:'Healthcare',acct:'Thorek Memorial Hospital',locs:0,vol:0},
+  {ram:'TJ McGowan',type:'BD',seg:'Vending',acct:'A&M Vending',locs:0,vol:0},
+];
+
+let charts={};
+let currentVolSeg='Big 3';
+
+const pct=v=>(v>=0?'+':'')+Math.round(v*100)+'%';
+const fmt=v=>v>=1000?(v/1000).toFixed(1)+'K':Math.round(v);
+const vc=v=>v>0?'pos':'neg';
+const destroy=id=>{if(charts[id]){charts[id].destroy();delete charts[id];}};
+const getRam=n=>RAMs.find(r=>r.name===n)||{initials:'?',color:'#888',region:'—'};
+const getStats=n=>{
+  const rows=volData.filter(d=>d.ram===n&&d.month==='January');
+  const act=rows.reduce((a,d)=>a+d.act,0),py=rows.reduce((a,d)=>a+d.py,0),bp=rows.reduce((a,d)=>a+d.bp,0);
+  return{act:Math.round(act),py:Math.round(py),bp:Math.round(bp),vs:py?(act-py)/py:0,vbp:bp?(act-bp)/bp:0};
+};
+const getVolRanks=()=>RAMs.map(r=>({...r,...getStats(r.name)})).sort((a,b)=>b.vs-a.vs).map((r,i)=>({...r,volRank:i+1}));
+
+function switchTab(id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(id==='national') renderNational();
+  if(id==='kpi') renderKPI();
+  if(id==='volume') renderVolume();
+  if(id==='ncram') renderNcramRankings();
+  if(id==='profile') renderProfile();
+}
+
+function applyFilters(){
+  const active=document.querySelector('.tab.active').textContent.trim();
+  if(active==='National Overview') renderNational();
+  if(active==='KPI Scorecard') renderKPI();
+  if(active==='Volume Performance') renderVolume();
+}
+
+function renderNational(){
+  const data=volData.filter(d=>d.month==='January');
+  const totalAct=data.reduce((a,d)=>a+d.act,0),totalPY=data.reduce((a,d)=>a+d.py,0),totalBP=data.reduce((a,d)=>a+d.bp,0);
+  const vsPY=(totalAct-totalPY)/totalPY,vsBP=(totalAct-totalBP)/totalBP;
+  document.getElementById('nat-metrics').innerHTML=`
+    <div class="metric-card"><div class="label">Total Volume ACT</div><div class="val">${(totalAct/1000).toFixed(0)}K</div><div class="sub ${vc(vsPY)}">${pct(vsPY)} vs PY</div></div>
+    <div class="metric-card"><div class="label">vs Business Plan</div><div class="val ${vc(vsBP)}">${pct(vsBP)}</div><div class="sub neu">BP: ${(totalBP/1000).toFixed(0)}K</div></div>
+    <div class="metric-card"><div class="label">Total Wins (Jan+Feb)</div><div class="val">${wins.length}</div><div class="sub neu">BD + Chain Wins</div></div>
+    <div class="metric-card"><div class="label">Projected Vol Impact</div><div class="val">${(wins.reduce((a,w)=>a+(w.vol||0),0)/1000).toFixed(0)}K</div><div class="sub neu">TR1/Year</div></div>
+  `;
+  const segs=['Big 3','Vending','C&U','Travel'];
+  destroy('natSegChart');
+  charts['natSegChart']=new Chart(document.getElementById('natSegChart'),{type:'bar',data:{labels:segs,datasets:[
+    {label:'Actual',data:segs.map(s=>Math.round(data.filter(d=>d.seg===s).reduce((a,d)=>a+d.act,0))),backgroundColor:segs.map(s=>SEG_COLORS[s]),borderRadius:4},
+    {label:'PY',data:segs.map(s=>Math.round(data.filter(d=>d.seg===s).reduce((a,d)=>a+d.py,0))),backgroundColor:'rgba(136,135,128,0.25)',borderRadius:4}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  const regions=['Central','Midwest','Northeast','Southeast','West'];
+  destroy('natRegChart');
+  charts['natRegChart']=new Chart(document.getElementById('natRegChart'),{type:'doughnut',data:{labels:regions,datasets:[{data:regions.map(r=>Math.round(data.filter(d=>d.region===r).reduce((a,d)=>a+d.act,0))),backgroundColor:regions.map(r=>REGION_COLORS[r]),borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'bottom',labels:{font:{size:11},boxWidth:10}}}}});
+  document.getElementById('natRegTable').innerHTML=`<thead><tr><th>Region</th><th class="r">Actual</th><th class="r">PY</th><th class="r">vs PY</th><th class="r">vs BP</th></tr></thead><tbody>`+regions.map(r=>{
+    const rd=data.filter(d=>d.region===r),act=Math.round(rd.reduce((a,d)=>a+d.act,0)),py=Math.round(rd.reduce((a,d)=>a+d.py,0)),bp=Math.round(rd.reduce((a,d)=>a+d.bp,0)),vs=(act-py)/py,vbp=(act-bp)/bp;
+    return`<tr><td><span class="dot" style="background:${REGION_COLORS[r]}"></span>${r}</td><td class="r">${fmt(act)}</td><td class="r">${fmt(py)}</td><td class="r"><span class="badge ${vs>=0?'bg':'br'}">${pct(vs)}</span></td><td class="r"><span class="badge ${vbp>=0?'bg':'br'}">${pct(vbp)}</span></td></tr>`;
+  }).join('')+'</tbody>';
+}
+
+function natSegChart(seg,btn){
+  document.querySelectorAll('#national .seg-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const data=volData.filter(d=>d.month==='January'&&(seg==='all'||d.seg===seg));
+  const labels=[],acts=[],pys=[];
+  RAMs.forEach(r=>{const rows=data.filter(d=>d.ram===r.name);if(rows.length){labels.push(r.name.split(' ')[0]);acts.push(Math.round(rows.reduce((a,d)=>a+d.act,0)));pys.push(Math.round(rows.reduce((a,d)=>a+d.py,0)));}});
+  destroy('natSegChart');
+  charts['natSegChart']=new Chart(document.getElementById('natSegChart'),{type:'bar',data:{labels,datasets:[{label:'Actual',data:acts,backgroundColor:'#378ADD',borderRadius:3},{label:'PY',data:pys,backgroundColor:'rgba(136,135,128,0.25)',borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:10}},grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}});
+}
+
+function renderKPI(){
+  const tBD=scorecard.reduce((a,s)=>a+s.bd,0),tCh=scorecard.reduce((a,s)=>a+s.chain,0),tRe=scorecard.reduce((a,s)=>a+s.reach,0),tEq=scorecard.reduce((a,s)=>a+s.equip,0);
+  document.getElementById('kpi-metrics').innerHTML=`
+    <div class="metric-card"><div class="label">BD Wins</div><div class="val">${tBD}</div><div class="sub neu">Jan + Feb</div></div>
+    <div class="metric-card"><div class="label">Chain Wins</div><div class="val">${tCh}</div><div class="sub neu">New chain partners</div></div>
+    <div class="metric-card"><div class="label">Net New Reach</div><div class="val">${tRe}</div><div class="sub neu">Wins</div></div>
+    <div class="metric-card"><div class="label">Cold Equip Placed</div><div class="val">${tEq}</div><div class="sub neu">Placements</div></div>
+  `;
+  document.getElementById('kpiRankTable').innerHTML=`<thead><tr><th>Rank</th><th>NCRAM</th><th class="r">BD</th><th class="r">Chain</th><th class="r">Reach</th><th class="r">Equip</th><th class="r">Score</th></tr></thead><tbody>`+scorecard.map(s=>{
+    const m=getRam(s.name);
+    return`<tr><td><span class="rank-num">#${s.rank}</span></td><td><span class="dot" style="background:${m.color}"></span>${s.name}</td><td class="r">${s.bd}</td><td class="r">${s.chain}</td><td class="r">${s.reach}</td><td class="r">${s.equip}</td><td class="r"><strong>${s.score}</strong></td></tr>`;
+  }).join('')+'</tbody>';
+  destroy('kpiChart');
+  charts['kpiChart']=new Chart(document.getElementById('kpiChart'),{type:'bar',data:{labels:scorecard.map(s=>s.name.split(' ')[0]),datasets:[
+    {label:'BD Wins (×2)',data:scorecard.map(s=>s.bd*2),backgroundColor:'#378ADD',borderRadius:3},
+    {label:'Chain (×3)',data:scorecard.map(s=>s.chain*3),backgroundColor:'#1D9E75',borderRadius:3},
+    {label:'Reach (÷10)',data:scorecard.map(s=>Math.round(s.reach/10)),backgroundColor:'#EF9F27',borderRadius:3},
+    {label:'Equip',data:scorecard.map(s=>s.equip),backgroundColor:'#7F77DD',borderRadius:3},
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{font:{size:10},boxWidth:8}}},scales:{x:{ticks:{font:{size:9}},grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  document.getElementById('winsTable').innerHTML=`<thead><tr><th>NCRAM</th><th>Type</th><th>Segment</th><th>Account</th><th class="r">Locs</th><th class="r">Vol Impact</th></tr></thead><tbody>`+wins.map(w=>{
+    const m=getRam(w.ram);
+    return`<tr><td><span class="dot" style="background:${m.color}"></span>${w.ram}</td><td><span class="badge ${w.type==='BD'?'bn':'bg'}">${w.type}</span></td><td>${w.seg}</td><td>${w.acct}</td><td class="r">${w.locs||'—'}</td><td class="r">${w.vol?'$'+fmt(w.vol):'TBD'}</td></tr>`;
+  }).join('')+'</tbody>';
+}
+
+function setVolSeg(seg,btn){
+  currentVolSeg=seg;
+  document.querySelectorAll('#volSegNav .seg-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderVolume();
+}
+
+function renderVolume(){
+  const seg=currentVolSeg,data=volData.filter(d=>d.seg===seg&&d.month==='January');
+  const tAct=data.reduce((a,d)=>a+d.act,0),tPY=data.reduce((a,d)=>a+d.py,0),tBP=data.reduce((a,d)=>a+d.bp,0);
+  const vsPY=(tAct-tPY)/tPY,vsBP=(tAct-tBP)/tBP,goal=data[0]?.goal||.15;
+  document.getElementById('vol-metrics').innerHTML=`
+    <div class="metric-card"><div class="label">${seg} Total ACT</div><div class="val">${fmt(tAct)}</div><div class="sub ${vc(vsPY)}">${pct(vsPY)} vs PY</div></div>
+    <div class="metric-card"><div class="label">vs Business Plan</div><div class="val ${vc(vsBP)}">${pct(vsBP)}</div><div class="sub neu">BP: ${fmt(tBP)}</div></div>
+    <div class="metric-card"><div class="label">Growth Goal</div><div class="val">${Math.round(goal*100)}%</div><div class="sub neu">YTD target</div></div>
+    <div class="metric-card"><div class="label">Goal Status</div><div class="val ${vsPY>=goal?'pos':'neg'}">${vsPY>=goal?'On Track':'Below'}</div><div class="sub ${vsPY>=goal?'pos':'neg'}">${pct(vsPY-goal)} vs goal</div></div>
+  `;
+  const sorted=[...data].sort((a,b)=>((b.act-b.py)/b.py)-((a.act-a.py)/a.py));
+  const vsVals=sorted.map(d=>Math.round(((d.act-d.py)/d.py)*100));
+  destroy('volRamChart');
+  charts['volRamChart']=new Chart(document.getElementById('volRamChart'),{type:'bar',data:{labels:sorted.map(d=>d.ram.split(' ')[0]),datasets:[{data:vsVals,backgroundColor:vsVals.map(v=>v>=0?'#1D9E75':'#E24B4A'),borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{callback:v=>v+'%'}},y:{ticks:{font:{size:10}},grid:{display:false}}}}});
+  const regions=['Central','Midwest','Northeast','Southeast','West'];
+  destroy('volRegChart');
+  charts['volRegChart']=new Chart(document.getElementById('volRegChart'),{type:'bar',data:{labels:regions,datasets:[
+    {label:'Actual',data:regions.map(r=>Math.round(data.filter(d=>d.region===r).reduce((a,d)=>a+d.act,0))),backgroundColor:regions.map(r=>REGION_COLORS[r]),borderRadius:4},
+    {label:'PY',data:regions.map(r=>Math.round(data.filter(d=>d.region===r).reduce((a,d)=>a+d.py,0))),backgroundColor:'rgba(136,135,128,0.25)',borderRadius:4}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  document.getElementById('volDetailTable').innerHTML=`<thead><tr><th>NCRAM</th><th class="r">Actual</th><th class="r">PY</th><th class="r">BP</th><th class="r">vs PY</th><th class="r">vs BP</th></tr></thead><tbody>`+sorted.map(d=>{
+    const m=getRam(d.ram),vs=(d.act-d.py)/d.py,vbp=(d.act-d.bp)/d.bp;
+    return`<tr><td><span class="dot" style="background:${m.color}"></span>${d.ram}<br><span style="font-size:10px;color:#888780">${d.region}</span></td><td class="r">${fmt(d.act)}</td><td class="r">${fmt(d.py)}</td><td class="r">${fmt(d.bp)}</td><td class="r"><span class="badge ${vs>=0?'bg':'br'}">${pct(vs)}</span></td><td class="r"><span class="badge ${vbp>=0?'bg':'br'}">${pct(vbp)}</span></td></tr>`;
+  }).join('')+'</tbody>';
+}
+
+function renderNcramRankings(){
+  const vr=getVolRanks(),tAct=vr.reduce((a,r)=>a+r.act,0),tPY=vr.reduce((a,r)=>a+r.py,0),vsPY=(tAct-tPY)/tPY;
+  document.getElementById('ncram-summary-metrics').innerHTML=`
+    <div class="metric-card"><div class="label">Team Total Volume</div><div class="val">${fmt(tAct)}</div><div class="sub ${vc(vsPY)}">${pct(vsPY)} vs PY</div></div>
+    <div class="metric-card"><div class="label">NCRAMs Above PY</div><div class="val">${vr.filter(r=>r.vs>0).length} / 12</div><div class="sub pos">Positive growth</div></div>
+    <div class="metric-card"><div class="label">Top Vol Performer</div><div class="val" style="font-size:15px">${vr[0]?.name.split(' ')[0]}</div><div class="sub pos">${pct(vr[0]?.vs)} vs PY</div></div>
+    <div class="metric-card"><div class="label">Top KPI Performer</div><div class="val" style="font-size:15px">${scorecard[0]?.name.split(' ')[0]}</div><div class="sub neu">Score: ${scorecard[0]?.score}</div></div>
+  `;
+  document.getElementById('ncramVolRankTable').innerHTML=`<thead><tr><th>Rank</th><th>NCRAM</th><th class="r">ACT</th><th class="r">vs PY</th><th class="r">vs BP</th></tr></thead><tbody>`+vr.map((r,i)=>`<tr><td><span class="rank-num">#${i+1}</span></td><td><span class="dot" style="background:${r.color}"></span>${r.name}<br><span style="font-size:10px;color:#888780">${r.region}</span></td><td class="r">${fmt(r.act)}</td><td class="r"><span class="badge ${r.vs>=0?'bg':'br'}">${pct(r.vs)}</span></td><td class="r"><span class="badge ${r.vbp>=0?'bg':'br'}">${pct(r.vbp)}</span></td></tr>`).join('')+'</tbody>';
+  document.getElementById('ncramKpiRankTable').innerHTML=`<thead><tr><th>Rank</th><th>NCRAM</th><th class="r">Wins</th><th class="r">Reach</th><th class="r">Score</th><th class="r">Vol Rank</th></tr></thead><tbody>`+scorecard.map(s=>{
+    const m=getRam(s.name),volR=vr.find(r=>r.name===s.name);
+    return`<tr><td><span class="rank-num">#${s.rank}</span></td><td><span class="dot" style="background:${m.color}"></span>${s.name}</td><td class="r">${s.bd+s.chain}</td><td class="r">${s.reach}</td><td class="r"><strong>${s.score}</strong></td><td class="r">${volR?'#'+volR.volRank:'—'}</td></tr>`;
+  }).join('')+'</tbody>';
+  const names=RAMs.map(r=>r.name.split(' ')[0]);
+  const kpiScores=RAMs.map(r=>scorecard.find(s=>s.name===r.name)?.score||0);
+  const volPcts=RAMs.map(r=>{const v=vr.find(x=>x.name===r.name);return v?Math.round(v.vs*100):0;});
+  destroy('ncramCombinedChart');
+  charts['ncramCombinedChart']=new Chart(document.getElementById('ncramCombinedChart'),{type:'bar',data:{labels:names,datasets:[
+    {label:'Vol % vs PY',data:volPcts,backgroundColor:volPcts.map(v=>v>=0?'rgba(29,158,117,0.75)':'rgba(226,75,74,0.75)'),borderRadius:3,yAxisID:'y'},
+    {label:'KPI Score (lower=better)',data:kpiScores,type:'line',borderColor:'#EF9F27',backgroundColor:'rgba(239,159,39,0.1)',pointBackgroundColor:'#EF9F27',pointRadius:4,tension:0.3,yAxisID:'y2'},
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{font:{size:10},boxWidth:8}}},scales:{x:{ticks:{font:{size:9}},grid:{display:false}},y:{position:'left',title:{display:true,text:'Vol % vs PY',font:{size:10}},ticks:{callback:v=>v+'%'},grid:{color:'rgba(0,0,0,0.05)'}},y2:{position:'right',title:{display:true,text:'KPI Score',font:{size:10}},grid:{display:false}}}}});
+}
+
+function renderProfile(){
+  const name=document.getElementById('profileSelect').value;
+  if(!name){document.getElementById('profileContent').innerHTML=`<div style="padding:48px;text-align:center;color:#888780;font-size:13px;background:#fff;border:1px solid #e8e6df;border-radius:12px">Select an NCRAM above to view their individual performance profile.</div>`;return;}
+  const m=getRam(name),kpi=scorecard.find(s=>s.name===name)||{},stats=getStats(name),vr=getVolRanks(),volRank=vr.findIndex(r=>r.name===name)+1,myWins=wins.filter(w=>w.ram===name);
+  const segs=['Big 3','Vending','C&U','Travel'];
+  document.getElementById('profileContent').innerHTML=`
+    <div class="profile-header">
+      <div class="avatar" style="background:${m.color}22;color:${m.color}">${m.initials}</div>
+      <div style="flex:1">
+        <div class="profile-name">${name}</div>
+        <div class="profile-sub">${m.region} Region &nbsp;·&nbsp; Non-Commercial RAM</div>
+        <div class="profile-badges">
+          <span class="badge bi">Vol Rank #${volRank} of 12</span>
+          <span class="badge bn">KPI Rank #${kpi.rank||'—'} of 12</span>
+          <span class="badge ${stats.vs>=0?'bg':'br'}">${pct(stats.vs)} vs PY</span>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:26px;font-weight:700;color:#1a1a18">${fmt(stats.act)}</div>
+        <div style="font-size:11px;color:#888780">Total Volume (Jan)</div>
+        <div style="font-size:12px;margin-top:3px" class="${vc(stats.vbp)}">${pct(stats.vbp)} vs BP</div>
+      </div>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-mini"><div class="kv">${kpi.bd||0}</div><div class="kl">BD Wins</div></div>
+      <div class="kpi-mini"><div class="kv">${kpi.chain||0}</div><div class="kl">Chain Wins</div></div>
+      <div class="kpi-mini"><div class="kv">${kpi.reach||0}</div><div class="kl">Net New Reach</div></div>
+      <div class="kpi-mini"><div class="kv">${kpi.equip||0}</div><div class="kl">Cold Equip</div></div>
+      <div class="kpi-mini"><div class="kv">${kpi.pipeline||0}</div><div class="kl">Pipeline Moves</div></div>
+      <div class="kpi-mini"><div class="kv" style="font-size:18px">${kpi.score||'—'}</div><div class="kl">KPI Score</div></div>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">Segment Breakdown — January</div>
+        <table id="profileSegTable"></table>
+      </div>
+      <div class="card">
+        <div class="card-title">Volume by Segment vs PY</div>
+        <div class="chart-wrap"><canvas id="profileSegChart"></canvas></div>
+      </div>
+    </div>
+    ${myWins.length?`<div class="card"><div class="card-title">Wins & Business Development Log</div><table id="profileWinsTable"></table></div>`:''}
+  `;
+  document.getElementById('profileSegTable').innerHTML=`<thead><tr><th>Segment</th><th class="r">Actual</th><th class="r">PY</th><th class="r">vs PY</th><th class="r">vs BP</th></tr></thead><tbody>`+segs.map(s=>{
+    const row=volData.find(d=>d.ram===name&&d.seg===s&&d.month==='January');
+    if(!row) return`<tr><td><span class="dot" style="background:${SEG_COLORS[s]}"></span>${s}</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">—</td></tr>`;
+    const vs=(row.act-row.py)/row.py,vbp=(row.act-row.bp)/row.bp;
+    return`<tr><td><span class="dot" style="background:${SEG_COLORS[s]}"></span>${s}</td><td class="r">${fmt(row.act)}</td><td class="r">${fmt(row.py)}</td><td class="r"><span class="badge ${vs>=0?'bg':'br'}">${pct(vs)}</span></td><td class="r"><span class="badge ${vbp>=0?'bg':'br'}">${pct(vbp)}</span></td></tr>`;
+  }).join('')+'</tbody>';
+  destroy('profileSegChart');
+  charts['profileSegChart']=new Chart(document.getElementById('profileSegChart'),{type:'bar',data:{labels:segs,datasets:[
+    {label:'Actual',data:segs.map(s=>{const r=volData.find(d=>d.ram===name&&d.seg===s&&d.month==='January');return r?r.act:0;}),backgroundColor:segs.map(s=>SEG_COLORS[s]),borderRadius:4},
+    {label:'PY',data:segs.map(s=>{const r=volData.find(d=>d.ram===name&&d.seg===s&&d.month==='January');return r?r.py:0;}),backgroundColor:'rgba(136,135,128,0.25)',borderRadius:4}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  if(myWins.length){
+    document.getElementById('profileWinsTable').innerHTML=`<thead><tr><th>Type</th><th>Segment</th><th>Account</th><th class="r">Locations</th><th class="r">Vol Impact</th></tr></thead><tbody>`+myWins.map(w=>`<tr><td><span class="badge ${w.type==='BD'?'bn':'bg'}">${w.type}</span></td><td>${w.seg}</td><td>${w.acct}</td><td class="r">${w.locs||'—'}</td><td class="r">${w.vol?'$'+fmt(w.vol):'TBD'}</td></tr>`).join('')+'</tbody>';
+  }
+}
+
+renderNational();
+</script>
+</body>
+</html>
