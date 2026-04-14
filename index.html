@@ -8,6 +8,8 @@
 <meta http-equiv="Expires" content="0">
 <title>NC-RAM Dashboard</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<script>Chart.register(ChartDataLabels);</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8f8f6;color:#1a1a18;font-size:14px}
@@ -174,10 +176,23 @@ tr:hover td{background:#fafaf8}
         </div>
       </div>
     </div>
+    <div class="fbgroup">
+      <span class="fblabel">Segment</span>
+      <div class="mchk-wrap" id="natSegWrap">
+        <button class="mchk-btn" id="natSegBtn" onclick="toggleDrop('natSegWrap',event)" style="min-width:110px">All Segments</button>
+        <div class="mchk-drop" id="natSegDrop">
+          <label class="mchk-item"><input type="radio" name="natSeg" value="all" checked onchange="natChanged()"><span>All Segments</span></label>
+          <label class="mchk-item"><input type="radio" name="natSeg" value="Big3" onchange="natChanged()"><span>Big 3</span></label>
+          <label class="mchk-item"><input type="radio" name="natSeg" value="Vend" onchange="natChanged()"><span>Vending</span></label>
+          <label class="mchk-item"><input type="radio" name="natSeg" value="CU" onchange="natChanged()"><span>C&amp;U</span></label>
+          <label class="mchk-item"><input type="radio" name="natSeg" value="Trvl" onchange="natChanged()"><span>Travel</span></label>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="mrow" id="NM"></div>
   <div class="twoc">
-    <div class="card"><div class="ct">Volume vs Prior Year by Region</div><div class="cw"><canvas id="NSC"></canvas></div></div>
+    <div class="card"><div class="ct" id="natChartTitle">Volume vs Prior Year by Region</div><div class="cw" style="height:260px"><canvas id="NSC"></canvas></div></div>
     <div class="card"><div class="ct">Total Wins by Type</div><div class="cw"><canvas id="NRC"></canvas></div></div>
   </div>
   <div class="card"><div class="ct">Region Performance Summary</div><table id="NRT"></table></div>
@@ -189,27 +204,23 @@ tr:hover td{background:#fafaf8}
     <div class="fbgroup">
       <span class="fblabel">Month</span>
       <div class="mchk-wrap" id="kpiMoWrap">
-        <button class="mchk-btn" id="kpiMoBtn" onclick="toggleDrop('kpiMoWrap',event)">All YTD</button>
+        <button class="mchk-btn" id="kpiMoBtn" onclick="toggleDrop('kpiMoWrap',event)">Jan + Feb</button>
         <div class="mchk-drop" id="kpiMoDrop">
-          <label class="mchk-item"><input type="radio" name="kpiMo" value="jan" onchange="kpiChanged()"><span>January</span></label>
-          <label class="mchk-item"><input type="radio" name="kpiMo" value="feb" onchange="kpiChanged()"><span>February</span></label>
-          <label class="mchk-item"><input type="radio" name="kpiMo" value="ytd_feb" checked onchange="kpiChanged()"><span>Jan + Feb YTD</span></label>
-          <label class="mchk-item"><input type="radio" name="kpiMo" value="mar" onchange="kpiChanged()"><span>March</span></label>
-          <label class="mchk-item"><input type="radio" name="kpiMo" value="ytd_mar" onchange="kpiChanged()"><span>Jan + Feb + Mar YTD</span></label>
+          <label class="mchk-item"><input type="checkbox" class="kpi-mo" value="jan" checked onchange="kpiChanged()"><span>January</span></label>
+          <label class="mchk-item"><input type="checkbox" class="kpi-mo" value="feb" checked onchange="kpiChanged()"><span>February</span></label>
+          <label class="mchk-item"><input type="checkbox" class="kpi-mo" value="mar" onchange="kpiChanged()"><span>March</span></label>
         </div>
       </div>
     </div>
   </div>
   <div class="mrow" id="KM" style="grid-template-columns:repeat(5,minmax(0,1fr))"></div>
-  <div class="twoc">
-    <div class="card">
-      <div class="ct">KPI Scorecard Rankings</div>
-      <table id="KRT"></table>
-    </div>
-    <div class="card">
-      <div class="ct">KPI Activity by NCRAM</div>
-      <div class="cw2"><canvas id="KC"></canvas></div>
-    </div>
+  <div class="card">
+    <div class="ct">KPI Scorecard Rankings</div>
+    <table id="KRT"></table>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <div class="ct">KPI Activity by NCRAM</div>
+    <div style="position:relative;height:420px;width:100%"><canvas id="KC"></canvas></div>
   </div>
   <div class="card">
     <div class="ct">Business Development and Chain Wins Log <span style="font-size:10px;font-weight:400;color:#73726c">- filters with KPI period above</span></div>
@@ -251,13 +262,11 @@ tr:hover td{background:#fafaf8}
     <div class="fbgroup">
       <span class="fblabel">Period</span>
       <div class="mchk-wrap" id="rankMoWrap">
-        <button class="mchk-btn" id="rankMoBtn" onclick="toggleDrop('rankMoWrap',event)">Jan + Feb YTD</button>
+        <button class="mchk-btn" id="rankMoBtn" onclick="toggleDrop('rankMoWrap',event)">Jan + Feb</button>
         <div class="mchk-drop" id="rankMoDrop">
-          <label class="mchk-item"><input type="radio" name="rankMo" value="jan" onchange="rankChanged(this)"><span>January</span></label>
-          <label class="mchk-item"><input type="radio" name="rankMo" value="feb" onchange="rankChanged(this)"><span>February</span></label>
-          <label class="mchk-item"><input type="radio" name="rankMo" value="ytd_feb" checked onchange="rankChanged(this)"><span>Jan + Feb YTD</span></label>
-          <label class="mchk-item"><input type="radio" name="rankMo" value="mar" onchange="rankChanged(this)"><span>March</span></label>
-          <label class="mchk-item"><input type="radio" name="rankMo" value="ytd_mar" onchange="rankChanged(this)"><span>Jan + Feb + Mar YTD</span></label>
+          <label class="mchk-item"><input type="checkbox" class="rank-mo" value="jan" checked onchange="rankChanged()"><span>January</span></label>
+          <label class="mchk-item"><input type="checkbox" class="rank-mo" value="feb" checked onchange="rankChanged()"><span>February</span></label>
+          <label class="mchk-item"><input type="checkbox" class="rank-mo" value="mar" onchange="rankChanged()"><span>March</span></label>
         </div>
       </div>
     </div>
@@ -267,7 +276,6 @@ tr:hover td{background:#fafaf8}
     <div class="card"><div class="ct" id="nvrTitle">Volume Rankings - Feb YTD</div><table id="NVR"></table></div>
     <div class="card"><div class="ct" id="nkrTitle">KPI Rankings - Feb YTD</div><table id="NKR"></table></div>
   </div>
-  <div class="card"><div class="ct">Combined: Volume vs PY and KPI Score</div><div class="cw2"><canvas id="CC"></canvas></div></div>
 </div>
 
 <!-- PROFILE -->
@@ -767,10 +775,11 @@ function gStats(name, month) {
   };
 }
 
-function gVolRanks() {
+function gVolRanks(month) {
+  var mo = month || 'feb';
   var arr = [];
   for (var i = 0; i < RAMS.length; i++) {
-    var s = gStats(RAMS[i].n, 'feb');
+    var s = gStats(RAMS[i].n, mo);
     arr.push({n: RAMS[i].n, reg: RAMS[i].reg, c: RAMS[i].c, act: s.act, py: s.py, bp: s.bp, vs: s.vs, vbp: s.vbp});
   }
   arr.sort(function(a, b) { return b.vs - a.vs; });
@@ -840,46 +849,75 @@ function moLabel(val) {
 /* ---- NATIONAL ---- */
 function natChanged() {
   var mos=getChecked('nat-mo'), regs=getChecked('nat-reg');
+  var seg=getRadio('natSeg');
   updateBtnLabel('natMoBtn', mos.map(moLabel), 'All Months', 'No Month');
   updateBtnLabel('natRegBtn', regs, 'All Regions', 'No Region');
+  var segNames={all:'All Segments',Big3:'Big 3',Vend:'Vending',CU:'C and U',Trvl:'Travel'};
+  var segBtn=document.getElementById('natSegBtn');
+  if(segBtn) segBtn.textContent=segNames[seg]||seg;
   renderNat();
 }
 
 function renderNat() {
-  var selMos  = getChecked('nat-mo');  if(!selMos.length)  selMos=['jan','feb'];
+  var selMos  = getChecked('nat-mo');  if(!selMos.length) selMos=['jan','feb'];
   var selRegs = getChecked('nat-reg'); if(!selRegs.length) selRegs=REGS.slice();
+  var selSeg  = getRadio('natSeg') || 'all';
 
-  var volData = VOL.filter(function(d){return d.month==='feb' && selRegs.indexOf(d.reg)>=0;});
+  /* Use Feb YTD for volume; volData filtered by region and (if selected) segment */
+  var volData = VOL.filter(function(d){
+    return d.month==='feb' &&
+           selRegs.indexOf(d.reg)>=0 &&
+           (selSeg==='all' || d.seg===selSeg);
+  });
+
+  /* Metric cards  -  total across selected regions and segment */
   var tA=0,tP=0,tB=0;
   for(var i=0;i<volData.length;i++){tA+=volData[i].act;tP+=volData[i].py;tB+=volData[i].bp;}
   var vP=(tA-tP)/tP, vB=(tA-tB)/tB;
 
-  var winsData=WINS.filter(function(w){return selMos.indexOf(w.month)>=0 && selRegs.indexOf(gr(w.ram).reg)>=0;});
-  var kpiKey=selMos.indexOf('mar')>=0&&selMos.length===1?'mar':selMos.indexOf('mar')>=0?'ytd_mar':'ytd_feb';
-  if(selMos.length===1&&selMos[0]==='jan') kpiKey='jan';
-  if(selMos.length===1&&selMos[0]==='feb') kpiKey='feb';
+  var winsData=WINS.filter(function(w){
+    return selMos.indexOf(w.month)>=0 && selRegs.indexOf(gr(w.ram).reg)>=0;
+  });
+  var kpiKey=selMos.length===1?selMos[0]:selMos.indexOf('mar')>=0?'ytd_mar':'ytd_feb';
+  if(kpiKey==='jan'||kpiKey==='feb'||kpiKey==='mar'||kpiKey==='ytd_feb'||kpiKey==='ytd_mar'){}else{kpiKey='ytd_feb';}
   var kd=KPI[kpiKey]||KPI.ytd_feb;
   var totalReach=0;
   for(var ki=0;ki<kd.length;ki++) totalReach+=kd[ki].reach||0;
 
+  var segNames={all:'All Segments',Big3:'Big 3',Vend:'Vending',CU:'C and U',Trvl:'Travel'};
+  var segLabel=segNames[selSeg]||selSeg;
+  var titleEl=document.getElementById('natChartTitle');
+  if(titleEl) titleEl.textContent=segLabel+' Volume vs PY  -  by Region';
+
   document.getElementById('NM').innerHTML=
-    mkMC('Total Volume ACT',(tA/1000).toFixed(0)+'K',pct(vP)+' vs PY','',vc(vP))+
+    mkMC(segLabel+' ACT YTD',(tA/1000).toFixed(1)+'K',pct(vP)+' vs PY','',vc(vP))+
     mkMC('vs Business Plan',pct(vB),'BP: '+(tB/1000).toFixed(0)+'K',vc(vB),'')+
     mkMC('Net New Reach',totalReach.toLocaleString(),'KPI scorecard wins','','pos')+
     mkMC('Total Wins',winsData.length,'BD + Chain combined','','');
 
+  /* ---- Horizontal % vs PY bar chart by region ---- */
+  var vsData=[];
+  for(var ri=0;ri<selRegs.length;ri++){
+    var reg=selRegs[ri];
+    var rA=0,rP=0;
+    for(var vi=0;vi<volData.length;vi++){
+      if(volData[vi].reg===reg){rA+=volData[vi].act;rP+=volData[vi].py;}
+    }
+    var pctVsPY=rP>0?Math.round(((rA-rP)/rP)*100):0;
+    vsData.push({reg:reg,pct:pctVsPY,act:rA,py:rP});
+  }
+  /* Sort descending by % vs PY  -  best regions at top */
+  vsData.sort(function(a,b){return b.pct-a.pct;});
+
   dc('NSC');
-  var acts=[],pys=[];
-  for(var ri=0;ri<selRegs.length;ri++){var sv=volByReg(volData,selRegs[ri]);acts.push(sv.act);pys.push(sv.py);}
   CH['NSC']=new Chart(document.getElementById('NSC'),{
     type:'bar',
-    data:{labels:selRegs,datasets:[
-      {label:'Actual',data:acts,backgroundColor:selRegs.map(function(r){return RC[r]||'#888';}),borderRadius:4},
-      {label:'Prior Year',data:pys,backgroundColor:'rgba(136,135,128,0.25)',borderRadius:4}
-    ]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{font:{size:10},boxWidth:8}}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}
+    data:{labels:vsData.map(function(d){return d.reg;}),
+      datasets:[{data:vsData.map(function(d){return d.pct;}), backgroundColor:vsData.map(function(d){return d.pct>=0?'#1D9E75':'#E24B4A';}), borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{datalabels:{display:false},legend:{display:false}},scales:{x:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{callback:function(v){return v+'%';}}},y:{ticks:{font:{size:12},color:'#3d3d3a'},grid:{display:false}}}}
   });
 
+  /* ---- Wins donut ---- */
   var bd=0,chain=0;
   for(var wi=0;wi<winsData.length;wi++){if(winsData[wi].type==='BD')bd++;else chain++;}
   var tot=bd+chain;
@@ -888,16 +926,24 @@ function renderNat() {
     type:'doughnut',
     data:{labels:['BD Wins','Chain Wins'],datasets:[{data:[bd,chain],backgroundColor:['#378ADD','#1D9E75'],borderWidth:2}]},
     options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:true,position:'bottom',labels:{font:{size:11},boxWidth:10}},
+      plugins:{datalabels:{display:false},legend:{display:true,position:'bottom',labels:{font:{size:11},boxWidth:10}},
         tooltip:{callbacks:{label:function(ctx){return ' '+ctx.label+': '+ctx.parsed+(tot?' ('+Math.round(ctx.parsed/tot*100)+'%)':'');}}}}
     }
   });
 
+  /* ---- Summary table ---- */
+  /* Table respects both region and segment filters */
+  var allVolFeb=VOL.filter(function(d){
+    return d.month==='feb' &&
+           selRegs.indexOf(d.reg)>=0 &&
+           (selSeg==='all' || d.seg===selSeg);
+  });
   var rows='';
-  var totalAct=0; for(var di=0;di<selRegs.length;di++) totalAct+=volByReg(volData,selRegs[di]).act;
+  var totalAct=0;
+  for(var di=0;di<selRegs.length;di++) totalAct+=volByReg(allVolFeb,selRegs[di]).act;
   for(var k=0;k<selRegs.length;k++){
-    var r=selRegs[k], sv=volByReg(volData,r), bpT=0;
-    for(var x=0;x<volData.length;x++){if(volData[x].reg===r)bpT+=volData[x].bp;}
+    var r=selRegs[k], sv=volByReg(allVolFeb,r), bpT=0;
+    for(var x=0;x<allVolFeb.length;x++){if(allVolFeb[x].reg===r)bpT+=allVolFeb[x].bp;}
     bpT=Math.round(bpT);
     var vs2=(sv.act-sv.py)/sv.py, vb2=(sv.act-bpT)/bpT;
     var pct2=totalAct>0?Math.round((sv.act/totalAct)*100):0;
@@ -915,7 +961,8 @@ function renderNat() {
 /* ---- KPI ---- */
 function kpiChanged() {
   var mos=getChecked('kpi-mo'); if(!mos.length) mos=['jan','feb'];
-  var lbl=mos.length===3?'All Months':mos.map(function(m){return m.charAt(0).toUpperCase()+m.slice(1);}).join('+');
+  var names={jan:'January',feb:'February',mar:'March'};
+  var lbl=mos.length===3?'All Months':mos.map(function(m){return names[m]||m;}).join(' + ');
   document.getElementById('kpiMoBtn').textContent=lbl;
   renderKPI();
 }
@@ -966,15 +1013,53 @@ function renderKPI() {
   document.getElementById('KRT').innerHTML='<thead><tr><th>Rank</th><th>NCRAM</th><th class="r">BD</th><th class="r">Chain</th><th class="r">Reach</th><th class="r">Equip</th><th class="r">Vend Touch</th><th class="r">Score</th></tr></thead><tbody>'+krows+'</tbody>';
 
   dc('KC');
+  var kcSorted = data.slice().sort(function(a,b){return a.score-b.score;});
   CH['KC']=new Chart(document.getElementById('KC'),{
     type:'bar',
-    data:{labels:data.map(function(s){return s.n.split(' ')[0];}),datasets:[
-      {label:'BD x2',     data:data.map(function(s){return s.bd*2;}),              backgroundColor:'#378ADD',borderRadius:3},
-      {label:'Chain x3',  data:data.map(function(s){return s.chain*3;}),           backgroundColor:'#1D9E75',borderRadius:3},
-      {label:'Reach /10', data:data.map(function(s){return Math.round(s.reach/10);}),backgroundColor:'#EF9F27',borderRadius:3},
-      {label:'Equip',     data:data.map(function(s){return s.equip;}),             backgroundColor:'#7F77DD',borderRadius:3}
-    ]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{font:{size:10},boxWidth:8}}},scales:{x:{ticks:{font:{size:9}},grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}
+    data:{
+      labels:kcSorted.map(function(s){return s.n;}),
+      datasets:[
+        {label:'BD Wins',        data:kcSorted.map(function(s){return s.bd;}),    backgroundColor:'#378ADD',borderRadius:3,stack:'kpi'},
+        {label:'Chain Wins',     data:kcSorted.map(function(s){return s.chain;}), backgroundColor:'#1D9E75',borderRadius:3,stack:'kpi'},
+        {label:'Net New Reach',  data:kcSorted.map(function(s){return s.reach;}), backgroundColor:'#EF9F27',borderRadius:3,stack:'kpi'},
+        {label:'Cold Equip',     data:kcSorted.map(function(s){return s.equip;}), backgroundColor:'#7F77DD',borderRadius:3,stack:'kpi'}
+      ]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{
+        datalabels:{display:false},
+        legend:{
+          display:true,
+          position:'top',
+          labels:{font:{size:11},boxWidth:12,padding:16}
+        },
+        tooltip:{
+          callbacks:{
+            afterBody:function(items){
+              var s=kcSorted[items[0].dataIndex];
+              return ['','Score: '+s.score+' | Vend Touch: '+(s.vend||0).toLocaleString()];
+            }
+          }
+        }
+      },
+      scales:{
+        x:{
+          stacked:true,
+          grid:{color:'rgba(0,0,0,0.05)'},
+          ticks:{font:{size:11}},
+          title:{display:true,text:'Activity Count',font:{size:11},color:'#73726c'}
+        },
+        y:{
+          stacked:true,
+          grid:{display:false},
+          ticks:{font:{size:12},color:'#3d3d3a'}
+        }
+      },
+      layout:{padding:{right:16}}
+    }
   });
   renderWins();
 }
@@ -1025,7 +1110,7 @@ function renderVol() {
     type:'bar',
     data:{labels:sorted.map(function(d){return d.ram.split(' ')[0];}),
       datasets:[{data:vsV, backgroundColor:vsV.map(function(v){return v>=0?'#1D9E75':'#E24B4A';}), borderRadius:3}]},
-    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{callback:function(v){return v+'%';}}},y:{ticks:{font:{size:10}},grid:{display:false}}}}
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{datalabels:{display:false},legend:{display:false}},scales:{x:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{callback:function(v){return v+'%';}}},y:{ticks:{font:{size:10}},grid:{display:false}}}}
   });
 
   var rActs=REGS.map(function(r){return Math.round(data.filter(function(d){return d.reg===r;}).reduce(function(a,d){return a+d.act;},0));});
@@ -1037,7 +1122,7 @@ function renderVol() {
       {label:'Actual',data:rActs,backgroundColor:REGS.map(function(r){return RC[r];}),borderRadius:4},
       {label:'PY',    data:rPYs, backgroundColor:'rgba(136,135,128,0.25)',borderRadius:4}
     ]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}
+    options:{responsive:true,maintainAspectRatio:false,plugins:{datalabels:{display:false},legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}},}
   });
 
   var aggMap={};
@@ -1062,19 +1147,23 @@ function renderVol() {
   document.getElementById('VDT').innerHTML='<thead><tr><th>NCRAM</th><th class="r">Actual</th><th class="r">PY</th><th class="r">BP</th><th class="r">vs PY</th><th class="r">vs BP</th></tr></thead><tbody>'+drows+'</tbody>';
 }
 /* ---- RANKINGS ---- */
-function rankChanged(el) {
-  var labels={jan:'January',feb:'February',ytd_feb:'Jan + Feb YTD',mar:'March',ytd_mar:'Jan+Feb+Mar YTD'};
+function rankChanged() {
+  var mos=getChecked('rank-mo'); if(!mos.length) mos=['jan','feb'];
+  var names={jan:'January',feb:'February',mar:'March'};
+  var lbl=mos.length===3?'All Months':mos.map(function(m){return names[m]||m;}).join(' + ');
   var btn=document.getElementById('rankMoBtn');
-  if(btn) btn.textContent=labels[el.value]||el.value;
+  if(btn) btn.textContent=lbl;
   var t1=document.getElementById('nvrTitle'), t2=document.getElementById('nkrTitle');
-  if(t1) t1.textContent='Volume Rankings - '+(labels[el.value]||el.value);
-  if(t2) t2.textContent='KPI Rankings - '+(labels[el.value]||el.value);
+  if(t1) t1.textContent='Volume Rankings - '+lbl;
+  if(t2) t2.textContent='KPI Rankings - '+lbl;
   renderRanks();
 }
 
 function renderRanks() {
-  var rankPer=getRadio('rankMo')||'ytd_feb';
-  var volMonth=rankPer==='jan'?'jan':'feb';
+  var rmos=getChecked('rank-mo'); if(!rmos.length) rmos=['jan','feb'];
+  var rj=rmos.indexOf('jan')>=0, rf=rmos.indexOf('feb')>=0, rm=rmos.indexOf('mar')>=0;
+  var rankPer=(rj&&rf&&rm)?'ytd_mar':(rj&&rf)?'ytd_feb':rmos[0]||'ytd_feb';
+  var volMonth=rmos.indexOf('jan')>=0&&!rf?'jan':'feb';
   var vr=gVolRanks(volMonth);
   var kd=KPI[rankPer]||KPI.ytd_feb;
   var tA=0,tP=0;
@@ -1114,20 +1203,6 @@ function renderRanks() {
   var names=RAMS.map(function(r){return r.n.split(' ')[0];});
   var kScores=RAMS.map(function(r){for(var i=0;i<kd.length;i++){if(kd[i].n===r.n)return kd[i].score;}return 0;});
   var vPcts=RAMS.map(function(r){for(var i=0;i<vr.length;i++){if(vr[i].n===r.n)return Math.round(vr[i].vs*100);}return 0;});
-  dc('CC');
-  CH['CC']=new Chart(document.getElementById('CC'),{
-    type:'bar',
-    data:{labels:names,datasets:[
-      {label:'Vol % vs PY',data:vPcts,backgroundColor:vPcts.map(function(v){return v>=0?'rgba(29,158,117,0.75)':'rgba(226,75,74,0.75)';}),borderRadius:3,yAxisID:'y'},
-      {label:'KPI Score',data:kScores,type:'line',borderColor:'#EF9F27',backgroundColor:'rgba(239,159,39,0.1)',pointBackgroundColor:'#EF9F27',pointRadius:4,tension:0.3,yAxisID:'y2'}
-    ]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{font:{size:10},boxWidth:8}}},
-      scales:{
-        x:{ticks:{font:{size:9}},grid:{display:false}},
-        y:{position:'left',ticks:{callback:function(v){return v+'%';}},grid:{color:'rgba(0,0,0,0.05)'}},
-        y2:{position:'right',grid:{display:false}}
-      }}
-  });
 }
 
 /* ---- PROFILE ---- */
@@ -1142,8 +1217,8 @@ function renderProf() {
   var kd=kpiDefault();
   for (var i=0;i<kd.length;i++){if(kd[i].n===name){kpi=kd[i];break;}}
   if(!kpi) kpi={bd:0,chain:0,reach:0,equip:0,pipe:0,score:'-',rank:'-'};
-  var stats = gStats(name);
-  var vr = gVolRanks();
+  var stats = gStats(name, 'feb');
+  var vr = gVolRanks('feb');
   var volRank = 0;
   for(var j=0;j<vr.length;j++){if(vr[j].n===name){volRank=vr[j].vr;break;}}
   var fitRows=[], fR=0, fE=0, fA=0;
@@ -1243,7 +1318,7 @@ function renderProf() {
         {v:bdg(ww.type==='BD'?'bN':'bG',ww.type)},
         {v:ww.seg},{v:ww.acct},
         {v:ww.locs||'-',r:1},
-        {v:ww.vol?'$'+fmt(ww.vol):'TBD',r:1}
+        {v:ww.vol?ww.vol.toLocaleString()+' units':'TBD',r:1}
       ]);
     }
     winCard='<div class="card"><div class="ct">Wins and Business Development Log</div>' +
@@ -1267,7 +1342,7 @@ function renderProf() {
       {label:'Actual',data:actD,backgroundColor:SEGS.map(function(s){return SEGCOL[s];}),borderRadius:4},
       {label:'PY',    data:pyD, backgroundColor:'rgba(136,135,128,0.25)',borderRadius:4}
     ]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}
+    options:{responsive:true,maintainAspectRatio:false,plugins:{datalabels:{display:false},legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}
   });
 }
 
@@ -1308,7 +1383,7 @@ function renderFit() {
     type:'bar',
     data:{labels:rSorted.map(function(n){return n.split(' ')[0];}),
       datasets:[{data:rSorted.map(function(n){return nm[n].reach;}),backgroundColor:rSorted.map(function(n){return gr(n).c;}),borderRadius:4}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}
+    options:{responsive:true,maintainAspectRatio:false,plugins:{datalabels:{display:false},legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}
   });
 
   /* region chart */
@@ -1323,7 +1398,7 @@ function renderFit() {
       {label:'Equipment',  data:rEq, backgroundColor:REGS.map(function(r){return RC[r]+'77';}), borderRadius:4},
       {label:'Activations',data:rAc, backgroundColor:REGS.map(function(r){return RC[r]+'44';}), borderRadius:4}
     ]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{font:{size:10},boxWidth:8}}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}
+    options:{responsive:true,maintainAspectRatio:false,plugins:{datalabels:{display:false},legend:{display:true,labels:{font:{size:10},boxWidth:8}}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}
   });
 
   /* equip chart */
@@ -1333,7 +1408,7 @@ function renderFit() {
     type:'bar',
     data:{labels:eSorted.map(function(n){return n.split(' ')[0];}),
       datasets:[{data:eSorted.map(function(n){return nm[n].eqQ;}),backgroundColor:eSorted.map(function(n){return gr(n).c;}),borderRadius:4}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}
+    options:{responsive:true,maintainAspectRatio:false,plugins:{datalabels:{display:false},legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}
   });
 
   /* activations chart */
@@ -1343,7 +1418,7 @@ function renderFit() {
     type:'bar',
     data:{labels:aSorted.map(function(n){return n.split(' ')[0];}),
       datasets:[{data:aSorted.map(function(n){return nm[n].acts;}),backgroundColor:'#1D9E75',borderRadius:4}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}
+    options:{responsive:true,maintainAspectRatio:false,plugins:{datalabels:{display:false},legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}
   });
 
   /* account detail table */
@@ -1400,7 +1475,7 @@ function setIF(focus, btn) {
 }
 
 function buildPrompt(focus) {
-  var vr = gVolRanks();
+  var vr = gVolRanks('feb');
   var tA=0,tP=0;
   for(var i=0;i<VOL.length;i++){tA+=VOL[i].act;tP+=VOL[i].py;}
   var tvsPY = Math.round(((tA-tP)/tP)*100);
