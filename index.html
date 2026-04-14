@@ -97,19 +97,32 @@ tr:hover td{background:#fafaf8}
 .spin{display:inline-block;width:16px;height:16px;border:2px solid #d3d1c7;border-top-color:#534AB7;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
 @keyframes spin{to{transform:rotate(360deg)}}
 .anote{font-size:11px;color:#888780;margin-top:12px;padding:10px 12px;background:#f8f8f6;border-radius:8px;border:1px solid #e8e6df}
-.wfilter{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:flex-end}
-.wfilter label{font-size:11px;font-weight:500;color:#73726c;display:block;margin-bottom:4px}
-.wfilter select{font-size:11px;padding:5px 8px;border:1px solid #d3d1c7;border-radius:8px;background:#fff;color:#1a1a18}
-.msel-wrap{position:relative}
-.msel-btn{font-size:11px;padding:5px 10px;border:1px solid #d3d1c7;border-radius:8px;background:#fff;color:#1a1a18;cursor:pointer;white-space:nowrap;min-width:160px;text-align:left}
-.msel-btn:after{content:'\25BE';float:right;margin-left:8px;color:#73726c}
-.msel-drop{display:none;position:absolute;top:100%;left:0;z-index:100;background:#fff;border:1px solid #d3d1c7;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.1);min-width:200px;max-height:260px;overflow-y:auto;padding:6px 0}
-.msel-drop.open{display:block}
-.msel-item{display:flex;align-items:center;gap:8px;padding:6px 12px;cursor:pointer;font-size:12px;color:#1a1a18}
-.msel-item:hover{background:#f8f8f6}
-.msel-item input[type=checkbox]{accent-color:#534AB7;width:14px;height:14px;flex-shrink:0}
-.msel-all{border-bottom:1px solid #e8e6df;margin-bottom:4px;font-weight:500}
+.tab.awtab.active{color:#EF9F27;border-bottom-color:#EF9F27}
+.awhdr{background:#faeeda;border:1px solid #EF9F27;border-radius:12px;padding:18px 20px;margin-bottom:16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.awico{width:44px;height:44px;border-radius:50%;background:#EF9F27;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:20px}
+.awttl{font-size:16px;font-weight:700;color:#412402}
+.awsub{font-size:12px;color:#633806;margin-top:3px}
+.awsts{display:flex;gap:20px;margin-left:auto;flex-wrap:wrap}
+.awst .awv{font-size:22px;font-weight:700;color:#412402;text-align:center}
+.awst .awl{font-size:10px;color:#633806;text-transform:uppercase;letter-spacing:.05em;font-weight:500;text-align:center}
+.sbtn.aw.on{background:#EF9F27;border-color:#EF9F27}
+.card.aw{border-color:#EF9F27}
+.mc.aw{border-color:#EF9F27;background:#fdf6e9}
+.mper{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.mper label{font-size:11px;font-weight:500;color:#73726c}
+.mper select{font-size:11px;padding:5px 8px;border:1px solid #d3d1c7;border-radius:8px;background:#fff}
 @media(max-width:640px){.mrow{grid-template-columns:1fr 1fr}.twoc{grid-template-columns:1fr}.kgrid{grid-template-columns:1fr 1fr}.wsts{margin-left:0}}
+.fbar{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap;align-items:flex-end}
+.fbgroup{display:flex;flex-direction:column;gap:3px}
+.fblabel{font-size:10px;font-weight:600;color:#888780;text-transform:uppercase;letter-spacing:.05em}
+.mchk-wrap{position:relative;display:inline-block}
+.mchk-btn{font-size:12px;padding:6px 12px;border:1px solid #d3d1c7;border-radius:8px;background:#fff;color:#1a1a18;cursor:pointer;min-width:140px;text-align:left;white-space:nowrap}
+.mchk-btn:after{content:'\25BE';float:right;margin-left:8px;color:#73726c}
+.mchk-drop{display:none;position:absolute;top:calc(100% + 4px);left:0;z-index:300;background:#fff;border:1px solid #d3d1c7;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.12);min-width:190px;padding:6px 0}
+.mchk-drop.open{display:block}
+.mchk-item{display:flex;align-items:center;gap:8px;padding:7px 14px;cursor:pointer;font-size:12px;color:#1a1a18;user-select:none}
+.mchk-item:hover{background:#f8f8f6}
+.mchk-item input[type=checkbox],.mchk-item input[type=radio]{accent-color:#534AB7;width:14px;height:14px;flex-shrink:0;cursor:pointer}
 </style>
 </head>
 <body>
@@ -118,22 +131,9 @@ tr:hover td{background:#fafaf8}
 <div class="topbar">
   <div>
     <h1>NC-RAM Regional Non-Commercial Dashboard</h1>
-    <p>Regional Non-Commercial Key Account Team | Jan-Feb 2026 | 12 NCRAMs</p>
+    <p>Regional Non-Commercial Key Account Team | Jan-Mar 2026 | 12 NCRAMs</p>
   </div>
-  <div class="filters">
-    <select id="mf" onchange="applyF()">
-      <option value="all">All Months</option>
-      <option value="January">January</option>
-    </select>
-    <select id="rf" onchange="applyF()">
-      <option value="all">All Regions</option>
-      <option value="Central">Central</option>
-      <option value="Midwest">Midwest</option>
-      <option value="Northeast">Northeast</option>
-      <option value="Southeast">Southeast</option>
-      <option value="West">West</option>
-    </select>
-  </div>
+  <div class="filters"></div>
 </div>
 
 <div class="tabs">
@@ -143,41 +143,67 @@ tr:hover td{background:#fafaf8}
   <button class="tab" onclick="goTab('ncram',this)">NCRAM Rankings</button>
   <button class="tab" onclick="goTab('profile',this)">Individual Profile</button>
   <button class="tab ftab" onclick="goTab('fitness',this)">Focus Wave - Fitness</button>
+  <button class="tab awtab" onclick="goTab('atwork',this)">Focus Wave - At Work</button>
   <button class="tab itab" onclick="goTab('insights',this)">AI Insights</button>
 </div>
 
 <!-- NATIONAL -->
 <div id="national" class="section active">
+  <div class="fbar">
+    <div class="fbgroup">
+      <span class="fblabel">Month</span>
+      <div class="mchk-wrap" id="natMoWrap">
+        <button class="mchk-btn" id="natMoBtn" onclick="toggleDrop('natMoWrap',event)">All Months</button>
+        <div class="mchk-drop" id="natMoDrop">
+          <label class="mchk-item"><input type="checkbox" class="nat-mo" value="jan" checked onchange="natChanged()"><span>January</span></label>
+          <label class="mchk-item"><input type="checkbox" class="nat-mo" value="feb" checked onchange="natChanged()"><span>February</span></label>
+          <label class="mchk-item"><input type="checkbox" class="nat-mo" value="mar" checked onchange="natChanged()"><span>March</span></label>
+        </div>
+      </div>
+    </div>
+    <div class="fbgroup">
+      <span class="fblabel">Region</span>
+      <div class="mchk-wrap" id="natRegWrap">
+        <button class="mchk-btn" id="natRegBtn" onclick="toggleDrop('natRegWrap',event)">All Regions</button>
+        <div class="mchk-drop" id="natRegDrop">
+          <label class="mchk-item"><input type="checkbox" class="nat-reg" value="Central" checked onchange="natChanged()"><span>Central</span></label>
+          <label class="mchk-item"><input type="checkbox" class="nat-reg" value="Midwest" checked onchange="natChanged()"><span>Midwest</span></label>
+          <label class="mchk-item"><input type="checkbox" class="nat-reg" value="Northeast" checked onchange="natChanged()"><span>Northeast</span></label>
+          <label class="mchk-item"><input type="checkbox" class="nat-reg" value="Southeast" checked onchange="natChanged()"><span>Southeast</span></label>
+          <label class="mchk-item"><input type="checkbox" class="nat-reg" value="West" checked onchange="natChanged()"><span>West</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="mrow" id="NM"></div>
   <div class="twoc">
-    <div class="card">
-      <div class="ct">Volume vs Prior Year by Segment</div>
-      <div class="snav" id="NSN">
-        <button class="sbtn on" data-seg="all" onclick="drawNSC('all',this)">All</button>
-        <button class="sbtn" data-seg="Big3" onclick="drawNSC('Big3',this)">Big 3</button>
-        <button class="sbtn" data-seg="Vend" onclick="drawNSC('Vend',this)">Vending</button>
-        <button class="sbtn" data-seg="CU" onclick="drawNSC('CU',this)">C&amp;U</button>
-        <button class="sbtn" data-seg="Trvl" onclick="drawNSC('Trvl',this)">Travel</button>
-      </div>
-      <div class="cw"><canvas id="NSC"></canvas></div>
-    </div>
-    <div class="card">
-      <div class="ct">Volume Share by Region</div>
-      <div class="cw"><canvas id="NRC"></canvas></div>
-    </div>
+    <div class="card"><div class="ct">Volume vs Prior Year by Region</div><div class="cw"><canvas id="NSC"></canvas></div></div>
+    <div class="card"><div class="ct">Total Wins by Type</div><div class="cw"><canvas id="NRC"></canvas></div></div>
   </div>
-  <div class="card">
-    <div class="ct">Region Performance Summary</div>
-    <table id="NRT"></table>
-  </div>
+  <div class="card"><div class="ct">Region Performance Summary</div><table id="NRT"></table></div>
 </div>
 
 <!-- KPI -->
 <div id="kpi" class="section">
+  <div class="fbar">
+    <div class="fbgroup">
+      <span class="fblabel">Month</span>
+      <div class="mchk-wrap" id="kpiMoWrap">
+        <button class="mchk-btn" id="kpiMoBtn" onclick="toggleDrop('kpiMoWrap',event)">All YTD</button>
+        <div class="mchk-drop" id="kpiMoDrop">
+          <label class="mchk-item"><input type="radio" name="kpiMo" value="jan" onchange="kpiChanged()"><span>January</span></label>
+          <label class="mchk-item"><input type="radio" name="kpiMo" value="feb" onchange="kpiChanged()"><span>February</span></label>
+          <label class="mchk-item"><input type="radio" name="kpiMo" value="ytd_feb" checked onchange="kpiChanged()"><span>Jan + Feb YTD</span></label>
+          <label class="mchk-item"><input type="radio" name="kpiMo" value="mar" onchange="kpiChanged()"><span>March</span></label>
+          <label class="mchk-item"><input type="radio" name="kpiMo" value="ytd_mar" onchange="kpiChanged()"><span>Jan + Feb + Mar YTD</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="mrow" id="KM" style="grid-template-columns:repeat(5,minmax(0,1fr))"></div>
   <div class="twoc">
     <div class="card">
-      <div class="ct">KPI Scorecard Rankings - Jan + Feb</div>
+      <div class="ct">KPI Scorecard Rankings</div>
       <table id="KRT"></table>
     </div>
     <div class="card">
@@ -186,48 +212,25 @@ tr:hover td{background:#fafaf8}
     </div>
   </div>
   <div class="card">
-    <div class="ct">Business Development and Chain Wins Log</div>
-    <div class="wfilter">
-      <div>
-        <label>Filter by Region</label>
-        <select id="wRegF" onchange="renderWins()">
-          <option value="all">All Regions</option>
-          <option value="Central">Central</option>
-          <option value="Midwest">Midwest</option>
-          <option value="Northeast">Northeast</option>
-          <option value="Southeast">Southeast</option>
-          <option value="West">West</option>
-        </select>
-      </div>
-      <div>
-        <label>Filter by NCRAM</label>
-        <div class="msel-wrap" id="ncramMsel">
-          <button class="msel-btn" id="mselBtn" onclick="toggleMsel(event)">All NCRAMs</button>
-          <div class="msel-drop" id="mselDrop">
-            <div class="msel-item msel-all"><input type="checkbox" id="mselAll" checked onchange="toggleAllNcrams(this)"><span>Select All</span></div>
-            <div class="msel-item"><input type="checkbox" class="ncram-cb" value="Sierra Ford" checked onchange="updateMsel()"><span>Sierra Ford</span></div>
-            <div class="msel-item"><input type="checkbox" class="ncram-cb" value="Katie Naviaux" checked onchange="updateMsel()"><span>Katie Naviaux</span></div>
-            <div class="msel-item"><input type="checkbox" class="ncram-cb" value="Rudy Wagner" checked onchange="updateMsel()"><span>Rudy Wagner</span></div>
-            <div class="msel-item"><input type="checkbox" class="ncram-cb" value="Meg Flom" checked onchange="updateMsel()"><span>Meg Flom</span></div>
-            <div class="msel-item"><input type="checkbox" class="ncram-cb" value="TJ McGowan" checked onchange="updateMsel()"><span>TJ McGowan</span></div>
-            <div class="msel-item"><input type="checkbox" class="ncram-cb" value="Greg Drillock" checked onchange="updateMsel()"><span>Greg Drillock</span></div>
-            <div class="msel-item"><input type="checkbox" class="ncram-cb" value="Montana Renno" checked onchange="updateMsel()"><span>Montana Renno</span></div>
-            <div class="msel-item"><input type="checkbox" class="ncram-cb" value="Chris Trott" checked onchange="updateMsel()"><span>Chris Trott</span></div>
-            <div class="msel-item"><input type="checkbox" class="ncram-cb" value="Carroll Jenkins" checked onchange="updateMsel()"><span>Carroll Jenkins</span></div>
-            <div class="msel-item"><input type="checkbox" class="ncram-cb" value="Josh Queja" checked onchange="updateMsel()"><span>Josh Queja</span></div>
-            <div class="msel-item"><input type="checkbox" class="ncram-cb" value="Jenny Lynch" checked onchange="updateMsel()"><span>Jenny Lynch</span></div>
-            <div class="msel-item"><input type="checkbox" class="ncram-cb" value="Amy Quinet" checked onchange="updateMsel()"><span>Amy Quinet</span></div>
-          </div>
-        </div>
-      </div>
-      <div style="margin-left:auto;font-size:11px;color:#73726c;align-self:flex-end;padding-bottom:2px" id="winsCount"></div>
-    </div>
+    <div class="ct">Business Development and Chain Wins Log <span style="font-size:10px;font-weight:400;color:#73726c">- filters with KPI period above</span></div>
     <table id="WT"></table>
   </div>
 </div>
 
 <!-- VOLUME -->
 <div id="volume" class="section">
+  <div class="fbar">
+    <div class="fbgroup">
+      <span class="fblabel">Month</span>
+      <div class="mchk-wrap" id="volMoWrap">
+        <button class="mchk-btn" id="volMoBtn" onclick="toggleDrop('volMoWrap',event)">Jan + Feb</button>
+        <div class="mchk-drop" id="volMoDrop">
+          <label class="mchk-item"><input type="checkbox" class="vol-mo" value="jan" checked onchange="volChanged()"><span>January</span></label>
+          <label class="mchk-item"><input type="checkbox" class="vol-mo" value="feb" checked onchange="volChanged()"><span>February</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="snav" id="VSN">
     <button class="sbtn on" onclick="setVS('Big3',this)">Big 3</button>
     <button class="sbtn" onclick="setVS('Vend',this)">Vending</button>
@@ -244,10 +247,25 @@ tr:hover td{background:#fafaf8}
 
 <!-- NCRAM RANKINGS -->
 <div id="ncram" class="section">
+  <div class="fbar">
+    <div class="fbgroup">
+      <span class="fblabel">Period</span>
+      <div class="mchk-wrap" id="rankMoWrap">
+        <button class="mchk-btn" id="rankMoBtn" onclick="toggleDrop('rankMoWrap',event)">Jan + Feb YTD</button>
+        <div class="mchk-drop" id="rankMoDrop">
+          <label class="mchk-item"><input type="radio" name="rankMo" value="jan" onchange="rankChanged(this)"><span>January</span></label>
+          <label class="mchk-item"><input type="radio" name="rankMo" value="feb" onchange="rankChanged(this)"><span>February</span></label>
+          <label class="mchk-item"><input type="radio" name="rankMo" value="ytd_feb" checked onchange="rankChanged(this)"><span>Jan + Feb YTD</span></label>
+          <label class="mchk-item"><input type="radio" name="rankMo" value="mar" onchange="rankChanged(this)"><span>March</span></label>
+          <label class="mchk-item"><input type="radio" name="rankMo" value="ytd_mar" onchange="rankChanged(this)"><span>Jan + Feb + Mar YTD</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="mrow" id="RM"></div>
   <div class="twoc">
-    <div class="card"><div class="ct">Volume Rankings - January vs PY</div><table id="NVR"></table></div>
-    <div class="card"><div class="ct">KPI Scorecard Rankings - Jan + Feb</div><table id="NKR"></table></div>
+    <div class="card"><div class="ct" id="nvrTitle">Volume Rankings - Feb YTD</div><table id="NVR"></table></div>
+    <div class="card"><div class="ct" id="nkrTitle">KPI Rankings - Feb YTD</div><table id="NKR"></table></div>
   </div>
   <div class="card"><div class="ct">Combined: Volume vs PY and KPI Score</div><div class="cw2"><canvas id="CC"></canvas></div></div>
 </div>
@@ -303,6 +321,35 @@ tr:hover td{background:#fafaf8}
   <div class="card gr" style="margin-top:14px"><div class="ct">NCRAM Leaderboard - Fitness Focus Wave</div><table id="FLT"></table></div>
 </div>
 
+<!-- AT WORK FOCUS WAVE -->
+<div id="atwork" class="section">
+  <div class="awhdr">
+    <div class="awico">&#128188;</div>
+    <div>
+      <div class="awttl">Focus Wave 2 - Non-Comm Industry Games</div>
+      <div class="awsub">At Work Pillar | Apr - May 2026 | Northeast (Early Results)</div>
+    </div>
+    <div class="awsts">
+      <div class="awst"><div class="awv">2</div><div class="awl">Chain Wins</div></div>
+      <div class="awst"><div class="awv">4</div><div class="awl">New Reach</div></div>
+      <div class="awst"><div class="awv">11</div><div class="awl">New SKUs</div></div>
+      <div class="awst"><div class="awv">6</div><div class="awl">Equip Placed</div></div>
+      <div class="awst"><div class="awv">4</div><div class="awl">Activations</div></div>
+    </div>
+  </div>
+  <div class="snav" id="AWSN">
+    <button class="sbtn aw on" onclick="setAWV('all',this)">All NCRAMs</button>
+    <button class="sbtn aw" onclick="setAWV('Central',this)">Central</button>
+    <button class="sbtn aw" onclick="setAWV('Midwest',this)">Midwest</button>
+    <button class="sbtn aw" onclick="setAWV('Northeast',this)">Northeast</button>
+    <button class="sbtn aw" onclick="setAWV('Southeast',this)">Southeast</button>
+    <button class="sbtn aw" onclick="setAWV('West',this)">West</button>
+  </div>
+  <div class="mrow" id="AWM"></div>
+  <div class="card aw"><div class="ct">Account-Level Detail</div><table id="AWDT"></table></div>
+  <div class="card aw" style="margin-top:14px"><div class="ct">NCRAM Leaderboard - At Work Focus Wave</div><table id="AWLT"></table></div>
+</div>
+
 <!-- INSIGHTS -->
 <div id="insights" class="section">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
@@ -352,115 +399,263 @@ var REGS = ['Central','Midwest','Northeast','Southeast','West'];
 var SEGMAP = {Big3:'Big 3',Vend:'Vending',CU:'C and U',Trvl:'Travel'};
 var SEGCOL = {Big3:'#378ADD',Vend:'#1D9E75',CU:'#EF9F27',Trvl:'#7F77DD'};
 
-var KPI = [
-  {rank:1, n:'Sierra Ford',    bd:3,chain:1,reach:53,equip:57,pipe:11,vend:668, score:42},
-  {rank:2, n:'Amy Quinet',     bd:2,chain:2,reach:19,equip:11,pipe:6, vend:1958,score:49},
-  {rank:3, n:'Jenny Lynch',    bd:2,chain:2,reach:49,equip:8, pipe:5, vend:2193,score:51},
-  {rank:4, n:'Chris Trott',    bd:3,chain:1,reach:15,equip:10,pipe:5, vend:3124,score:52},
-  {rank:5, n:'Katie Naviaux',  bd:0,chain:2,reach:81,equip:13,pipe:3, vend:1755,score:54},
-  {rank:6, n:'TJ McGowan',     bd:3,chain:2,reach:40,equip:1, pipe:5, vend:961, score:55},
-  {rank:7, n:'Josh Queja',     bd:1,chain:3,reach:15,equip:4, pipe:2, vend:2594,score:65},
-  {rank:8, n:'Greg Drillock',  bd:3,chain:0,reach:70,equip:4, pipe:5, vend:800, score:66},
-  {rank:9, n:'Rudy Wagner',    bd:5,chain:0,reach:11,equip:17,pipe:3, vend:1681,score:70},
-  {rank:10,n:'Meg Flom',       bd:1,chain:1,reach:14,equip:21,pipe:1, vend:2521,score:73},
-  {rank:11,n:'Montana Renno',  bd:3,chain:0,reach:6, equip:9, pipe:4, vend:475, score:86},
-  {rank:12,n:'Carroll Jenkins',bd:1,chain:0,reach:2, equip:3, pipe:2, vend:960, score:110}
-];
+var KPI = {
+  jan: [
+    {rank:1, n:'Sierra Ford',    bd:2,chain:1,reach:32,equip:31,pipe:6, vend:350, score:28},
+    {rank:2, n:'Jenny Lynch',    bd:1,chain:2,reach:28,equip:5, pipe:3, vend:1100,score:32},
+    {rank:3, n:'Amy Quinet',     bd:1,chain:1,reach:10,equip:6, pipe:3, vend:980, score:35},
+    {rank:4, n:'Chris Trott',    bd:2,chain:1,reach:8, equip:5, pipe:3, vend:1562,score:36},
+    {rank:5, n:'Katie Naviaux',  bd:0,chain:2,reach:40,equip:7, pipe:2, vend:877, score:38},
+    {rank:6, n:'TJ McGowan',     bd:2,chain:2,reach:22,equip:1, pipe:3, vend:480, score:40},
+    {rank:7, n:'Josh Queja',     bd:1,chain:2,reach:8, equip:2, pipe:1, vend:1297,score:46},
+    {rank:8, n:'Greg Drillock',  bd:2,chain:0,reach:38,equip:2, pipe:3, vend:400, score:48},
+    {rank:9, n:'Rudy Wagner',    bd:3,chain:0,reach:6, equip:9, pipe:2, vend:840, score:50},
+    {rank:10,n:'Meg Flom',       bd:1,chain:1,reach:7, equip:11,pipe:1, vend:1260,score:52},
+    {rank:11,n:'Montana Renno',  bd:2,chain:0,reach:4, equip:5, pipe:2, vend:238, score:60},
+    {rank:12,n:'Carroll Jenkins',bd:1,chain:0,reach:1, equip:2, pipe:1, vend:480, score:78}
+  ],
+  feb: [
+    {rank:1, n:'Sierra Ford',    bd:1,chain:0,reach:21,equip:26,pipe:5, vend:318, score:30},
+    {rank:2, n:'Amy Quinet',     bd:1,chain:1,reach:9, equip:5, pipe:3, vend:978, score:32},
+    {rank:3, n:'Jenny Lynch',    bd:1,chain:0,reach:21,equip:3, pipe:2, vend:1093,score:33},
+    {rank:4, n:'Chris Trott',    bd:1,chain:0,reach:7, equip:5, pipe:2, vend:1562,score:34},
+    {rank:5, n:'Katie Naviaux',  bd:0,chain:0,reach:41,equip:6, pipe:1, vend:878, score:36},
+    {rank:6, n:'TJ McGowan',     bd:1,chain:0,reach:18,equip:0, pipe:2, vend:481, score:38},
+    {rank:7, n:'Rudy Wagner',    bd:2,chain:0,reach:5, equip:8, pipe:1, vend:841, score:39},
+    {rank:8, n:'Josh Queja',     bd:0,chain:1,reach:7, equip:2, pipe:1, vend:1297,score:42},
+    {rank:9, n:'Greg Drillock',  bd:1,chain:0,reach:32,equip:2, pipe:2, vend:400, score:44},
+    {rank:10,n:'Meg Flom',       bd:0,chain:0,reach:7, equip:10,pipe:0, vend:1261,score:46},
+    {rank:11,n:'Montana Renno',  bd:1,chain:0,reach:2, equip:4, pipe:2, vend:237, score:50},
+    {rank:12,n:'Carroll Jenkins',bd:0,chain:0,reach:1, equip:1, pipe:1, vend:480, score:60}
+  ],
+  ytd_feb: [
+    {rank:1, n:'Sierra Ford',    bd:3,chain:1,reach:53,equip:57,pipe:11,vend:668, score:42},
+    {rank:2, n:'Amy Quinet',     bd:2,chain:2,reach:19,equip:11,pipe:6, vend:1958,score:49},
+    {rank:3, n:'Jenny Lynch',    bd:2,chain:2,reach:49,equip:8, pipe:5, vend:2193,score:51},
+    {rank:4, n:'Chris Trott',    bd:3,chain:1,reach:15,equip:10,pipe:5, vend:3124,score:52},
+    {rank:5, n:'Katie Naviaux',  bd:0,chain:2,reach:81,equip:13,pipe:3, vend:1755,score:54},
+    {rank:6, n:'TJ McGowan',     bd:3,chain:2,reach:40,equip:1, pipe:5, vend:961, score:55},
+    {rank:7, n:'Josh Queja',     bd:1,chain:3,reach:15,equip:4, pipe:2, vend:2594,score:65},
+    {rank:8, n:'Greg Drillock',  bd:3,chain:0,reach:70,equip:4, pipe:5, vend:800, score:66},
+    {rank:9, n:'Rudy Wagner',    bd:5,chain:0,reach:11,equip:17,pipe:3, vend:1681,score:70},
+    {rank:10,n:'Meg Flom',       bd:1,chain:1,reach:14,equip:21,pipe:1, vend:2521,score:73},
+    {rank:11,n:'Montana Renno',  bd:3,chain:0,reach:6, equip:9, pipe:4, vend:475, score:86},
+    {rank:12,n:'Carroll Jenkins',bd:1,chain:0,reach:2, equip:3, pipe:2, vend:960, score:110}
+  ],
+  mar: [
+    {rank:1, n:'Chris Trott',    bd:2,chain:4,reach:66,equip:16,pipe:11,vend:4,  score:31},
+    {rank:2, n:'Katie Naviaux',  bd:8,chain:0,reach:2, equip:27,pipe:8, vend:15, score:34},
+    {rank:3, n:'Meg Flom',       bd:4,chain:1,reach:6, equip:4, pipe:4, vend:211,score:49},
+    {rank:4, n:'Sierra Ford',    bd:2,chain:0,reach:13,equip:14,pipe:4, vend:0,  score:50},
+    {rank:5, n:'Amy Quinet',     bd:6,chain:0,reach:2, equip:5, pipe:6, vend:0,  score:51},
+    {rank:6, n:'Josh Queja',     bd:4,chain:0,reach:0, equip:36,pipe:4, vend:0,  score:54},
+    {rank:7, n:'Jenny Lynch',    bd:3,chain:0,reach:2, equip:19,pipe:3, vend:0,  score:56},
+    {rank:8, n:'Greg Drillock',  bd:1,chain:1,reach:11,equip:9, pipe:2, vend:0,  score:59},
+    {rank:9, n:'Carroll Jenkins',bd:5,chain:0,reach:2, equip:3, pipe:5, vend:0,  score:61},
+    {rank:10,n:'Rudy Wagner',    bd:2,chain:0,reach:9, equip:2, pipe:4, vend:0,  score:68},
+    {rank:11,n:'TJ McGowan',     bd:0,chain:0,reach:0, equip:8, pipe:6, vend:0,  score:79},
+    {rank:12,n:'Montana Renno',  bd:1,chain:0,reach:1, equip:4, pipe:2, vend:0,  score:85}
+  ],
+  ytd_mar: [
+    {rank:1, n:'Chris Trott',    bd:5,chain:5,reach:81,equip:26,pipe:16,vend:3128,score:38},
+    {rank:2, n:'Sierra Ford',    bd:5,chain:1,reach:66,equip:71,pipe:15,vend:668, score:44},
+    {rank:3, n:'Katie Naviaux',  bd:8,chain:2,reach:83,equip:40,pipe:11,vend:1770,score:46},
+    {rank:4, n:'Amy Quinet',     bd:8,chain:2,reach:21,equip:16,pipe:12,vend:1958,score:49},
+    {rank:5, n:'Jenny Lynch',    bd:5,chain:2,reach:51,equip:27,pipe:8, vend:2193,score:52},
+    {rank:6, n:'Meg Flom',       bd:5,chain:2,reach:20,equip:25,pipe:5, vend:2732,score:55},
+    {rank:7, n:'Josh Queja',     bd:5,chain:3,reach:15,equip:40,pipe:6, vend:2594,score:58},
+    {rank:8, n:'Greg Drillock',  bd:4,chain:1,reach:81,equip:13,pipe:7, vend:800, score:62},
+    {rank:9, n:'Carroll Jenkins',bd:6,chain:0,reach:4, equip:6, pipe:7, vend:960, score:68},
+    {rank:10,n:'Rudy Wagner',    bd:7,chain:0,reach:20,equip:19,pipe:7, vend:1681,score:72},
+    {rank:11,n:'TJ McGowan',     bd:3,chain:2,reach:40,equip:9, pipe:11,vend:961, score:74},
+    {rank:12,n:'Montana Renno',  bd:4,chain:0,reach:7, equip:13,pipe:6, vend:475, score:82}
+  ]
+};
+
 
 var VOL = [
-  {ram:'Josh Queja',    reg:'Southeast',seg:'Big3',py:4339, act:4918, bp:4989.85,goal:.15},
-  {ram:'Sierra Ford',   reg:'Central',  seg:'Big3',py:6298, act:7084, bp:7242.70,goal:.15},
-  {ram:'Amy Quinet',    reg:'West',     seg:'Big3',py:7179, act:6620, bp:8255.85,goal:.15},
-  {ram:'Jenny Lynch',   reg:'West',     seg:'Big3',py:4026, act:6185, bp:4629.90,goal:.15},
-  {ram:'Katie Naviaux', reg:'Central',  seg:'Big3',py:3929, act:4029, bp:4518.35,goal:.15},
-  {ram:'Rudy Wagner',   reg:'Midwest',  seg:'Big3',py:3446, act:3505, bp:3962.90,goal:.15},
-  {ram:'TJ McGowan',    reg:'Midwest',  seg:'Big3',py:2560, act:2350, bp:2944,   goal:.15},
-  {ram:'Meg Flom',      reg:'Midwest',  seg:'Big3',py:2858, act:3070, bp:3286.70,goal:.15},
-  {ram:'Montana Renno', reg:'Northeast',seg:'Big3',py:3801, act:3529, bp:4371.15,goal:.15},
-  {ram:'Carroll Jenkins',reg:'Southeast',seg:'Big3',py:4833,act:5289, bp:5557.95,goal:.15},
-  {ram:'Chris Trott',   reg:'Northeast',seg:'Big3',py:3089, act:3355, bp:3552.35,goal:.15},
-  {ram:'Greg Drillock', reg:'Northeast',seg:'Big3',py:4856, act:4399, bp:5584.40,goal:.15},
-  {ram:'Amy Quinet',    reg:'West',     seg:'Vend',py:8228, act:9149, bp:9462.20,goal:.15},
-  {ram:'Carroll Jenkins',reg:'Southeast',seg:'Vend',py:4452,act:7096, bp:5119.80,goal:.15},
-  {ram:'Chris Trott',   reg:'Northeast',seg:'Vend',py:4632, act:5167, bp:5326.80,goal:.15},
-  {ram:'Greg Drillock', reg:'Northeast',seg:'Vend',py:4421, act:5962, bp:5084.15,goal:.15},
-  {ram:'Jenny Lynch',   reg:'West',     seg:'Vend',py:5110, act:5569, bp:5876.50,goal:.15},
-  {ram:'Josh Queja',    reg:'Southeast',seg:'Vend',py:3981, act:5130, bp:4578.15,goal:.15},
-  {ram:'Katie Naviaux', reg:'Central',  seg:'Vend',py:4165, act:4764, bp:4789.75,goal:.15},
-  {ram:'Meg Flom',      reg:'Midwest',  seg:'Vend',py:2499, act:3010, bp:2873.85,goal:.15},
-  {ram:'Montana Renno', reg:'Northeast',seg:'Vend',py:3372, act:4628, bp:3877.80,goal:.15},
-  {ram:'Rudy Wagner',   reg:'Midwest',  seg:'Vend',py:5586, act:9605, bp:6423.90,goal:.15},
-  {ram:'Sierra Ford',   reg:'Central',  seg:'Vend',py:9474, act:13374,bp:10895.1,goal:.15},
-  {ram:'TJ McGowan',    reg:'Midwest',  seg:'Vend',py:3043, act:3127, bp:3499.45,goal:.15},
-  {ram:'Amy Quinet',    reg:'West',     seg:'CU',  py:2112, act:2202, bp:2428.80,goal:.10},
-  {ram:'Carroll Jenkins',reg:'Southeast',seg:'CU', py:1142, act:1294, bp:1313.30,goal:.10},
-  {ram:'Chris Trott',   reg:'Northeast',seg:'CU',  py:575,  act:494,  bp:661.25, goal:.10},
-  {ram:'Katie Naviaux', reg:'Central',  seg:'CU',  py:2273, act:3079, bp:2613.95,goal:.10},
-  {ram:'Greg Drillock', reg:'Northeast',seg:'CU',  py:501,  act:725,  bp:576.15, goal:.10},
-  {ram:'Jenny Lynch',   reg:'West',     seg:'CU',  py:2844, act:4436, bp:3270.60,goal:.10},
-  {ram:'Josh Queja',    reg:'Southeast',seg:'CU',  py:1845, act:1399, bp:2121.75,goal:.10},
-  {ram:'Meg Flom',      reg:'Midwest',  seg:'CU',  py:987,  act:1463, bp:1135.05,goal:.10},
-  {ram:'Montana Renno', reg:'Northeast',seg:'CU',  py:732,  act:718,  bp:841.80, goal:.10},
-  {ram:'Rudy Wagner',   reg:'Midwest',  seg:'CU',  py:878,  act:1189, bp:1009.70,goal:.10},
-  {ram:'Sierra Ford',   reg:'Central',  seg:'CU',  py:525,  act:434,  bp:603.75, goal:.10},
-  {ram:'TJ McGowan',    reg:'Midwest',  seg:'CU',  py:377,  act:356,  bp:433.55, goal:.10},
-  {ram:'Amy Quinet',    reg:'West',     seg:'Trvl',py:862,  act:742,  bp:965.44, goal:.12},
-  {ram:'Carroll Jenkins',reg:'Southeast',seg:'Trvl',py:1097,act:957,  bp:1228.64,goal:.12},
-  {ram:'Chris Trott',   reg:'Northeast',seg:'Trvl',py:134,  act:126,  bp:150.08, goal:.12},
-  {ram:'Greg Drillock', reg:'Northeast',seg:'Trvl',py:708,  act:628,  bp:792.96, goal:.12},
-  {ram:'Jenny Lynch',   reg:'West',     seg:'Trvl',py:1430, act:1054, bp:1601.60,goal:.12},
-  {ram:'Josh Queja',    reg:'Southeast',seg:'Trvl',py:1145, act:807,  bp:1282.40,goal:.12},
-  {ram:'Katie Naviaux', reg:'Central',  seg:'Trvl',py:450,  act:296,  bp:504,    goal:.12},
-  {ram:'Meg Flom',      reg:'Midwest',  seg:'Trvl',py:246,  act:210,  bp:275.52, goal:.12},
-  {ram:'Montana Renno', reg:'Northeast',seg:'Trvl',py:247,  act:185,  bp:276.64, goal:.12},
-  {ram:'Rudy Wagner',   reg:'Midwest',  seg:'Trvl',py:316,  act:71,   bp:353.92, goal:.12},
-  {ram:'Sierra Ford',   reg:'Central',  seg:'Trvl',py:829,  act:935,  bp:928.48, goal:.12},
-  {ram:'TJ McGowan',    reg:'Midwest',  seg:'Trvl',py:434,  act:206,  bp:486.08, goal:.12}
+  {ram:'Sierra Ford',   reg:'Central',  seg:'Big3',month:'jan',py:5241, act:5870, bp:6027.15, goal:.15},
+  {ram:'Sierra Ford',   reg:'Central',  seg:'Big3',month:'feb',py:10283,act:11235,bp:11825.45,goal:.15},
+  {ram:'Sierra Ford',   reg:'Central',  seg:'Vend',month:'jan',py:9474, act:13374,bp:10895.1,  goal:.15},
+  {ram:'Sierra Ford',   reg:'Central',  seg:'Vend',month:'feb',py:21179,act:28565,bp:24355.85,goal:.15},
+  {ram:'Sierra Ford',   reg:'Central',  seg:'CU',  month:'jan',py:3589, act:4384, bp:3947.9,  goal:.10},
+  {ram:'Sierra Ford',   reg:'Central',  seg:'CU',  month:'feb',py:3589, act:4384, bp:3947.9,  goal:.10},
+  {ram:'Sierra Ford',   reg:'Central',  seg:'Trvl',month:'jan',py:1090, act:950,  bp:1220.8,  goal:.12},
+  {ram:'Sierra Ford',   reg:'Central',  seg:'Trvl',month:'feb',py:2050, act:1793, bp:2296.0,  goal:.12},
+  {ram:'Katie Naviaux', reg:'Central',  seg:'Big3',month:'jan',py:2571, act:2432, bp:2956.65, goal:.15},
+  {ram:'Katie Naviaux', reg:'Central',  seg:'Big3',month:'feb',py:4610, act:5170, bp:5301.5,  goal:.15},
+  {ram:'Katie Naviaux', reg:'Central',  seg:'Vend',month:'jan',py:4165, act:4764, bp:4789.75, goal:.15},
+  {ram:'Katie Naviaux', reg:'Central',  seg:'Vend',month:'feb',py:9987, act:9101, bp:11485.05,goal:.15},
+  {ram:'Katie Naviaux', reg:'Central',  seg:'CU',  month:'jan',py:5871, act:7396, bp:6458.1,  goal:.10},
+  {ram:'Katie Naviaux', reg:'Central',  seg:'CU',  month:'feb',py:5871, act:7396, bp:6458.1,  goal:.10},
+  {ram:'Katie Naviaux', reg:'Central',  seg:'Trvl',month:'jan',py:450,  act:296,  bp:504.0,   goal:.12},
+  {ram:'Katie Naviaux', reg:'Central',  seg:'Trvl',month:'feb',py:813,  act:612,  bp:910.56,  goal:.12},
+  {ram:'Rudy Wagner',   reg:'Midwest',  seg:'Big3',month:'jan',py:2690, act:2444, bp:3093.5,  goal:.15},
+  {ram:'Rudy Wagner',   reg:'Midwest',  seg:'Big3',month:'feb',py:4753, act:4945, bp:5465.95, goal:.15},
+  {ram:'Rudy Wagner',   reg:'Midwest',  seg:'Vend',month:'jan',py:5644, act:9740, bp:6491.18, goal:.15},
+  {ram:'Rudy Wagner',   reg:'Midwest',  seg:'Vend',month:'feb',py:12223,act:15495,bp:14056.45,goal:.15},
+  {ram:'Rudy Wagner',   reg:'Midwest',  seg:'CU',  month:'jan',py:2327, act:3088, bp:2559.7,  goal:.10},
+  {ram:'Rudy Wagner',   reg:'Midwest',  seg:'CU',  month:'feb',py:2327, act:3088, bp:2559.7,  goal:.10},
+  {ram:'Rudy Wagner',   reg:'Midwest',  seg:'Trvl',month:'jan',py:319,  act:73,   bp:357.28,  goal:.12},
+  {ram:'Rudy Wagner',   reg:'Midwest',  seg:'Trvl',month:'feb',py:432,  act:162,  bp:483.84,  goal:.12},
+  {ram:'Meg Flom',      reg:'Midwest',  seg:'Big3',month:'jan',py:2308, act:2657, bp:2654.2,  goal:.15},
+  {ram:'Meg Flom',      reg:'Midwest',  seg:'Big3',month:'feb',py:4457, act:4784, bp:5125.55, goal:.15},
+  {ram:'Meg Flom',      reg:'Midwest',  seg:'Vend',month:'jan',py:2686, act:3290, bp:3088.9,  goal:.15},
+  {ram:'Meg Flom',      reg:'Midwest',  seg:'Vend',month:'feb',py:6570, act:7425, bp:7555.5,  goal:.15},
+  {ram:'Meg Flom',      reg:'Midwest',  seg:'CU',  month:'jan',py:2190, act:4185, bp:2409.0,  goal:.10},
+  {ram:'Meg Flom',      reg:'Midwest',  seg:'CU',  month:'feb',py:2190, act:4185, bp:2409.0,  goal:.10},
+  {ram:'Meg Flom',      reg:'Midwest',  seg:'Trvl',month:'jan',py:434,  act:226,  bp:486.08,  goal:.12},
+  {ram:'Meg Flom',      reg:'Midwest',  seg:'Trvl',month:'feb',py:2050, act:571,  bp:2296.0,  goal:.12},
+  {ram:'TJ McGowan',    reg:'Midwest',  seg:'Big3',month:'jan',py:2137, act:1714, bp:2457.55, goal:.15},
+  {ram:'TJ McGowan',    reg:'Midwest',  seg:'Big3',month:'feb',py:3897, act:3026, bp:4481.55, goal:.15},
+  {ram:'TJ McGowan',    reg:'Midwest',  seg:'Vend',month:'jan',py:3098, act:3196, bp:3562.7,  goal:.15},
+  {ram:'TJ McGowan',    reg:'Midwest',  seg:'Vend',month:'feb',py:6639, act:6459, bp:7634.85, goal:.15},
+  {ram:'TJ McGowan',    reg:'Midwest',  seg:'CU',  month:'jan',py:1705, act:2230, bp:1875.5,  goal:.10},
+  {ram:'TJ McGowan',    reg:'Midwest',  seg:'CU',  month:'feb',py:1705, act:2230, bp:1875.5,  goal:.10},
+  {ram:'TJ McGowan',    reg:'Midwest',  seg:'Trvl',month:'jan',py:246,  act:210,  bp:275.52,  goal:.12},
+  {ram:'TJ McGowan',    reg:'Midwest',  seg:'Trvl',month:'feb',py:481,  act:442,  bp:538.72,  goal:.12},
+  {ram:'Greg Drillock', reg:'Northeast',seg:'Big3',month:'jan',py:3775, act:3304, bp:4341.25, goal:.15},
+  {ram:'Greg Drillock', reg:'Northeast',seg:'Big3',month:'feb',py:6742, act:6525, bp:7753.3,  goal:.15},
+  {ram:'Greg Drillock', reg:'Northeast',seg:'Vend',month:'jan',py:4421, act:5962, bp:5084.15, goal:.15},
+  {ram:'Greg Drillock', reg:'Northeast',seg:'Vend',month:'feb',py:11457,act:12200,bp:13175.55,goal:.15},
+  {ram:'Greg Drillock', reg:'Northeast',seg:'CU',  month:'jan',py:1867, act:2134, bp:2053.7,  goal:.10},
+  {ram:'Greg Drillock', reg:'Northeast',seg:'CU',  month:'feb',py:1867, act:2134, bp:2053.7,  goal:.10},
+  {ram:'Greg Drillock', reg:'Northeast',seg:'Trvl',month:'jan',py:708,  act:628,  bp:792.96,  goal:.12},
+  {ram:'Greg Drillock', reg:'Northeast',seg:'Trvl',month:'feb',py:1487, act:1158, bp:1665.44, goal:.12},
+  {ram:'Montana Renno', reg:'Northeast',seg:'Big3',month:'jan',py:3236, act:2937, bp:3721.4,  goal:.15},
+  {ram:'Montana Renno', reg:'Northeast',seg:'Big3',month:'feb',py:6230, act:5597, bp:7164.5,  goal:.15},
+  {ram:'Montana Renno', reg:'Northeast',seg:'Vend',month:'jan',py:3600, act:4628, bp:4140.0,  goal:.15},
+  {ram:'Montana Renno', reg:'Northeast',seg:'Vend',month:'feb',py:7084, act:8580, bp:8146.6,  goal:.15},
+  {ram:'Montana Renno', reg:'Northeast',seg:'CU',  month:'jan',py:2063, act:2245, bp:2269.3,  goal:.10},
+  {ram:'Montana Renno', reg:'Northeast',seg:'CU',  month:'feb',py:2063, act:2245, bp:2269.3,  goal:.10},
+  {ram:'Montana Renno', reg:'Northeast',seg:'Trvl',month:'jan',py:247,  act:185,  bp:276.64,  goal:.12},
+  {ram:'Montana Renno', reg:'Northeast',seg:'Trvl',month:'feb',py:419,  act:392,  bp:469.28,  goal:.12},
+  {ram:'Chris Trott',   reg:'Northeast',seg:'Big3',month:'jan',py:2275, act:2454, bp:2616.25, goal:.15},
+  {ram:'Chris Trott',   reg:'Northeast',seg:'Big3',month:'feb',py:4204, act:4439, bp:4834.6,  goal:.15},
+  {ram:'Chris Trott',   reg:'Northeast',seg:'Vend',month:'jan',py:4658, act:5193, bp:5356.7,  goal:.15},
+  {ram:'Chris Trott',   reg:'Northeast',seg:'Vend',month:'feb',py:8254, act:10318,bp:9492.1,  goal:.15},
+  {ram:'Chris Trott',   reg:'Northeast',seg:'CU',  month:'jan',py:2358, act:3018, bp:2593.8,  goal:.10},
+  {ram:'Chris Trott',   reg:'Northeast',seg:'CU',  month:'feb',py:2358, act:3018, bp:2593.8,  goal:.10},
+  {ram:'Chris Trott',   reg:'Northeast',seg:'Trvl',month:'jan',py:134,  act:126,  bp:150.08,  goal:.12},
+  {ram:'Chris Trott',   reg:'Northeast',seg:'Trvl',month:'feb',py:252,  act:258,  bp:282.24,  goal:.12},
+  {ram:'Carroll Jenkins',reg:'Southeast',seg:'Big3',month:'jan',py:2828,act:3243, bp:3252.2,  goal:.15},
+  {ram:'Carroll Jenkins',reg:'Southeast',seg:'Big3',month:'feb',py:5333,act:5955, bp:6132.95, goal:.15},
+  {ram:'Carroll Jenkins',reg:'Southeast',seg:'Vend',month:'jan',py:4452,act:7096, bp:5119.8,  goal:.15},
+  {ram:'Carroll Jenkins',reg:'Southeast',seg:'Vend',month:'feb',py:9849,act:13265,bp:11326.35,goal:.15},
+  {ram:'Carroll Jenkins',reg:'Southeast',seg:'CU',  month:'jan',py:2940,act:3484, bp:3234.0,  goal:.10},
+  {ram:'Carroll Jenkins',reg:'Southeast',seg:'CU',  month:'feb',py:2940,act:3484, bp:3234.0,  goal:.10},
+  {ram:'Carroll Jenkins',reg:'Southeast',seg:'Trvl',month:'jan',py:829, act:935,  bp:928.48,  goal:.12},
+  {ram:'Carroll Jenkins',reg:'Southeast',seg:'Trvl',month:'feb',py:1561,act:1829, bp:1748.32, goal:.12},
+  {ram:'Josh Queja',    reg:'Southeast',seg:'Big3',month:'jan',py:3044, act:3711, bp:3500.6,  goal:.15},
+  {ram:'Josh Queja',    reg:'Southeast',seg:'Big3',month:'feb',py:5697, act:6898, bp:6551.55, goal:.15},
+  {ram:'Josh Queja',    reg:'Southeast',seg:'Vend',month:'jan',py:3981, act:5192, bp:4578.15, goal:.15},
+  {ram:'Josh Queja',    reg:'Southeast',seg:'Vend',month:'feb',py:9120, act:10414,bp:10488.0, goal:.15},
+  {ram:'Josh Queja',    reg:'Southeast',seg:'CU',  month:'jan',py:4637, act:4887, bp:5100.7,  goal:.10},
+  {ram:'Josh Queja',    reg:'Southeast',seg:'CU',  month:'feb',py:4637, act:4887, bp:5100.7,  goal:.10},
+  {ram:'Josh Queja',    reg:'Southeast',seg:'Trvl',month:'jan',py:1145, act:807,  bp:1282.4,  goal:.12},
+  {ram:'Josh Queja',    reg:'Southeast',seg:'Trvl',month:'feb',py:1934, act:1680, bp:2166.08, goal:.12},
+  {ram:'Jenny Lynch',   reg:'West',     seg:'Big3',month:'jan',py:3226, act:4289, bp:3709.9,  goal:.15},
+  {ram:'Jenny Lynch',   reg:'West',     seg:'Big3',month:'feb',py:6085, act:7862, bp:6997.75, goal:.15},
+  {ram:'Jenny Lynch',   reg:'West',     seg:'Vend',month:'jan',py:5110, act:5569, bp:5876.5,  goal:.15},
+  {ram:'Jenny Lynch',   reg:'West',     seg:'Vend',month:'feb',py:9542, act:10953,bp:10973.3, goal:.15},
+  {ram:'Jenny Lynch',   reg:'West',     seg:'CU',  month:'jan',py:7519, act:10683,bp:8270.9,  goal:.10},
+  {ram:'Jenny Lynch',   reg:'West',     seg:'CU',  month:'feb',py:7519, act:10683,bp:8270.9,  goal:.10},
+  {ram:'Jenny Lynch',   reg:'West',     seg:'Trvl',month:'jan',py:1430, act:1051, bp:1601.6,  goal:.12},
+  {ram:'Jenny Lynch',   reg:'West',     seg:'Trvl',month:'feb',py:2516, act:1996, bp:2817.92, goal:.12},
+  {ram:'Amy Quinet',    reg:'West',     seg:'Big3',month:'jan',py:5793, act:4938, bp:6661.95, goal:.15},
+  {ram:'Amy Quinet',    reg:'West',     seg:'Big3',month:'feb',py:11933,act:8970, bp:13722.95,goal:.15},
+  {ram:'Amy Quinet',    reg:'West',     seg:'Vend',month:'jan',py:8228, act:9149, bp:9462.2,  goal:.15},
+  {ram:'Amy Quinet',    reg:'West',     seg:'Vend',month:'feb',py:16155,act:17805,bp:18578.25,goal:.15},
+  {ram:'Amy Quinet',    reg:'West',     seg:'CU',  month:'jan',py:6485, act:6075, bp:7133.5,  goal:.10},
+  {ram:'Amy Quinet',    reg:'West',     seg:'CU',  month:'feb',py:6485, act:6075, bp:7133.5,  goal:.10},
+  {ram:'Amy Quinet',    reg:'West',     seg:'Trvl',month:'jan',py:862,  act:742,  bp:965.44,  goal:.12},
+  {ram:'Amy Quinet',    reg:'West',     seg:'Trvl',month:'feb',py:1536, act:1472, bp:1720.32, goal:.12}
 ];
 
+
 var WINS = [
-  {ram:'Amy Quinet',    type:'BD',   seg:'Vending',   acct:'Canteen / SFSU',              locs:13,vol:1000},
-  {ram:'Amy Quinet',    type:'BD',   seg:'Vending',   acct:'Canteen / Google',             locs:1, vol:2000},
-  {ram:'Amy Quinet',    type:'Chain',seg:'Fitness',   acct:'UFC Gym',                      locs:6, vol:600},
-  {ram:'Amy Quinet',    type:'Chain',seg:'Fitness',   acct:'In Shape Fitness',             locs:42,vol:2500},
-  {ram:'Carroll Jenkins',type:'BD',  seg:'C and U',   acct:'Valencia College',             locs:1, vol:2000},
-  {ram:'Chris Trott',   type:'BD',   seg:'C and U',   acct:'Union College',                locs:3, vol:750},
-  {ram:'Chris Trott',   type:'Chain',seg:'Fitness',   acct:'Central Rock Gym',             locs:2, vol:6700},
-  {ram:'Chris Trott',   type:'BD',   seg:'Vending',   acct:'Buffalo Stive/Canteen',        locs:10,vol:3200},
-  {ram:'Chris Trott',   type:'BD',   seg:'C and U',   acct:'Husson University',            locs:2, vol:750},
-  {ram:'Greg Drillock', type:'BD',   seg:'Travel',    acct:'Villa Rest. Group (infusion)', locs:50,vol:500},
-  {ram:'Greg Drillock', type:'BD',   seg:'Travel',    acct:'Villa Rest. Group (voids)',    locs:70,vol:1800},
-  {ram:'Greg Drillock', type:'BD',   seg:'B and I',   acct:'Jane Street',                  locs:1, vol:250},
-  {ram:'Jenny Lynch',   type:'Chain',seg:'Fitness',   acct:'Mountainside Fitness',         locs:22,vol:5000},
-  {ram:'Jenny Lynch',   type:'Chain',seg:'Travel',    acct:'Crews of California',           locs:27,vol:5000},
-  {ram:'Jenny Lynch',   type:'BD',   seg:'B and I',   acct:'Eurest / BoA',                 locs:0, vol:0},
-  {ram:'Jenny Lynch',   type:'BD',   seg:'Fitness',   acct:'UFC Gyms',                     locs:0, vol:0},
-  {ram:'Josh Queja',    type:'Chain',seg:'Fitness',   acct:'Hylo Fitness',                 locs:4, vol:200},
-  {ram:'Josh Queja',    type:'Chain',seg:'Fitness',   acct:'Triangle Rock Club',           locs:6, vol:200},
-  {ram:'Josh Queja',    type:'Chain',seg:'Fitness',   acct:'Inner Peak Climbing',          locs:3, vol:200},
-  {ram:'Josh Queja',    type:'BD',   seg:'Healthcare',acct:'Baptist Hospital',             locs:2, vol:2800},
-  {ram:'Katie Naviaux', type:'Chain',seg:'Fitness',   acct:'Vasa Fitness',                 locs:72,vol:2500},
-  {ram:'Katie Naviaux', type:'Chain',seg:'Fitness',   acct:'Defined Fitness',              locs:8, vol:500},
-  {ram:'Meg Flom',      type:'Chain',seg:'Fitness',   acct:'Powerhouse Gym',               locs:14,vol:1000},
-  {ram:'Meg Flom',      type:'BD',   seg:'B and I',   acct:'Ford',                         locs:1, vol:1000},
-  {ram:'Montana Renno', type:'BD',   seg:'B and I',   acct:'Proctor and Gamble',           locs:5, vol:500},
-  {ram:'Montana Renno', type:'BD',   seg:'B and I',   acct:'Ohio Health',                  locs:1, vol:500},
-  {ram:'Montana Renno', type:'BD',   seg:'Vending',   acct:'Canteen Roanoke',              locs:1, vol:5000},
-  {ram:'Rudy Wagner',   type:'BD',   seg:'Healthcare',acct:'SSM Healthcare',               locs:5, vol:1000},
-  {ram:'Rudy Wagner',   type:'BD',   seg:'Travel',    acct:'OHM',                          locs:0, vol:0},
-  {ram:'Rudy Wagner',   type:'BD',   seg:'B and I',   acct:'Boeing / Eurest',              locs:0, vol:1500},
-  {ram:'Rudy Wagner',   type:'BD',   seg:'B and I',   acct:'John Deere',                   locs:2, vol:200},
-  {ram:'Rudy Wagner',   type:'BD',   seg:'Fitness',   acct:'F45',                          locs:4, vol:0},
-  {ram:'Sierra Ford',   type:'BD',   seg:'Healthcare',acct:'Baylor Scott and White',       locs:1, vol:2000},
-  {ram:'Sierra Ford',   type:'BD',   seg:'Healthcare',acct:'Memorial Herman',              locs:1, vol:1500},
-  {ram:'Sierra Ford',   type:'BD',   seg:'Travel',    acct:'Star Concessions',             locs:8, vol:2500},
-  {ram:'Sierra Ford',   type:'Chain',seg:'Fitness',   acct:'Tru Fit',                      locs:40,vol:1500},
-  {ram:'TJ McGowan',    type:'Chain',seg:'Fitness',   acct:'FFC',                          locs:10,vol:800},
-  {ram:'TJ McGowan',    type:'Chain',seg:'Fitness',   acct:'Harman / Crunch',              locs:30,vol:0},
-  {ram:'TJ McGowan',    type:'BD',   seg:'C and U',   acct:'Eastern Illinois Univ.',       locs:0, vol:0},
-  {ram:'TJ McGowan',    type:'BD',   seg:'Healthcare',acct:'Thorek Memorial Hospital',     locs:0, vol:0},
-  {ram:'TJ McGowan',    type:'BD',   seg:'Vending',   acct:'A and M Vending',              locs:0, vol:0}
+  {ram:'Amy Quinet',    month:'jan',type:'BD',   seg:'Vending',    acct:'Canteen / SFSU',              locs:13, vol:1000},
+  {ram:'Amy Quinet',    month:'jan',type:'BD',   seg:'Vending',    acct:'Canteen / Google',            locs:1,  vol:2000},
+  {ram:'Amy Quinet',    month:'jan',type:'Chain',seg:'Fitness',    acct:'UFC Gym',                     locs:6,  vol:600},
+  {ram:'Amy Quinet',    month:'jan',type:'Chain',seg:'Fitness',    acct:'In Shape Fitness',            locs:42, vol:2500},
+  {ram:'Carroll Jenkins',month:'jan',type:'BD',  seg:'C and U',   acct:'Valencia College',            locs:1,  vol:2000},
+  {ram:'Chris Trott',   month:'jan',type:'BD',   seg:'C and U',   acct:'Union College',               locs:3,  vol:750},
+  {ram:'Chris Trott',   month:'jan',type:'Chain',seg:'Fitness',    acct:'Central Rock Gym',            locs:2,  vol:6700},
+  {ram:'Chris Trott',   month:'jan',type:'BD',   seg:'Vending',    acct:'Buffalo Stive/Canteen',       locs:10, vol:3200},
+  {ram:'Chris Trott',   month:'jan',type:'BD',   seg:'C and U',   acct:'Husson University',           locs:2,  vol:750},
+  {ram:'Greg Drillock', month:'jan',type:'BD',   seg:'Travel',     acct:'Villa Rest Group (infusion)', locs:50, vol:500},
+  {ram:'Greg Drillock', month:'jan',type:'BD',   seg:'Travel',     acct:'Villa Rest Group (voids)',    locs:70, vol:1800},
+  {ram:'Greg Drillock', month:'jan',type:'BD',   seg:'B and I',   acct:'Jane Street',                 locs:1,  vol:250},
+  {ram:'Jenny Lynch',   month:'jan',type:'Chain',seg:'Fitness',    acct:'Mountainside Fitness',        locs:22, vol:5000},
+  {ram:'Jenny Lynch',   month:'jan',type:'Chain',seg:'Travel',     acct:'Crews of California',         locs:27, vol:5000},
+  {ram:'Jenny Lynch',   month:'jan',type:'BD',   seg:'B and I',   acct:'Eurest / BoA',                locs:0,  vol:0},
+  {ram:'Jenny Lynch',   month:'jan',type:'BD',   seg:'Fitness',    acct:'UFC Gyms',                    locs:0,  vol:0},
+  {ram:'Josh Queja',    month:'jan',type:'Chain',seg:'Fitness',    acct:'Hylo Fitness',                locs:4,  vol:200},
+  {ram:'Josh Queja',    month:'jan',type:'Chain',seg:'Fitness',    acct:'Triangle Rock Club',          locs:6,  vol:200},
+  {ram:'Josh Queja',    month:'jan',type:'Chain',seg:'Fitness',    acct:'Inner Peak Climbing',         locs:3,  vol:200},
+  {ram:'Josh Queja',    month:'jan',type:'BD',   seg:'Healthcare', acct:'Baptist Hospital',            locs:2,  vol:2800},
+  {ram:'Katie Naviaux', month:'jan',type:'Chain',seg:'Fitness',    acct:'Vasa Fitness',                locs:72, vol:2500},
+  {ram:'Katie Naviaux', month:'jan',type:'Chain',seg:'Fitness',    acct:'Defined Fitness',             locs:8,  vol:500},
+  {ram:'Meg Flom',      month:'jan',type:'Chain',seg:'Fitness',    acct:'Powerhouse Gym',              locs:14, vol:1000},
+  {ram:'Meg Flom',      month:'jan',type:'BD',   seg:'B and I',   acct:'Ford',                        locs:1,  vol:1000},
+  {ram:'Montana Renno', month:'jan',type:'BD',   seg:'B and I',   acct:'Proctor and Gamble',          locs:5,  vol:500},
+  {ram:'Montana Renno', month:'jan',type:'BD',   seg:'B and I',   acct:'Ohio Health',                 locs:1,  vol:500},
+  {ram:'Montana Renno', month:'jan',type:'BD',   seg:'Vending',    acct:'Canteen Roanoke',             locs:1,  vol:5000},
+  {ram:'Rudy Wagner',   month:'jan',type:'BD',   seg:'Healthcare', acct:'SSM Healthcare',              locs:5,  vol:1000},
+  {ram:'Rudy Wagner',   month:'jan',type:'BD',   seg:'Travel',     acct:'OHM',                         locs:0,  vol:0},
+  {ram:'Rudy Wagner',   month:'jan',type:'BD',   seg:'B and I',   acct:'Boeing / Eurest',             locs:0,  vol:1500},
+  {ram:'Rudy Wagner',   month:'jan',type:'BD',   seg:'B and I',   acct:'John Deere',                  locs:2,  vol:200},
+  {ram:'Rudy Wagner',   month:'jan',type:'BD',   seg:'Fitness',    acct:'F45',                         locs:4,  vol:0},
+  {ram:'Sierra Ford',   month:'jan',type:'BD',   seg:'Healthcare', acct:'Baylor Scott and White',      locs:1,  vol:2000},
+  {ram:'Sierra Ford',   month:'jan',type:'BD',   seg:'Healthcare', acct:'Memorial Herman',             locs:1,  vol:1500},
+  {ram:'Sierra Ford',   month:'jan',type:'BD',   seg:'Travel',     acct:'Star Concessions',            locs:8,  vol:2500},
+  {ram:'Sierra Ford',   month:'jan',type:'Chain',seg:'Fitness',    acct:'Tru Fit',                     locs:40, vol:1500},
+  {ram:'TJ McGowan',    month:'jan',type:'Chain',seg:'Fitness',    acct:'FFC',                         locs:10, vol:800},
+  {ram:'TJ McGowan',    month:'jan',type:'Chain',seg:'Fitness',    acct:'Harman / Crunch',             locs:30, vol:0},
+  {ram:'TJ McGowan',    month:'jan',type:'BD',   seg:'C and U',   acct:'Eastern Illinois Univ.',      locs:0,  vol:0},
+  {ram:'TJ McGowan',    month:'jan',type:'BD',   seg:'Healthcare', acct:'Thorek Memorial Hospital',    locs:0,  vol:0},
+  {ram:'TJ McGowan',    month:'jan',type:'BD',   seg:'Vending',    acct:'A and M Vending',             locs:0,  vol:0},
+  {ram:'Sierra Ford',   month:'mar',type:'BD',   seg:'Travel',     acct:'Star Concessions',            locs:11, vol:3360},
+  {ram:'Sierra Ford',   month:'mar',type:'BD',   seg:'Travel',     acct:'Four Leaf Ventures',          locs:2,  vol:750},
+  {ram:'Amy Quinet',    month:'mar',type:'BD',   seg:'At Work',    acct:'Google Microkitchens',        locs:40, vol:0},
+  {ram:'Amy Quinet',    month:'mar',type:'BD',   seg:'At Work',    acct:'Google SF Guckenheimer',      locs:10, vol:0},
+  {ram:'Amy Quinet',    month:'mar',type:'BD',   seg:'C and U',   acct:'Cal Poly Bookstore',          locs:1,  vol:0},
+  {ram:'Amy Quinet',    month:'mar',type:'BD',   seg:'Vending',    acct:'Future Toyota',               locs:1,  vol:0},
+  {ram:'Amy Quinet',    month:'mar',type:'BD',   seg:'At Work',    acct:'Sony Playstation',            locs:1,  vol:0},
+  {ram:'Rudy Wagner',   month:'mar',type:'BD',   seg:'Travel',     acct:'Skydine SD',                  locs:3,  vol:0},
+  {ram:'Rudy Wagner',   month:'mar',type:'BD',   seg:'At Work',    acct:'Eurest MN',                   locs:6,  vol:0},
+  {ram:'Meg Flom',      month:'mar',type:'BD',   seg:'At Work',    acct:'Honda',                       locs:1,  vol:0},
+  {ram:'Meg Flom',      month:'mar',type:'BD',   seg:'At Work',    acct:'Hemlock Semiconductor',       locs:1,  vol:0},
+  {ram:'Meg Flom',      month:'mar',type:'BD',   seg:'At Work',    acct:'Cummins',                     locs:1,  vol:0},
+  {ram:'Meg Flom',      month:'mar',type:'Chain',seg:'Fitness',    acct:'Indiana Fitness Clubs',       locs:4,  vol:0},
+  {ram:'Meg Flom',      month:'mar',type:'BD',   seg:'Healthcare', acct:'Memorial Health Owosso',      locs:1,  vol:0},
+  {ram:'Jenny Lynch',   month:'mar',type:'BD',   seg:'Fitness',    acct:'UFC Gyms',                    locs:6,  vol:0},
+  {ram:'Jenny Lynch',   month:'mar',type:'BD',   seg:'Travel',     acct:'LAX Crews of California',     locs:9,  vol:0},
+  {ram:'Jenny Lynch',   month:'mar',type:'BD',   seg:'Healthcare', acct:'Temecula Valley Hospital',    locs:1,  vol:0},
+  {ram:'Katie Naviaux', month:'mar',type:'BD',   seg:'Healthcare', acct:'Ogden Regional Medical',      locs:1,  vol:0},
+  {ram:'Katie Naviaux', month:'mar',type:'BD',   seg:'Vending',    acct:'Tanzie Vending',              locs:1,  vol:0},
+  {ram:'Katie Naviaux', month:'mar',type:'BD',   seg:'Vending',    acct:'Canteen Denver',              locs:1,  vol:0},
+  {ram:'Katie Naviaux', month:'mar',type:'BD',   seg:'Vending',    acct:'Canteen Colorado Springs',    locs:1,  vol:0},
+  {ram:'Katie Naviaux', month:'mar',type:'BD',   seg:'Healthcare', acct:'Billings Clinic Hospital',    locs:1,  vol:0},
+  {ram:'Chris Trott',   month:'mar',type:'Chain',seg:'At Work',    acct:'Lonza Biologics (Compass)',   locs:2,  vol:0},
+  {ram:'Chris Trott',   month:'mar',type:'BD',   seg:'Vending',    acct:'Buffalo Strive Vending',      locs:150,vol:0},
+  {ram:'Chris Trott',   month:'mar',type:'Chain',seg:'At Work',    acct:'State Street Financial',      locs:2,  vol:0},
+  {ram:'Chris Trott',   month:'mar',type:'BD',   seg:'Vending',    acct:'Vistar NE Local Incentive',   locs:32, vol:0},
+  {ram:'Chris Trott',   month:'mar',type:'Chain',seg:'C and U',   acct:'Univ. of New England',        locs:2,  vol:0},
+  {ram:'Chris Trott',   month:'mar',type:'Chain',seg:'Fitness',    acct:'Planet Fitness (Fit Earth)',  locs:60, vol:0},
+  {ram:'Josh Queja',    month:'mar',type:'BD',   seg:'B and I',   acct:'Google Charlotte',            locs:12, vol:0},
+  {ram:'Josh Queja',    month:'mar',type:'BD',   seg:'Vending',    acct:'Pee Dee Vending',             locs:36, vol:0},
+  {ram:'Josh Queja',    month:'mar',type:'BD',   seg:'B and I',   acct:'Memphis FedEx',               locs:7,  vol:0},
+  {ram:'Carroll Jenkins',month:'mar',type:'BD',  seg:'Fitness',    acct:'CR Fitness',                  locs:92, vol:0},
+  {ram:'Carroll Jenkins',month:'mar',type:'BD',  seg:'Healthcare', acct:'Broward County Hospital',     locs:1,  vol:0},
+  {ram:'Carroll Jenkins',month:'mar',type:'BD',  seg:'At Work',    acct:'UTI',                         locs:1,  vol:0},
+  {ram:'Carroll Jenkins',month:'mar',type:'BD',  seg:'At Work',    acct:'Citrix',                      locs:1,  vol:0},
+  {ram:'Carroll Jenkins',month:'mar',type:'BD',  seg:'Healthcare', acct:'Wrapsody Cafe Memorial',      locs:1,  vol:0},
+  {ram:'Greg Drillock', month:'mar',type:'BD',   seg:'Vending',    acct:'Bevco Vending',               locs:100,vol:0},
+  {ram:'Greg Drillock', month:'mar',type:'Chain',seg:'Healthcare', acct:'Temple Hospital',             locs:11, vol:0},
+  {ram:'Montana Renno', month:'mar',type:'BD',   seg:'Healthcare', acct:'University Hospital',         locs:1,  vol:0}
 ];
+
 
 var FIT = [
   {reg:'Central',   ncram:'Sierra Ford',    acct:'Tru Fit Athletics',           chain:1,reach:40,skus:4, skuT:'ED, SF, SFPE, SFSBE',                  eqT:'',             eqQ:0, acts:0},
@@ -499,6 +694,11 @@ var FIT = [
   {reg:'West',      ncram:'Amy Quinet',     acct:'Medline',                     chain:0,reach:0, skus:0, skuT:'',                                      eqT:'Mega Slim',    eqQ:2, acts:0},
   {reg:'West',      ncram:'Amy Quinet',     acct:'Amazon',                      chain:0,reach:0, skus:0, skuT:'',                                      eqT:'Vending Machine',eqQ:2,acts:0},
   {reg:'Northeast', ncram:'Chris Trott',    acct:'Central Rock Gym',            chain:1,reach:2, skus:3, skuT:'ED, SF, YE, AE, SBE',                   eqT:'',             eqQ:0, acts:2}
+];
+
+var ATWORK = [
+  {reg:'Northeast',ncram:'Chris Trott',acct:'Lonza Biologics (Compass)',     chain:1,reach:2,skus:6,skuT:'ED, SF, Red, Yellow, Sea Blue, Coconut',eqT:'Slim Medium',eqQ:2,acts:2},
+  {reg:'Northeast',ncram:'Chris Trott',acct:'State Street Financial (Aramark)',chain:1,reach:2,skus:5,skuT:'ED, SF, Red, Yellow, Sea Blue',       eqT:'Slim Medium',eqQ:4,acts:2}
 ];
 
 /* ---- utilities ---- */
@@ -548,10 +748,11 @@ function eqStr(eqT, eqQ) {
   return eqT;
 }
 
-function gStats(name) {
+function gStats(name, month) {
   var act = 0, py = 0, bp = 0;
+  var mf = month || 'feb';
   for (var i = 0; i < VOL.length; i++) {
-    if (VOL[i].ram === name) {
+    if (VOL[i].ram === name && VOL[i].month === mf) {
       act += VOL[i].act;
       py  += VOL[i].py;
       bp  += VOL[i].bp;
@@ -569,7 +770,7 @@ function gStats(name) {
 function gVolRanks() {
   var arr = [];
   for (var i = 0; i < RAMS.length; i++) {
-    var s = gStats(RAMS[i].n);
+    var s = gStats(RAMS[i].n, 'feb');
     arr.push({n: RAMS[i].n, reg: RAMS[i].reg, c: RAMS[i].c, act: s.act, py: s.py, bp: s.bp, vs: s.vs, vbp: s.vbp});
   }
   arr.sort(function(a, b) { return b.vs - a.vs; });
@@ -599,163 +800,161 @@ function goTab(id, el) {
   if (id === 'ncram')    renderRanks();
   if (id === 'profile')  renderProf();
   if (id === 'fitness')  renderFit();
-  if (id === 'insights') {}
+  if (id === 'atwork')   renderAtWork();
+  if (id === 'insights') showInsights(curIF);
 }
 
-function applyF() {
-  var sec = document.querySelector('.section.active');
-  if (!sec) return;
-  if (sec.id === 'national') renderNat();
-  if (sec.id === 'kpi')      renderKPI();
-  if (sec.id === 'volume')   renderVol();
+/* ---- SHARED FILTER HELPERS ---- */
+function toggleDrop(wrapId, e) {
+  if(e) e.stopPropagation();
+  var drop = document.getElementById(wrapId).querySelector('.mchk-drop');
+  var isOpen = drop.classList.contains('open');
+  document.querySelectorAll('.mchk-drop.open').forEach(function(d){d.classList.remove('open');});
+  if(!isOpen) drop.classList.add('open');
+}
+document.addEventListener('click', function(){
+  document.querySelectorAll('.mchk-drop.open').forEach(function(d){d.classList.remove('open');});
+});
+
+function getChecked(cls) {
+  var els=document.querySelectorAll('.'+cls+':checked'), vals=[];
+  for(var i=0;i<els.length;i++) vals.push(els[i].value);
+  return vals;
+}
+function getRadio(name) {
+  var el=document.querySelector('input[name="'+name+'"]:checked');
+  return el?el.value:'ytd_feb';
+}
+function updateBtnLabel(btnId, vals, allLabel, noneLabel) {
+  var btn=document.getElementById(btnId);
+  if(!btn) return;
+  if(!vals.length) btn.textContent=noneLabel||'None';
+  else if(vals.length===1) btn.textContent=vals[0];
+  else btn.textContent=allLabel||vals.join(', ');
+}
+function moLabel(val) {
+  var m={jan:'January',feb:'February',mar:'March',ytd_feb:'Jan + Feb YTD',ytd_mar:'Jan+Feb+Mar YTD'};
+  return m[val]||val;
 }
 
 /* ---- NATIONAL ---- */
-function renderNat() {
-  var selReg = document.getElementById('rf') ? document.getElementById('rf').value : 'all';
-  var data = selReg === 'all' ? VOL : VOL.filter(function(d){return d.reg === selReg;});
-
-  var tA=0,tP=0,tB=0,wV=0;
-  for(var i=0;i<data.length;i++){tA+=data[i].act;tP+=data[i].py;tB+=data[i].bp;}
-  for(var j=0;j<WINS.length;j++) wV+=WINS[j].vol||0;
-  var vP=(tA-tP)/tP, vB=(tA-tB)/tB;
-
-  var label = selReg === 'all' ? 'National' : selReg;
-  document.getElementById('NM').innerHTML =
-    mkMC(label+' Volume ACT', (tA/1000).toFixed(0)+'K', pct(vP)+' vs PY', '', vc(vP)) +
-    mkMC('vs Business Plan', pct(vB), 'BP: '+(tB/1000).toFixed(0)+'K', vc(vB), '') +
-    mkMC('Total Wins Jan+Feb', WINS.length, 'BD + Chain Wins', '', '') +
-    mkMC('Projected Vol Impact', (wV/1000).toFixed(0)+'K', 'TR1/Year', '', '');
-
-  var activeSegBtn = document.querySelector('#NSN .on');
-  var activeSeg = activeSegBtn ? activeSegBtn.getAttribute('data-seg') || 'all' : 'all';
-  drawNSC(activeSeg, activeSegBtn, selReg);
-
-  var displayRegs = selReg === 'all' ? REGS : [selReg];
-  var totalAct = 0;
-  displayRegs.forEach(function(r){totalAct += volByReg(data,r).act;});
-  var rActs = displayRegs.map(function(r){return volByReg(data,r).act;});
-
-  dc('NRC');
-  CH['NRC'] = new Chart(document.getElementById('NRC'), {
-    type: 'doughnut',
-    data: {
-      labels: displayRegs,
-      datasets: [{data: rActs, backgroundColor: displayRegs.map(function(r){return RC[r];}), borderWidth: 2}]
-    },
-    options: {
-      responsive:true, maintainAspectRatio:false,
-      plugins:{
-        legend:{display:true,position:'bottom',labels:{font:{size:11},boxWidth:10}},
-        tooltip:{
-          callbacks:{
-            label: function(ctx){
-              var val = ctx.parsed;
-              var total = ctx.dataset.data.reduce(function(a,b){return a+b;},0);
-              var pctVal = total > 0 ? Math.round((val/total)*100) : 0;
-              return ' ' + ctx.label + ': ' + (val>=1000?(val/1000).toFixed(1)+'K':val) + ' (' + pctVal + '%)';
-            }
-          }
-        },
-        datalabels: false
-      },
-      animation: {
-        onComplete: function() {
-          var chart = this;
-          var ctx2 = chart.ctx;
-          ctx2.save();
-          ctx2.font = 'bold 10px -apple-system,sans-serif';
-          ctx2.textAlign = 'center';
-          ctx2.textBaseline = 'middle';
-          var total = rActs.reduce(function(a,b){return a+b;},0);
-          chart.data.datasets.forEach(function(dataset, di){
-            var meta = chart.getDatasetMeta(di);
-            meta.data.forEach(function(element, index){
-              var val = dataset.data[index];
-              var pctVal = total>0?Math.round((val/total)*100):0;
-              if(pctVal < 5) return;
-              var pos = element.tooltipPosition();
-              ctx2.fillStyle = '#fff';
-              ctx2.fillText(pctVal+'%', pos.x, pos.y - 6);
-              ctx2.font = '9px -apple-system,sans-serif';
-              ctx2.fillText(val>=1000?(val/1000).toFixed(1)+'K':val, pos.x, pos.y + 6);
-              ctx2.font = 'bold 10px -apple-system,sans-serif';
-            });
-          });
-          ctx2.restore();
-        }
-      }
-    }
-  });
-
-  var rows = '';
-  for(var k=0;k<displayRegs.length;k++){
-    var r=displayRegs[k];
-    var s=volByReg(data,r);
-    var bpT=0;
-    for(var x=0;x<data.length;x++){if(data[x].reg===r)bpT+=data[x].bp;}
-    bpT=Math.round(bpT);
-    var vs=(s.act-s.py)/s.py, vb=(s.act-bpT)/bpT;
-    var regPct = totalAct>0?Math.round((s.act/totalAct)*100):0;
-    rows += mkRow5([
-      {v: dot(RC[r])+r},
-      {v: fmt(s.act)+'<span style="font-size:10px;color:#888780;margin-left:5px">'+regPct+'%</span>', r:1},
-      {v: fmt(s.py), r:1},
-      {v: bdg(vs>=0?'bG':'bR', pct(vs)), r:1},
-      {v: bdg(vb>=0?'bG':'bR', pct(vb)), r:1}
-    ]);
-  }
-  document.getElementById('NRT').innerHTML = '<thead><tr><th>Region</th><th class="r">Actual</th><th class="r">PY</th><th class="r">vs PY</th><th class="r">vs BP</th></tr></thead><tbody>'+rows+'</tbody>';
+function natChanged() {
+  var mos=getChecked('nat-mo'), regs=getChecked('nat-reg');
+  updateBtnLabel('natMoBtn', mos.map(moLabel), 'All Months', 'No Month');
+  updateBtnLabel('natRegBtn', regs, 'All Regions', 'No Region');
+  renderNat();
 }
 
-function drawNSC(seg, btn, regFilter) {
-  if (btn) {
-    var btns = document.querySelectorAll('#NSN .sbtn');
-    for (var i = 0; i < btns.length; i++) btns[i].classList.remove('on');
-    btn.classList.add('on');
-    btn.setAttribute('data-seg', seg);
-  }
-  var selReg = regFilter || (document.getElementById('rf') ? document.getElementById('rf').value : 'all');
-  var lbls = [], acts = [], pys = [];
-  for (var j = 0; j < RAMS.length; j++) {
-    var name = RAMS[j].n;
-    var rA = 0, rP = 0;
-    for (var k = 0; k < VOL.length; k++) {
-      var match = VOL[k].ram === name &&
-                  (seg === 'all' || VOL[k].seg === seg) &&
-                  (selReg === 'all' || VOL[k].reg === selReg);
-      if (match) { rA += VOL[k].act; rP += VOL[k].py; }
-    }
-    if (rA > 0 || rP > 0) {
-      lbls.push(name.split(' ')[0]);
-      acts.push(Math.round(rA));
-      pys.push(Math.round(rP));
-    }
-  }
+function renderNat() {
+  var selMos  = getChecked('nat-mo');  if(!selMos.length)  selMos=['jan','feb'];
+  var selRegs = getChecked('nat-reg'); if(!selRegs.length) selRegs=REGS.slice();
+
+  var volData = VOL.filter(function(d){return d.month==='feb' && selRegs.indexOf(d.reg)>=0;});
+  var tA=0,tP=0,tB=0;
+  for(var i=0;i<volData.length;i++){tA+=volData[i].act;tP+=volData[i].py;tB+=volData[i].bp;}
+  var vP=(tA-tP)/tP, vB=(tA-tB)/tB;
+
+  var winsData=WINS.filter(function(w){return selMos.indexOf(w.month)>=0 && selRegs.indexOf(gr(w.ram).reg)>=0;});
+  var kpiKey=selMos.indexOf('mar')>=0&&selMos.length===1?'mar':selMos.indexOf('mar')>=0?'ytd_mar':'ytd_feb';
+  if(selMos.length===1&&selMos[0]==='jan') kpiKey='jan';
+  if(selMos.length===1&&selMos[0]==='feb') kpiKey='feb';
+  var kd=KPI[kpiKey]||KPI.ytd_feb;
+  var totalReach=0;
+  for(var ki=0;ki<kd.length;ki++) totalReach+=kd[ki].reach||0;
+
+  document.getElementById('NM').innerHTML=
+    mkMC('Total Volume ACT',(tA/1000).toFixed(0)+'K',pct(vP)+' vs PY','',vc(vP))+
+    mkMC('vs Business Plan',pct(vB),'BP: '+(tB/1000).toFixed(0)+'K',vc(vB),'')+
+    mkMC('Net New Reach',totalReach.toLocaleString(),'KPI scorecard wins','','pos')+
+    mkMC('Total Wins',winsData.length,'BD + Chain combined','','');
+
   dc('NSC');
-  CH['NSC'] = new Chart(document.getElementById('NSC'), {
-    type: 'bar',
-    data: {labels: lbls, datasets: [
-      {label:'Actual', data:acts, backgroundColor:'#378ADD', borderRadius:3},
-      {label:'PY',     data:pys,  backgroundColor:'rgba(136,135,128,0.25)', borderRadius:3}
+  var acts=[],pys=[];
+  for(var ri=0;ri<selRegs.length;ri++){var sv=volByReg(volData,selRegs[ri]);acts.push(sv.act);pys.push(sv.py);}
+  CH['NSC']=new Chart(document.getElementById('NSC'),{
+    type:'bar',
+    data:{labels:selRegs,datasets:[
+      {label:'Actual',data:acts,backgroundColor:selRegs.map(function(r){return RC[r]||'#888';}),borderRadius:4},
+      {label:'Prior Year',data:pys,backgroundColor:'rgba(136,135,128,0.25)',borderRadius:4}
     ]},
-    options: {responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:10}},grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{font:{size:10},boxWidth:8}}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}
   });
+
+  var bd=0,chain=0;
+  for(var wi=0;wi<winsData.length;wi++){if(winsData[wi].type==='BD')bd++;else chain++;}
+  var tot=bd+chain;
+  dc('NRC');
+  CH['NRC']=new Chart(document.getElementById('NRC'),{
+    type:'doughnut',
+    data:{labels:['BD Wins','Chain Wins'],datasets:[{data:[bd,chain],backgroundColor:['#378ADD','#1D9E75'],borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'bottom',labels:{font:{size:11},boxWidth:10}},
+        tooltip:{callbacks:{label:function(ctx){return ' '+ctx.label+': '+ctx.parsed+(tot?' ('+Math.round(ctx.parsed/tot*100)+'%)':'');}}}}
+    }
+  });
+
+  var rows='';
+  var totalAct=0; for(var di=0;di<selRegs.length;di++) totalAct+=volByReg(volData,selRegs[di]).act;
+  for(var k=0;k<selRegs.length;k++){
+    var r=selRegs[k], sv=volByReg(volData,r), bpT=0;
+    for(var x=0;x<volData.length;x++){if(volData[x].reg===r)bpT+=volData[x].bp;}
+    bpT=Math.round(bpT);
+    var vs2=(sv.act-sv.py)/sv.py, vb2=(sv.act-bpT)/bpT;
+    var pct2=totalAct>0?Math.round((sv.act/totalAct)*100):0;
+    rows+=mkRow5([
+      {v:dot(RC[r])+r},
+      {v:fmt(sv.act)+'<span style="font-size:10px;color:#888780;margin-left:5px">'+pct2+'%</span>',r:1},
+      {v:fmt(sv.py),r:1},
+      {v:bdg(vs2>=0?'bG':'bR',pct(vs2)),r:1},
+      {v:bdg(vb2>=0?'bG':'bR',pct(vb2)),r:1}
+    ]);
+  }
+  document.getElementById('NRT').innerHTML='<thead><tr><th>Region</th><th class="r">Actual</th><th class="r">PY</th><th class="r">vs PY</th><th class="r">vs BP</th></tr></thead><tbody>'+rows+'</tbody>';
 }
 
 /* ---- KPI ---- */
+function kpiChanged() {
+  var mos=getChecked('kpi-mo'); if(!mos.length) mos=['jan','feb'];
+  var lbl=mos.length===3?'All Months':mos.map(function(m){return m.charAt(0).toUpperCase()+m.slice(1);}).join('+');
+  document.getElementById('kpiMoBtn').textContent=lbl;
+  renderKPI();
+}
+
+function getKPIKey() {
+  var mos=getChecked('kpi-mo'); if(!mos.length) mos=['jan','feb'];
+  var j=mos.indexOf('jan')>=0, f=mos.indexOf('feb')>=0, m=mos.indexOf('mar')>=0;
+  if(j&&f&&m) return 'ytd_mar';
+  if(j&&f)    return 'ytd_feb';
+  if(j)       return 'jan';
+  if(f)       return 'feb';
+  if(m)       return 'mar';
+  return 'ytd_feb';
+}
+
+/* ---- KPI ---- */
+function getKPIData() {
+  return KPI[getKPIKey()] || KPI.ytd_feb;
+}
+function kpiDefault() { return KPI.ytd_feb || []; }
+
 function renderKPI() {
+  var data = getKPIData();
+  var per = getKPIKey();
+  var perLabels = {jan:'January',feb:'February',ytd_feb:'Jan+Feb',mar:'March',ytd_mar:'All Months'};
+  var perLabel = perLabels[per] || 'YTD';
+
   var tB=0,tC=0,tR=0,tE=0,tV=0;
-  for(var i=0;i<KPI.length;i++){tB+=KPI[i].bd;tC+=KPI[i].chain;tR+=KPI[i].reach;tE+=KPI[i].equip;tV+=KPI[i].vend||0;}
+  for(var i=0;i<data.length;i++){tB+=data[i].bd;tC+=data[i].chain;tR+=data[i].reach;tE+=data[i].equip;tV+=data[i].vend||0;}
   document.getElementById('KM').innerHTML =
-    mkMC('BD Wins',              tB, 'Jan + Feb', '', '') +
+    mkMC('BD Wins',              tB, perLabel, '', '') +
     mkMC('Chain Wins',           tC, 'New chain partners', '', '') +
     mkMC('Net New Reach',        tR, 'Wins', '', '') +
     mkMC('Cold Equip Placed',    tE, 'Placements', '', '') +
     mkMC('Vending Touchpoints', tV.toLocaleString(), 'Won/Mapped', '', '');
+
   var krows = '';
-  for(var j=0;j<KPI.length;j++){
-    var s=KPI[j], m=gr(s.n);
+  for(var j=0;j<data.length;j++){
+    var s=data[j], m=gr(s.n);
     krows += mkRow5([
       {v:'<span class="rn">#'+s.rank+'</span>'},
       {v:dot(m.c)+s.n},
@@ -765,77 +964,31 @@ function renderKPI() {
     ]);
   }
   document.getElementById('KRT').innerHTML='<thead><tr><th>Rank</th><th>NCRAM</th><th class="r">BD</th><th class="r">Chain</th><th class="r">Reach</th><th class="r">Equip</th><th class="r">Vend Touch</th><th class="r">Score</th></tr></thead><tbody>'+krows+'</tbody>';
+
   dc('KC');
   CH['KC']=new Chart(document.getElementById('KC'),{
     type:'bar',
-    data:{labels:KPI.map(function(s){return s.n.split(' ')[0];}),datasets:[
-      {label:'BD x2',     data:KPI.map(function(s){return s.bd*2;}),              backgroundColor:'#378ADD',borderRadius:3},
-      {label:'Chain x3',  data:KPI.map(function(s){return s.chain*3;}),           backgroundColor:'#1D9E75',borderRadius:3},
-      {label:'Reach /10', data:KPI.map(function(s){return Math.round(s.reach/10);}),backgroundColor:'#EF9F27',borderRadius:3},
-      {label:'Equip',     data:KPI.map(function(s){return s.equip;}),             backgroundColor:'#7F77DD',borderRadius:3}
+    data:{labels:data.map(function(s){return s.n.split(' ')[0];}),datasets:[
+      {label:'BD x2',     data:data.map(function(s){return s.bd*2;}),              backgroundColor:'#378ADD',borderRadius:3},
+      {label:'Chain x3',  data:data.map(function(s){return s.chain*3;}),           backgroundColor:'#1D9E75',borderRadius:3},
+      {label:'Reach /10', data:data.map(function(s){return Math.round(s.reach/10);}),backgroundColor:'#EF9F27',borderRadius:3},
+      {label:'Equip',     data:data.map(function(s){return s.equip;}),             backgroundColor:'#7F77DD',borderRadius:3}
     ]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{font:{size:10},boxWidth:8}}},scales:{x:{ticks:{font:{size:9}},grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}
   });
   renderWins();
 }
-
-function renderWins() {
-  var selReg  = document.getElementById('wRegF')  ? document.getElementById('wRegF').value : 'all';
-  var cbs     = document.querySelectorAll('.ncram-cb');
-  var selNCRAMs = [];
-  for(var i=0;i<cbs.length;i++){if(cbs[i].checked)selNCRAMs.push(cbs[i].value);}
-
-  var filtered = WINS.filter(function(w){
-    var regOK  = selReg==='all' || (function(){
-      var r=gr(w.ram); return r.reg===selReg;
-    })();
-    var ncramOK = selNCRAMs.indexOf(w.ram) >= 0;
-    return regOK && ncramOK;
-  });
-
-  var wrows='';
-  for(var k=0;k<filtered.length;k++){
-    var w=filtered[k], wm=gr(w.ram);
-    wrows+=mkRow5([
-      {v:dot(wm.c)+w.ram},
-      {v:bdg(w.type==='BD'?'bN':'bG',w.type)},
-      {v:w.seg},{v:w.acct},
-      {v:w.locs||'-',r:1},
-      {v:w.vol?'$'+fmt(w.vol):'TBD',r:1}
-    ]);
-  }
-  var ct = filtered.length;
-  if(document.getElementById('winsCount'))
-    document.getElementById('winsCount').textContent = ct+' win'+(ct!==1?'s':'');
-  document.getElementById('WT').innerHTML='<thead><tr><th>NCRAM</th><th>Type</th><th>Segment</th><th>Account</th><th class="r">Locs</th><th class="r">Vol Impact</th></tr></thead><tbody>'+(wrows||'<tr><td colspan="6" style="text-align:center;color:#888780;padding:16px">No wins match the current filters</td></tr>')+'</tbody>';
-}
-
-function toggleMsel(e){
-  e.stopPropagation();
-  document.getElementById('mselDrop').classList.toggle('open');
-}
-function toggleAllNcrams(cb){
-  var cbs=document.querySelectorAll('.ncram-cb');
-  for(var i=0;i<cbs.length;i++) cbs[i].checked=cb.checked;
-  updateMsel();
-}
-function updateMsel(){
-  var cbs=document.querySelectorAll('.ncram-cb');
-  var checked=[], total=cbs.length;
-  for(var i=0;i<cbs.length;i++){if(cbs[i].checked)checked.push(cbs[i].value);}
-  var allCb=document.getElementById('mselAll');
-  if(allCb) allCb.checked=(checked.length===total);
-  var btn=document.getElementById('mselBtn');
-  if(btn){
-    if(checked.length===0) btn.textContent='None selected';
-    else if(checked.length===total) btn.textContent='All NCRAMs';
-    else if(checked.length<=2) btn.textContent=checked.join(', ');
-    else btn.textContent=checked.length+' NCRAMs selected';
-  }
-  renderWins();
-}
-
 /* ---- VOLUME ---- */
+function volChanged() {
+  var mos=getChecked('vol-mo');
+  updateBtnLabel('volMoBtn', mos.map(moLabel), 'Jan + Feb', 'No Month');
+  renderVol();
+}
+function getVolData() {
+  var mos=getChecked('vol-mo'); if(!mos.length) mos=['jan','feb'];
+  return VOL.filter(function(d){return mos.indexOf(d.month)>=0;});
+}
+
 function setVS(seg, btn) {
   curVS = seg;
   var btns = document.querySelectorAll('#VSN .sbtn');
@@ -846,17 +999,26 @@ function setVS(seg, btn) {
 
 function renderVol() {
   var seg = curVS;
-  var data = VOL.filter(function(d){return d.seg===seg;});
+  var allData = getVolData();
+  var data = allData.filter(function(d){return d.seg===seg;});
+  var vmos=getChecked('vol-mo'); if(!vmos.length) vmos=['jan','feb'];
+  var moLbls={jan:'January',feb:'February',mar:'March'};
+  var perLabel=vmos.length===1?(moLbls[vmos[0]]||vmos[0]):'YTD ('+vmos.map(function(m){return moLbls[m]||m;}).join('+')+ ')';
+
   var tA=0,tP=0,tB=0;
   for(var i=0;i<data.length;i++){tA+=data[i].act;tP+=data[i].py;tB+=data[i].bp;}
   var vP=(tA-tP)/tP, vB=(tA-tB)/tB, goal=data.length?data[0].goal:.15;
   var statusTxt = vP >= goal ? 'On Track' : 'Below';
   document.getElementById('VM').innerHTML =
-    mkMC(SEGMAP[seg]+' Total ACT', fmt(tA), pct(vP)+' vs PY', '', vc(vP)) +
+    mkMC(SEGMAP[seg]+' ACT '+perLabel, fmt(tA), pct(vP)+' vs PY', '', vc(vP)) +
     mkMC('vs Business Plan', pct(vB), 'BP: '+fmt(tB), vc(vB), '') +
     mkMC('Growth Goal', Math.round(goal*100)+'%', 'YTD target', '', '') +
     mkMC('Goal Status', statusTxt, pct(vP-goal)+' vs goal', vc(vP-goal), vc(vP-goal));
-  var sorted = data.slice().sort(function(a,b){return ((b.act-b.py)/b.py)-((a.act-a.py)/a.py);});
+
+  var ramAgg={};
+  for(var ra=0;ra<data.length;ra++){var d2=data[ra];if(!ramAgg[d2.ram])ramAgg[d2.ram]={ram:d2.ram,act:0,py:0};ramAgg[d2.ram].act+=d2.act;ramAgg[d2.ram].py+=d2.py;}
+  var sorted=Object.keys(ramAgg).map(function(n){return ramAgg[n];});
+  sorted.sort(function(a,b){return ((b.act-b.py)/b.py)-((a.act-a.py)/a.py);});
   var vsV = sorted.map(function(d){return Math.round(((d.act-d.py)/d.py)*100);});
   dc('VRC');
   CH['VRC'] = new Chart(document.getElementById('VRC'), {
@@ -865,6 +1027,7 @@ function renderVol() {
       datasets:[{data:vsV, backgroundColor:vsV.map(function(v){return v>=0?'#1D9E75':'#E24B4A';}), borderRadius:3}]},
     options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{callback:function(v){return v+'%';}}},y:{ticks:{font:{size:10}},grid:{display:false}}}}
   });
+
   var rActs=REGS.map(function(r){return Math.round(data.filter(function(d){return d.reg===r;}).reduce(function(a,d){return a+d.act;},0));});
   var rPYs =REGS.map(function(r){return Math.round(data.filter(function(d){return d.reg===r;}).reduce(function(a,d){return a+d.py; },0));});
   dc('VRG');
@@ -876,33 +1039,53 @@ function renderVol() {
     ]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}}
   });
+
+  var aggMap={};
+  for(var j=0;j<data.length;j++){
+    var d=data[j];
+    if(!aggMap[d.ram]) aggMap[d.ram]={ram:d.ram,reg:d.reg,act:0,py:0,bp:0};
+    aggMap[d.ram].act+=d.act; aggMap[d.ram].py+=d.py; aggMap[d.ram].bp+=d.bp;
+  }
+  var aggArr=Object.keys(aggMap).map(function(n){return aggMap[n];});
+  aggArr.sort(function(a,b){return ((b.act-b.py)/b.py)-((a.act-a.py)/a.py);});
   var drows='';
-  for(var j=0;j<sorted.length;j++){
-    var d=sorted[j], dm=gr(d.ram);
+  for(var j=0;j<aggArr.length;j++){
+    var d=aggArr[j], dm=gr(d.ram);
     var vs=(d.act-d.py)/d.py, vb=(d.act-d.bp)/d.bp;
-    drows += mkRow5([
-      {v: dot(dm.c)+d.ram+'<br><span style="font-size:10px;color:#888780">'+d.reg+'</span>'},
-      {v:fmt(d.act),r:1},{v:fmt(d.py),r:1},{v:fmt(d.bp),r:1},
+    drows+=mkRow5([
+      {v:dot(dm.c)+d.ram+'<br><span style="font-size:10px;color:#888780">'+d.reg+'</span>'},
+      {v:fmt(d.act),r:1},{v:fmt(d.py),r:1},{v:fmt(Math.round(d.bp)),r:1},
       {v:bdg(vs>=0?'bG':'bR',pct(vs)),r:1},
       {v:bdg(vb>=0?'bG':'bR',pct(vb)),r:1}
     ]);
   }
   document.getElementById('VDT').innerHTML='<thead><tr><th>NCRAM</th><th class="r">Actual</th><th class="r">PY</th><th class="r">BP</th><th class="r">vs PY</th><th class="r">vs BP</th></tr></thead><tbody>'+drows+'</tbody>';
 }
-
 /* ---- RANKINGS ---- */
+function rankChanged(el) {
+  var labels={jan:'January',feb:'February',ytd_feb:'Jan + Feb YTD',mar:'March',ytd_mar:'Jan+Feb+Mar YTD'};
+  var btn=document.getElementById('rankMoBtn');
+  if(btn) btn.textContent=labels[el.value]||el.value;
+  var t1=document.getElementById('nvrTitle'), t2=document.getElementById('nkrTitle');
+  if(t1) t1.textContent='Volume Rankings - '+(labels[el.value]||el.value);
+  if(t2) t2.textContent='KPI Rankings - '+(labels[el.value]||el.value);
+  renderRanks();
+}
+
 function renderRanks() {
-  var vr=gVolRanks();
+  var rankPer=getRadio('rankMo')||'ytd_feb';
+  var volMonth=rankPer==='jan'?'jan':'feb';
+  var vr=gVolRanks(volMonth);
+  var kd=KPI[rankPer]||KPI.ytd_feb;
   var tA=0,tP=0;
   for(var i=0;i<vr.length;i++){tA+=vr[i].act;tP+=vr[i].py;}
-  var vP=(tA-tP)/tP;
-  var abovePY=0;
+  var vP=(tA-tP)/tP, abovePY=0;
   for(var j=0;j<vr.length;j++){if(vr[j].vs>0)abovePY++;}
-  document.getElementById('RM').innerHTML =
-    mkMC('Team Total Volume', fmt(tA), pct(vP)+' vs PY', '', vc(vP)) +
-    mkMC('NCRAMs Above PY', abovePY+' / 12', 'Positive growth', '', 'pos') +
-    mkMC('Top Vol Performer', vr[0].n.split(' ')[0], pct(vr[0].vs)+' vs PY', '', 'pos') +
-    mkMC('Top KPI Performer', KPI[0].n.split(' ')[0], 'Score: '+KPI[0].score, '', '');
+  document.getElementById('RM').innerHTML=
+    mkMC('Team Total Volume',fmt(tA),pct(vP)+' vs PY','',vc(vP))+
+    mkMC('NCRAMs Above PY',abovePY+' / 12','Positive growth','','pos')+
+    mkMC('Top Vol Performer',vr[0].n.split(' ')[0],pct(vr[0].vs)+' vs PY','','pos')+
+    mkMC('Top KPI Performer',kd.length?kd[0].n.split(' ')[0]:'-',kd.length?'Score: '+kd[0].score:'','','');
   var vrows='';
   for(var k=0;k<vr.length;k++){
     var r=vr[k];
@@ -916,9 +1099,8 @@ function renderRanks() {
   }
   document.getElementById('NVR').innerHTML='<thead><tr><th>Rank</th><th>NCRAM</th><th class="r">ACT</th><th class="r">vs PY</th><th class="r">vs BP</th></tr></thead><tbody>'+vrows+'</tbody>';
   var krows='';
-  for(var m=0;m<KPI.length;m++){
-    var s=KPI[m], sm=gr(s.n);
-    var vrank=null;
+  for(var m=0;m<kd.length;m++){
+    var s=kd[m],sm=gr(s.n),vrank=null;
     for(var x=0;x<vr.length;x++){if(vr[x].n===s.n){vrank=vr[x];break;}}
     krows+=mkRow5([
       {v:'<span class="rn">#'+s.rank+'</span>'},
@@ -930,20 +1112,20 @@ function renderRanks() {
   }
   document.getElementById('NKR').innerHTML='<thead><tr><th>Rank</th><th>NCRAM</th><th class="r">Wins</th><th class="r">Reach</th><th class="r">Score</th><th class="r">Vol Rank</th></tr></thead><tbody>'+krows+'</tbody>';
   var names=RAMS.map(function(r){return r.n.split(' ')[0];});
-  var kScores=RAMS.map(function(r){for(var i=0;i<KPI.length;i++){if(KPI[i].n===r.n)return KPI[i].score;}return 0;});
+  var kScores=RAMS.map(function(r){for(var i=0;i<kd.length;i++){if(kd[i].n===r.n)return kd[i].score;}return 0;});
   var vPcts=RAMS.map(function(r){for(var i=0;i<vr.length;i++){if(vr[i].n===r.n)return Math.round(vr[i].vs*100);}return 0;});
   dc('CC');
   CH['CC']=new Chart(document.getElementById('CC'),{
     type:'bar',
     data:{labels:names,datasets:[
       {label:'Vol % vs PY',data:vPcts,backgroundColor:vPcts.map(function(v){return v>=0?'rgba(29,158,117,0.75)':'rgba(226,75,74,0.75)';}),borderRadius:3,yAxisID:'y'},
-      {label:'KPI Score (lower=better)',data:kScores,type:'line',borderColor:'#EF9F27',backgroundColor:'rgba(239,159,39,0.1)',pointBackgroundColor:'#EF9F27',pointRadius:4,tension:0.3,yAxisID:'y2'}
+      {label:'KPI Score',data:kScores,type:'line',borderColor:'#EF9F27',backgroundColor:'rgba(239,159,39,0.1)',pointBackgroundColor:'#EF9F27',pointRadius:4,tension:0.3,yAxisID:'y2'}
     ]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{font:{size:10},boxWidth:8}}},
       scales:{
         x:{ticks:{font:{size:9}},grid:{display:false}},
-        y:{position:'left',title:{display:true,text:'Vol % vs PY',font:{size:10}},ticks:{callback:function(v){return v+'%';}},grid:{color:'rgba(0,0,0,0.05)'}},
-        y2:{position:'right',title:{display:true,text:'KPI Score',font:{size:10}},grid:{display:false}}
+        y:{position:'left',ticks:{callback:function(v){return v+'%';}},grid:{color:'rgba(0,0,0,0.05)'}},
+        y2:{position:'right',grid:{display:false}}
       }}
   });
 }
@@ -957,7 +1139,8 @@ function renderProf() {
   }
   var m = gr(name);
   var kpi = null;
-  for (var i=0;i<KPI.length;i++){if(KPI[i].n===name){kpi=KPI[i];break;}}
+  var kd=kpiDefault();
+  for (var i=0;i<kd.length;i++){if(kd[i].n===name){kpi=kd[i];break;}}
   if(!kpi) kpi={bd:0,chain:0,reach:0,equip:0,pipe:0,score:'-',rank:'-'};
   var stats = gStats(name);
   var vr = gVolRanks();
@@ -1004,7 +1187,7 @@ function renderProf() {
   var segTrs = '';
   for(var s=0;s<SEGS.length;s++){
     var seg=SEGS[s], row=null;
-    for(var x=0;x<VOL.length;x++){if(VOL[x].ram===name && VOL[x].seg===seg){row=VOL[x];break;}}
+    for(var x=0;x<VOL.length;x++){if(VOL[x].ram===name&&VOL[x].seg===seg&&VOL[x].month==='feb'){row=VOL[x];break;}}
     if(!row){
       segTrs+=mkRow5([{v:dot(SEGCOL[seg])+SEGLBL[seg]},{v:'-',r:1},{v:'-',r:1},{v:'-',r:1},{v:'-',r:1}]);
     } else {
@@ -1074,7 +1257,7 @@ function renderProf() {
   var actD=[], pyD=[];
   for(var si=0;si<SEGS.length;si++){
     var sv=SEGS[si], sr=null;
-    for(var sx=0;sx<VOL.length;sx++){if(VOL[sx].ram===name && VOL[sx].seg===sv){sr=VOL[sx];break;}}
+    for(var sx=0;sx<VOL.length;sx++){if(VOL[sx].ram===name&&VOL[sx].seg===sv&&VOL[sx].month==='feb'){sr=VOL[sx];break;}}
     actD.push(sr?sr.act:0);
     pyD.push(sr?sr.py:0);
   }
@@ -1225,7 +1408,7 @@ function buildPrompt(focus) {
   for(var j=0;j<vr.length;j++){if(vr[j].vs>0)abovePY++;else belowPY++;}
   var topVol = vr[0].n+' ('+Math.round(vr[0].vs*100)+'% vs PY)';
   var botVol = vr[vr.length-1].n+' ('+Math.round(vr[vr.length-1].vs*100)+'% vs PY)';
-  var topKPI = KPI[0].n+' (score: '+KPI[0].score+')';
+  var kd0=KPI.ytd_feb||[]; var topKPI=kd0.length?kd0[0].n+' (score: '+kd0[0].score+')':'-';
   var segs=['Big3','Vend','CU','Trvl'], sn={Big3:'Big 3',Vend:'Vending',CU:'C and U',Trvl:'Travel'}, ss={};
   for(var s=0;s<segs.length;s++){var sa=0,sp=0;for(var v=0;v<VOL.length;v++){if(VOL[v].seg===segs[s]){sa+=VOL[v].act;sp+=VOL[v].py;}}ss[segs[s]]={vs:sp?Math.round(((sa-sp)/sp)*100):0};}
   var rs={};for(var r=0;r<REGS.length;r++){var ra=0,rp=0;for(var rv=0;rv<VOL.length;rv++){if(VOL[rv].reg===REGS[r]){ra+=VOL[rv].act;rp+=VOL[rv].py;}}rs[REGS[r]]={vs:rp?Math.round(((ra-rp)/rp)*100):0};}
@@ -1343,6 +1526,7 @@ function generateInsights(){
   });
 }
 
+function showInsights(focus){if(focus)curIF=focus;demoInsights();}
 function demoInsights(){
   var D={
     overall:[
@@ -1379,13 +1563,90 @@ function demoInsights(){
   renderInsights(D[curIF]||D.overall);
 }
 
-document.addEventListener('click', function(e){
-  var wrap = document.getElementById('ncramMsel');
-  if(wrap && !wrap.contains(e.target)){
-    var drop = document.getElementById('mselDrop');
-    if(drop) drop.classList.remove('open');
+
+/* ---- AT WORK FOCUS WAVE ---- */
+var curAWV = 'all';
+function setAWV(view, btn) {
+  curAWV = view;
+  var btns=document.querySelectorAll('#AWSN .sbtn');
+  for(var i=0;i<btns.length;i++) btns[i].classList.remove('on');
+  btn.classList.add('on');
+  renderAtWork();
+}
+function renderAtWork() {
+  var data = curAWV==='all' ? ATWORK : ATWORK.filter(function(f){return f.reg===curAWV;});
+  var tR=0,tE=0,tA=0,tC=0,tS=0;
+  for(var i=0;i<data.length;i++){tR+=data[i].reach;tE+=data[i].eqQ;tA+=data[i].acts;tC+=data[i].chain;tS+=data[i].skus;}
+  document.getElementById('AWM').innerHTML =
+    mkMC('Accounts Activated', data.length, 'At Work venues', '', '') +
+    mkMC('New Reach Locations', tR, 'Chain wins: '+tC, '', 'pos') +
+    mkMC('New SKUs Added', tS, 'SKU expansions', '', '') +
+    mkMC('Equipment Placed', tE, 'Cold equipment units', '', '');
+  var dSorted=data.slice().sort(function(a,b){return b.reach-a.reach;});
+  var dTrs='';
+  for(var di=0;di<dSorted.length;di++){
+    var df=dSorted[di], dm=gr(df.ncram);
+    dTrs+=mkRow5([
+      {v:dot(RC[df.reg]||'#888')+df.reg},
+      {v:dot(dm.c)+df.ncram},{v:df.acct},
+      {v:df.chain?bdg('bG','Yes'):bdg('bN','No'),r:1},
+      {v:'<strong>'+df.reach+'</strong>',r:1},
+      {v:df.skus||'-',r:1},
+      {v:df.skuT||'-',s:'font-size:11px;color:#73726c'},
+      {v:df.eqT&&df.eqQ?df.eqT+' x'+df.eqQ:(df.eqT||'-'),s:'font-size:11px'},
+      {v:df.acts||'-',r:1}
+    ]);
   }
-});
+  document.getElementById('AWDT').innerHTML='<thead><tr><th>Region</th><th>NCRAM</th><th>Account</th><th class="r">Chain</th><th class="r">Reach</th><th class="r">SKUs</th><th>SKU Types</th><th>Equipment</th><th class="r">Acts</th></tr></thead><tbody>'+dTrs+'</tbody>';
+  var nm={};
+  for(var j=0;j<data.length;j++){var f=data[j];if(!nm[f.ncram])nm[f.ncram]={reach:0,eqQ:0,acts:0,accts:0,chains:0,reg:f.reg};nm[f.ncram].reach+=f.reach;nm[f.ncram].eqQ+=f.eqQ;nm[f.ncram].acts+=f.acts;nm[f.ncram].accts++;nm[f.ncram].chains+=f.chain;}
+  var nk=Object.keys(nm),maxR=0;
+  for(var li=0;li<nk.length;li++){if(nm[nk[li]].reach>maxR)maxR=nm[nk[li]].reach;}
+  var lS=nk.slice().sort(function(a,b){return(nm[b].reach*2+nm[b].acts+nm[b].eqQ*3)-(nm[a].reach*2+nm[a].acts+nm[a].eqQ*3);});
+  var lTrs='';
+  for(var lj=0;lj<lS.length;lj++){
+    var ln=lS[lj],ld=nm[ln],lm=gr(ln),pf=maxR>0?Math.round((ld.reach/maxR)*100):0;
+    lTrs+=mkRow5([{v:'<span class="rn">#'+(lj+1)+'</span>'},{v:dot(lm.c)+'<strong>'+ln+'</strong>'},{v:'<span style="font-size:11px;color:#73726c">'+ld.reg+'</span>'},{v:ld.accts,r:1},{v:ld.chains,r:1},{v:'<strong>'+ld.reach+'</strong>',r:1},{v:ld.eqQ,r:1},{v:ld.acts,r:1},{v:'<div class="pbar"><div class="pfil" style="width:'+pf+'%;background:'+lm.c+'"></div></div>',s:'min-width:80px'}]);
+  }
+  document.getElementById('AWLT').innerHTML='<thead><tr><th>Rank</th><th>NCRAM</th><th>Region</th><th class="r">Accts</th><th class="r">Chains</th><th class="r">Reach</th><th class="r">Equip</th><th class="r">Acts</th><th>Reach vs Team</th></tr></thead><tbody>'+lTrs+'</tbody>';
+}
+function renderWins() {
+  var per = getKPIKey();
+  var selNCRAMs = getChecked('wins-ncram');
+  if(!selNCRAMs.length) selNCRAMs = RAMS.map(function(r){return r.n;});
+  var moMap = {jan:['jan'],feb:['feb'],mar:['mar'],ytd_feb:['jan','feb'],ytd_mar:['jan','feb','mar']};
+  var selMos = moMap[per]||['jan','feb'];
+
+  var filtered = WINS.filter(function(w){
+    return selMos.indexOf(w.month)>=0 && selNCRAMs.indexOf(w.ram)>=0;
+  });
+
+  var wrows='';
+  for(var k=0;k<filtered.length;k++){
+    var w=filtered[k], wm=gr(w.ram);
+    var moBdg=w.month==='jan'?bdg('bI','Jan'):w.month==='feb'?bdg('bN','Feb'):bdg('bG','Mar');
+    wrows+=mkRow5([
+      {v:dot(wm.c)+w.ram},
+      {v:moBdg},
+      {v:bdg(w.type==='BD'?'bN':'bG',w.type)},
+      {v:w.seg},{v:w.acct},
+      {v:w.locs||'-',r:1},
+      {v:w.vol?w.vol.toLocaleString()+' units':'TBD',r:1}
+    ]);
+  }
+  var ct=filtered.length;
+  var cntEl=document.getElementById('winsCount');
+  if(cntEl) cntEl.textContent=ct+' win'+(ct!==1?'s':'');
+  var selAll=selNCRAMs.length===12;
+  var nbtn=document.getElementById('winsNcramBtn');
+  if(nbtn){
+    if(selAll) nbtn.textContent='All NCRAMs';
+    else if(selNCRAMs.length<=2) nbtn.textContent=selNCRAMs.join(', ');
+    else nbtn.textContent=selNCRAMs.length+' NCRAMs selected';
+  }
+  document.getElementById('WT').innerHTML='<thead><tr><th>NCRAM</th><th>Month</th><th>Type</th><th>Segment</th><th>Account</th><th class="r">Locs</th><th class="r">Vol Impact</th></tr></thead><tbody>'+(wrows||'<tr><td colspan="7" style="text-align:center;color:#888780;padding:16px">No wins match filters</td></tr>')+'</tbody>';
+}
+
 renderNat();
 </script>
 </body>
