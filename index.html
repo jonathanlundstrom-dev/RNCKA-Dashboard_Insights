@@ -136,6 +136,42 @@ tr:hover td{background:#fafaf8}
 .mper{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
 .mper label{font-size:11px;font-weight:500;color:#73726c}
 .mper select{font-size:11px;padding:5px 8px;border:1px solid #d3d1c7;border-radius:8px;background:#fff}
+/* ---- VOLUME INSIGHTS ---- */
+.vi-hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:22px 0 10px}
+.vi-hd h2{font-size:15px;font-weight:600;color:#1a1a18}
+.vi-hd span{font-size:11px;color:#73726c}
+.vi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.vi-tile{background:#fff;border:1px solid #e8e6df;border-radius:10px;padding:14px 16px;border-top:3px solid #378ADD}
+.vi-tile.pos{border-top-color:#1D9E75}.vi-tile.neg{border-top-color:#E24B4A}.vi-tile.neu{border-top-color:#EF9F27}
+.vi-tile .k{font-size:10px;color:#888780;font-weight:600;letter-spacing:.04em;margin-bottom:6px}
+.vi-tile .v{font-size:20px;font-weight:600;color:#1a1a18;margin-bottom:6px}
+.vi-tile .t{font-size:12px;line-height:1.5;color:#3d3d3a}
+.vi-heat td,.vi-heat th{text-align:center}
+.vi-heat td:first-child,.vi-heat th:first-child{text-align:left}
+.vi-cell{display:block;border-radius:6px;padding:6px 4px;font-weight:600;font-size:12px;font-variant-numeric:tabular-nums}
+.vi-cell small{display:block;font-weight:400;font-size:10px;opacity:.8;margin-top:1px}
+.vi-note{font-size:12px;color:#3d3d3a;line-height:1.5;margin-top:12px}
+.vi-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.vi-chip{font-size:11px;padding:5px 11px;border:1px solid #d3d1c7;border-radius:20px;background:#fff;color:#3d3d3a;cursor:pointer;font-weight:500;display:flex;align-items:center;gap:6px}
+.vi-chip.on{background:#1a1a18;border-color:#1a1a18;color:#fff}
+.vi-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:14px}
+.vi-stat{background:#f8f8f6;border-radius:8px;padding:10px 12px}
+.vi-stat .k{font-size:10px;color:#888780;font-weight:600;letter-spacing:.04em}
+.vi-stat .v{font-size:17px;font-weight:600;margin-top:3px;font-variant-numeric:tabular-nums}
+.vi-two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.vi-list{border-radius:10px;padding:12px 14px}
+.vi-list.pos{background:#f4fdf9;border:1px solid #9FE1CB}
+.vi-list.neg{background:#fdf6f6;border:1px solid #F3C4C4}
+.vi-list h4{font-size:12px;font-weight:600;margin-bottom:8px}
+.vi-list.pos h4{color:#0f6e4f}.vi-list.neg h4{color:#8c2020}
+.vi-list li{font-size:12px;line-height:1.5;color:#3d3d3a;margin:0 0 7px 16px}
+.vi-lever{margin-top:12px;background:#1a1a18;color:#fff;border-radius:10px;padding:12px 16px;font-size:12px;line-height:1.55}
+.vi-lever b{color:#F5C77E}
+.vi-mx tr.sel td{background:#eef5fd}
+.vi-mx tbody tr{cursor:pointer}
+.vi-mx tbody tr:hover td{background:#f8f8f6}
+@media(max-width:760px){.vi-grid{grid-template-columns:1fr 1fr}.vi-stats{grid-template-columns:1fr 1fr}.vi-two{grid-template-columns:1fr}}
+@media(max-width:480px){.vi-grid{grid-template-columns:1fr}}
 @media(max-width:640px){.mrow{grid-template-columns:1fr 1fr}.twoc{grid-template-columns:1fr}.kgrid{grid-template-columns:1fr 1fr}.wsts{margin-left:0}}
 .fbar{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap;align-items:flex-end}
 .fbgroup{display:flex;flex-direction:column;gap:3px}
@@ -330,7 +366,7 @@ tr:hover td{background:#fafaf8}
     <div class="fbgroup">
       <span class="fblabel">Period</span>
       <div class="mchk-wrap" id="vpMoWrap">
-        <button class="mchk-btn" id="vpMoBtn" onclick="toggleDrop('vpMoWrap',event)">YTD Through May</button>
+        <button class="mchk-btn" id="vpMoBtn" onclick="toggleDrop('vpMoWrap',event)">YTD Through August</button>
         <div class="mchk-drop" id="vpMoDrop"></div>
       </div>
     </div>
@@ -358,7 +394,7 @@ tr:hover td{background:#fafaf8}
   </div>
   <div class="mrow" id="VPM"></div>
   <div class="card">
-    <div class="ct">Volume Performance Rankings <span style="font-size:10px;font-weight:400;color:#73726c">&mdash; YTD Through May vs PY &amp; Business Plan</span></div>
+    <div class="ct">Volume Performance Rankings <span style="font-size:10px;font-weight:400;color:#73726c">&mdash; YTD Through August vs PY &amp; Business Plan</span></div>
     <table id="VPRT"></table>
   </div>
   <div class="twoc" style="margin-top:14px">
@@ -368,6 +404,24 @@ tr:hover td{background:#fafaf8}
   <div class="twoc" style="margin-top:14px">
     <div class="card" id="VPCard_CU"><div class="ct">Collegiate &mdash; % vs PY by NCRAM</div><div class="cw"><canvas id="VPCU"></canvas></div></div>
     <div class="card" id="VPCard_Trvl"><div class="ct">Travel &mdash; % vs PY by NCRAM</div><div class="cw"><canvas id="VPT"></canvas></div></div>
+  </div>
+
+  <!-- VOLUME INSIGHTS -->
+  <div class="vi-hd"><h2>Volume Insights</h2><span id="VIsub"></span></div>
+  <div class="vi-grid" id="VIMacro"></div>
+  <div class="card">
+    <div class="ct">Region View &mdash; % vs BP by Segment <span style="font-size:10px;font-weight:400;color:#73726c">(% vs PY below)</span></div>
+    <div style="overflow-x:auto"><table class="vi-heat" id="VIReg"></table></div>
+    <div class="vi-note" id="VIRegNote"></div>
+  </div>
+  <div class="card">
+    <div class="ct">NCRAM Deep Dive &mdash; Stand-Outs, Gaps &amp; Biggest Lever</div>
+    <div class="vi-chips" id="VIChips"></div>
+    <div id="VIDeep"></div>
+  </div>
+  <div class="card">
+    <div class="ct">Full Team Matrix &mdash; % vs BP by Segment <span style="font-size:10px;font-weight:400;color:#73726c">(% vs PY below &middot; click a row to open that NCRAM)</span></div>
+    <div style="overflow-x:auto"><table class="vi-heat vi-mx" id="VIMx"></table></div>
   </div>
 </div>
 
@@ -1210,9 +1264,9 @@ var ATWORK = [
 var VOLM3 = {"Central":{"name":"Central","color":"#378ADD","act_ytd":184810.0,"bp":173919.33,"py_ytd":152668.0,"vs_bp":0.0626,"segs":{"Big3":{"act_ytd":26147.0,"bp":25977.35,"py_ytd":22589.0},"Vend":{"act_ytd":110400.0,"bp":99876.35,"py_ytd":86849.0},"Trvl":{"act_ytd":5869.0,"bp":6248.48,"py_ytd":5579.0},"CU":{"act_ytd":33567.0,"bp":32593.0,"py_ytd":29630.0},"HC":{"act_ytd":8827.0,"bp":9224.15,"py_ytd":8021.0}},"ncrams":{"Sierra Ford":{"act_ytd":67865.0,"bp":59339.21,"py_ytd":51915.0,"segs":{"Big3":{"act_ytd":8480.0,"bp":7843.0,"py_ytd":6820.0},"Vend":{"act_ytd":44820.0,"bp":37111.65,"py_ytd":32271.0},"Trvl":{"act_ytd":3347.0,"bp":3010.56,"py_ytd":2688.0},"CU":{"act_ytd":6477.0,"bp":6212.8,"py_ytd":5648.0},"HC":{"act_ytd":4741.0,"bp":5161.2,"py_ytd":4488.0}}},"Katie Naviaux":{"act_ytd":41781.0,"bp":41053.2,"py_ytd":36136.0,"segs":{"Big3":{"act_ytd":11953.0,"bp":10459.25,"py_ytd":9095.0},"Vend":{"act_ytd":13660.0,"bp":14930.45,"py_ytd":12983.0},"Trvl":{"act_ytd":1030.0,"bp":1624.0,"py_ytd":1450.0},"CU":{"act_ytd":11185.0,"bp":10113.4,"py_ytd":9194.0},"HC":{"act_ytd":3953.0,"bp":3926.1,"py_ytd":3414.0}}}}},"Midwest":{"name":"Midwest","color":"#1D9E75","act_ytd":226300.0,"bp":209135.5,"py_ytd":182797.0,"vs_bp":0.0821,"segs":{"Big3":{"act_ytd":20686.0,"bp":21801.7,"py_ytd":18958.0},"Vend":{"act_ytd":174162.0,"bp":155900.9,"py_ytd":135566.0},"Trvl":{"act_ytd":2808.0,"bp":5118.4,"py_ytd":4570.0},"CU":{"act_ytd":23704.0,"bp":20766.9,"py_ytd":18879.0},"HC":{"act_ytd":4940.0,"bp":5547.6,"py_ytd":4824.0}},"ncrams":{"Rudy Wagner":{"act_ytd":47883.0,"bp":45755.75,"py_ytd":39985.0,"segs":{"Big3":{"act_ytd":17667.0,"bp":18134.35,"py_ytd":15769.0},"Vend":{"act_ytd":22991.0,"bp":19918.0,"py_ytd":17320.0},"Trvl":{"act_ytd":713.0,"bp":1349.6,"py_ytd":1205.0},"CU":{"act_ytd":4615.0,"bp":4198.7,"py_ytd":3817.0},"HC":{"act_ytd":1897.0,"bp":2155.1,"py_ytd":1874.0}}},"Meg Flom":{"act_ytd":27032.0,"bp":25028.09,"py_ytd":21931.0,"segs":{"Big3":{"act_ytd":7247.0,"bp":7268.0,"py_ytd":6320.0},"Vend":{"act_ytd":10579.0,"bp":10697.3,"py_ytd":9302.0},"Trvl":{"act_ytd":810.0,"bp":887.04,"py_ytd":792.0},"CU":{"act_ytd":6210.0,"bp":3713.6,"py_ytd":3376.0},"HC":{"act_ytd":2186.0,"bp":2462.15,"py_ytd":2141.0}}},"TJ McGowan":{"act_ytd":14586.0,"bp":17668.24,"py_ytd":15538.0,"segs":{"Vend":{"act_ytd":9527.0,"bp":11232.05,"py_ytd":9767.0},"Trvl":{"act_ytd":954.0,"bp":2667.84,"py_ytd":2382.0},"CU":{"act_ytd":3248.0,"bp":2838.0,"py_ytd":2580.0},"HC":{"act_ytd":857.0,"bp":930.35,"py_ytd":809.0}}}}},"Northeast":{"name":"Northeast","color":"#EF9F27","act_ytd":237036.0,"bp":237515.88,"py_ytd":207732.0,"vs_bp":-0.002,"segs":{"Big3":{"act_ytd":26145.0,"bp":29891.95,"py_ytd":25993.0},"Vend":{"act_ytd":168632.0,"bp":166414.2,"py_ytd":144708.0},"Trvl":{"act_ytd":6585.0,"bp":6847.68,"py_ytd":6114.0},"CU":{"act_ytd":27911.0,"bp":26235.0,"py_ytd":23850.0},"HC":{"act_ytd":7763.0,"bp":8127.05,"py_ytd":7067.0}},"ncrams":{"Chris Trott":{"act_ytd":31202.0,"bp":29688.03,"py_ytd":26000.0,"segs":{"Big3":{"act_ytd":7548.0,"bp":7614.15,"py_ytd":6621.0},"Vend":{"act_ytd":15560.0,"bp":14674.0,"py_ytd":12760.0},"Trvl":{"act_ytd":540.0,"bp":603.68,"py_ytd":539.0},"CU":{"act_ytd":4918.0,"bp":4307.6,"py_ytd":3916.0},"HC":{"act_ytd":2636.0,"bp":2488.6,"py_ytd":2164.0}}},"Greg Drillock":{"act_ytd":38149.0,"bp":39251.76,"py_ytd":34323.0,"segs":{"Big3":{"act_ytd":10164.0,"bp":11429.85,"py_ytd":9939.0},"Vend":{"act_ytd":19877.0,"bp":19822.55,"py_ytd":17237.0},"Trvl":{"act_ytd":2070.0,"bp":2646.56,"py_ytd":2363.0},"CU":{"act_ytd":3624.0,"bp":3273.6,"py_ytd":2976.0},"HC":{"act_ytd":2414.0,"bp":2079.2,"py_ytd":1808.0}}},"Montana Renno":{"act_ytd":33677.0,"bp":39182.29,"py_ytd":34221.0,"segs":{"Big3":{"act_ytd":14681.0,"bp":20376.85,"py_ytd":17719.0},"Vend":{"act_ytd":12126.0,"bp":11186.05,"py_ytd":9727.0},"Trvl":{"act_ytd":633.0,"bp":679.84,"py_ytd":607.0},"CU":{"act_ytd":3524.0,"bp":3380.3,"py_ytd":3073.0},"HC":{"act_ytd":2713.0,"bp":3559.25,"py_ytd":3095.0}}}}},"Southeast":{"name":"Southeast","color":"#E24B4A","act_ytd":235897.0,"bp":227858.24,"py_ytd":199227.0,"vs_bp":0.0353,"segs":{"Big3":{"act_ytd":20418.0,"bp":19505.15,"py_ytd":16961.0},"Vend":{"act_ytd":178000.0,"bp":170323.05,"py_ytd":148107.0},"Trvl":{"act_ytd":9555.0,"bp":10871.84,"py_ytd":9707.0},"CU":{"act_ytd":21863.0,"bp":21155.2,"py_ytd":19232.0},"HC":{"act_ytd":6061.0,"bp":6003.0,"py_ytd":5220.0}},"ncrams":{"Carroll Jenkins":{"act_ytd":42233.0,"bp":38211.5,"py_ytd":33506.0,"segs":{"Big3":{"act_ytd":8203.0,"bp":7987.9,"py_ytd":6946.0},"Vend":{"act_ytd":21914.0,"bp":17638.7,"py_ytd":15338.0},"Trvl":{"act_ytd":3186.0,"bp":3763.2,"py_ytd":3360.0},"CU":{"act_ytd":5089.0,"bp":4831.2,"py_ytd":4392.0},"HC":{"act_ytd":3841.0,"bp":3990.5,"py_ytd":3470.0}}},"Open Role (SE)":{"act_ytd":36936.0,"bp":36766.53,"py_ytd":32352.0,"segs":{"Big3":{"act_ytd":9393.0,"bp":9247.15,"py_ytd":8041.0},"Vend":{"act_ytd":14352.0,"bp":14303.7,"py_ytd":12438.0},"Trvl":{"act_ytd":3463.0,"bp":3801.28,"py_ytd":3394.0},"CU":{"act_ytd":7508.0,"bp":7401.9,"py_ytd":6729.0},"HC":{"act_ytd":2220.0,"bp":2012.5,"py_ytd":1750.0}}}}},"West":{"name":"West","color":"#7F77DD","act_ytd":100504.0,"bp":102198.7,"py_ytd":89969.0,"vs_bp":-0.0166,"segs":{"Big3":{"act_ytd":19759.0,"bp":21450.95,"py_ytd":18653.0},"Vend":{"act_ytd":43488.0,"bp":44068.0,"py_ytd":38320.0},"Trvl":{"act_ytd":6039.0,"bp":7515.2,"py_ytd":6710.0},"CU":{"act_ytd":25457.0,"bp":23415.7,"py_ytd":21287.0},"HC":{"act_ytd":5761.0,"bp":5748.85,"py_ytd":4999.0}},"ncrams":{"Amy Quinet":{"act_ytd":50039.0,"bp":55534.38,"py_ytd":48771.0,"segs":{"Big3":{"act_ytd":8734.0,"bp":11192.95,"py_ytd":9733.0},"Vend":{"act_ytd":25997.0,"bp":27468.9,"py_ytd":23886.0},"Trvl":{"act_ytd":2594.0,"bp":2933.28,"py_ytd":2619.0},"CU":{"act_ytd":9291.0,"bp":10421.4,"py_ytd":9474.0},"HC":{"act_ytd":3423.0,"bp":3517.85,"py_ytd":3059.0}}},"Kendall Braidic":{"act_ytd":50465.0,"bp":46664.32,"py_ytd":41198.0,"segs":{"Big3":{"act_ytd":11025.0,"bp":10258.0,"py_ytd":8920.0},"Vend":{"act_ytd":17491.0,"bp":16599.1,"py_ytd":14434.0},"Trvl":{"act_ytd":3445.0,"bp":4581.92,"py_ytd":4091.0},"CU":{"act_ytd":16166.0,"bp":12994.3,"py_ytd":11813.0},"HC":{"act_ytd":2338.0,"bp":2231.0,"py_ytd":1940.0}}}}}};
 var VEND_FW = [{"reg":"Central","ncram":"Sierra Ford","acct":"Canteen Dallas","reach":19,"skus":3,"skuT":"SF Peach, Iced Vanilla Berry, Summer","eqT":"","eqQ":25,"acts":2},{"reg":"Central","ncram":"Sierra Ford","acct":"Canteen Houston","reach":0,"skus":2,"skuT":"Iced Vanilla Berry, Summer","eqT":"","eqQ":14,"acts":1},{"reg":"Central","ncram":"Sierra Ford","acct":"Canteen Austin","reach":6,"skus":3,"skuT":"Iced Vanilla Berry, SF Peach, Summer","eqT":"","eqQ":6,"acts":1},{"reg":"Central","ncram":"Sierra Ford","acct":"Canteen San Antonio","reach":8,"skus":3,"skuT":"Peach, Coconut, Summer","eqT":"","eqQ":8,"acts":0},{"reg":"Central","ncram":"Katie Naviaux","acct":"Canteen Denver","reach":0,"skus":2,"skuT":"Sudachi Lime, Peach, SF Sea Blue","eqT":"5 Mega GDC's","eqQ":5,"acts":0},{"reg":"Central","ncram":"Katie Naviaux","acct":"Canteen Evans/Greeley","reach":0,"skus":2,"skuT":"Sudachi Lime, Peach","eqT":"","eqQ":0,"acts":0},{"reg":"Central","ncram":"Katie Naviaux","acct":"Compass Colorado Springs","reach":0,"skus":2,"skuT":"Sudachi Lime, Peach","eqT":"5 Mega GDC's","eqQ":5,"acts":0},{"reg":"Central","ncram":"Katie Naviaux","acct":"Treasure Valley Coffee","reach":0,"skus":1,"skuT":"Sea Blue","eqT":"10 Slim Mega's","eqQ":10,"acts":0},{"reg":"Central","ncram":"Katie Naviaux","acct":"Tanzie Vending","reach":0,"skus":0,"skuT":"","eqT":"Slim Medium","eqQ":1,"acts":0},{"reg":"Central","ncram":"Katie Naviaux","acct":"City Vending","reach":0,"skus":1,"skuT":"Sudachi Lime, Peach","eqT":"5 Vending Machines, 10 Slim Mega's","eqQ":15,"acts":0},{"reg":"Northeast","ncram":"Chris Trott","acct":"Casco Bay F&B (Canteen - ME)","reach":2,"skus":4,"skuT":"ED, SF, Sea Blue, Peach","eqT":"Mega Slim","eqQ":2,"acts":1},{"reg":"Northeast","ncram":"Chris Trott","acct":"Buffalo Strive (USG - NY)","reach":2,"skus":1,"skuT":"Sea Blue","eqT":"","eqQ":0,"acts":1},{"reg":"Northeast","ncram":"Chris Trott","acct":"Berkshire Foods (CT)","reach":2,"skus":4,"skuT":"ED, SF, Sea Blue, Peach","eqT":"Vending Machine","eqQ":6,"acts":0},{"reg":"West","ncram":"Amy Quinet","acct":"Google (Canteen)","reach":0,"skus":1,"skuT":"Spring and Summer LTO","eqT":"","eqQ":0,"acts":3},{"reg":"West","ncram":"Amy Quinet","acct":"Google (Guckenheimer)","reach":0,"skus":1,"skuT":"White Peach Sugarfree","eqT":"","eqQ":0,"acts":4},{"reg":"West","ncram":"Amy Quinet","acct":"Sony (Playstation) Bon Appetit","reach":0,"skus":3,"skuT":"White Peach, Juneberry, Red","eqT":"Baby Cooler","eqQ":1,"acts":10},{"reg":"West","ncram":"Amy Quinet","acct":"Meta","reach":0,"skus":0,"skuT":"sold 2nd sku White peach","eqT":"Small GDC","eqQ":2,"acts":0},{"reg":"West","ncram":"Amy Quinet","acct":"Tesla events week of April 23-25","reach":0,"skus":0,"skuT":"summer LTO sold in, white peach, van iced berry","eqT":"","eqQ":3,"acts":4},{"reg":"West","ncram":"Amy Quinet","acct":"IG Acccounts :Eurest -78 Bon App 8","reach":5,"skus":2,"skuT":"White peach, Sea Blue","eqT":"Mega Slim","eqQ":14,"acts":14},{"reg":"West","ncram":"Amy Quinet","acct":"Vistar Buying show","reach":2,"skus":1,"skuT":"","eqT":"Mega GDC","eqQ":2,"acts":0},{"reg":"West","ncram":"Amy Quinet","acct":"Canteen Innovation Fair w/top clients","reach":1,"skus":2,"skuT":"ED and SF","eqT":"","eqQ":0,"acts":0},{"reg":"West","ncram":"Amy Quinet","acct":"Google Summer Activations june 9-11","reach":0,"skus":1,"skuT":"summer LTO sold in","eqT":"","eqQ":0,"acts":3},{"reg":"Southeast","ncram":"Carroll Jenkins","acct":"Canteen Jacksonville","reach":0,"skus":0,"skuT":"","eqT":"Vending Machine","eqQ":4,"acts":0},{"reg":"Southeast","ncram":"Carroll Jenkins","acct":"Canteen Miami","reach":0,"skus":0,"skuT":"","eqT":"Mega Slim","eqQ":15,"acts":0},{"reg":"Northeast","ncram":"Chris Trott","acct":"Casco Bay F&B (Canteen - ME)","reach":3,"skus":4,"skuT":"ED, SF, Sea Blue, Peach","eqT":"Mega Slim","eqQ":3,"acts":2},{"reg":"Northeast","ncram":"Chris Trott","acct":"Buffalo Strive (USG - NY)","reach":2,"skus":1,"skuT":"Sea Blue","eqT":"","eqQ":0,"acts":1},{"reg":"Northeast","ncram":"Chris Trott","acct":"Berkshire Foods (CT)","reach":6,"skus":4,"skuT":"ED, SF, Sea Blue, Peach","eqT":"Vending Machine","eqQ":6,"acts":0},{"reg":"Northeast","ncram":"Chris Trott","acct":"NERSA","reach":0,"skus":0,"skuT":"ED, SF, Sea Blue, Peach, SF Iced, SF Pink, SF Peach, Zero","eqT":"Vending Machine","eqQ":0,"acts":4},{"reg":"Northeast","ncram":"Chris Trott","acct":"Automated Vending","reach":10,"skus":2,"skuT":"Sea Blue, Peach","eqT":"","eqQ":0,"acts":0},{"reg":"Northeast","ncram":"Chris Trott","acct":"LTD Refreshments","reach":3,"skus":1,"skuT":"Zero","eqT":"Small GDC","eqQ":3,"acts":1},{"reg":"Northeast","ncram":"Chris Trott","acct":"Ackers Vending","reach":2,"skus":1,"skuT":"Sea Blue, Peach","eqT":"Small GDC","eqQ":2,"acts":1},{"reg":"Northeast","ncram":"Greg Drillock","acct":"NYU Vending","reach":50,"skus":4,"skuT":"","eqT":"","eqQ":0,"acts":0},{"reg":"Northeast","ncram":"Montana Renno","acct":"Total Quality Logistics (Canteen)","reach":2,"skus":2,"skuT":"White Peach, Sea Blue","eqT":"","eqQ":0,"acts":2},{"reg":"Northeast","ncram":"Montana Renno","acct":"Ford Motor Company (Aramark Refreshments)","reach":3,"skus":2,"skuT":"White Peach, Sea Blue","eqT":"Small GDC","eqQ":3,"acts":1},{"reg":"Northeast","ncram":"Montana Renno","acct":"Canteen Virginia","reach":12,"skus":1,"skuT":"White Peach","eqT":"Vending Machine","eqQ":4,"acts":1},{"reg":"Northeast","ncram":"Montana Renno","acct":"Laurel FoodSystems","reach":0,"skus":1,"skuT":"White Peach","eqT":"","eqQ":0,"acts":0}];
 
-var VOLM = [{"py_cm":27476, "act_cm":30885.9, "bp_cm":31604.3, "py_ytd":27476, "act_ytd":30885.9, "bp_ytd":31604.3, "reg":"Central", "ram":"Sierra Ford", "seg":"Big3", "month":"may"},{"py_cm":9906.4, "act_cm":10950, "bp_cm":10897.1, "py_ytd":9906.4, "act_ytd":10950, "bp_ytd":10897.1, "reg":"Central", "ram":"Sierra Ford", "seg":"CU", "month":"may"},{"py_cm":4782.4, "act_cm":5724.4, "bp_cm":5356.3, "py_ytd":4782.4, "act_ytd":5724.4, "bp_ytd":5356.3, "reg":"Central", "ram":"Sierra Ford", "seg":"Trvl", "month":"may"},{"py_cm":62505.1, "act_cm":87556, "bp_cm":71880.8, "py_ytd":62505.1, "act_ytd":87556, "bp_ytd":71880.8, "reg":"Central", "ram":"Sierra Ford", "seg":"Vend", "month":"may"},{"py_cm":12160.8, "act_cm":15933, "bp_cm":13994.2, "py_ytd":12160.8, "act_ytd":15933, "bp_ytd":13994.2, "reg":"Central", "ram":"Katie Naviaux", "seg":"Big3", "month":"may"},{"py_cm":15216.7, "act_cm":17732, "bp_cm":16738.4, "py_ytd":15216.7, "act_ytd":17732, "bp_ytd":16738.4, "reg":"Central", "ram":"Katie Naviaux", "seg":"CU", "month":"may"},{"py_cm":3165.9, "act_cm":1967.2, "bp_cm":3545.9, "py_ytd":3165.9, "act_ytd":1967.2, "bp_ytd":3545.9, "reg":"Central", "ram":"Katie Naviaux", "seg":"Trvl", "month":"may"},{"py_cm":22241, "act_cm":28616.5, "bp_cm":25577.2, "py_ytd":22241, "act_ytd":28616.5, "bp_ytd":25577.2, "reg":"Central", "ram":"Katie Naviaux", "seg":"Vend", "month":"may"},{"py_cm":11855.1, "act_cm":14071.5, "bp_cm":13640.3, "py_ytd":11855.1, "act_ytd":14071.5, "bp_ytd":13640.3, "reg":"Midwest", "ram":"Rudy Wagner", "seg":"Big3", "month":"may"},{"py_cm":6897.8, "act_cm":7360.7, "bp_cm":7587.5, "py_ytd":6897.8, "act_ytd":7360.7, "bp_ytd":7587.5, "reg":"Midwest", "ram":"Rudy Wagner", "seg":"CU", "month":"may"},{"py_cm":2217.1, "act_cm":1324.7, "bp_cm":2483.2, "py_ytd":2217.1, "act_ytd":1324.7, "bp_ytd":2483.2, "reg":"Midwest", "ram":"Rudy Wagner", "seg":"Trvl", "month":"may"},{"py_cm":29117.8, "act_cm":38723.2, "bp_cm":33485.5, "py_ytd":29117.8, "act_ytd":38723.2, "bp_ytd":33485.5, "reg":"Midwest", "ram":"Rudy Wagner", "seg":"Vend", "month":"may"},{"py_cm":11294.5, "act_cm":12980.3, "bp_cm":13007.1, "py_ytd":11294.5, "act_ytd":12980.3, "bp_ytd":13007.1, "reg":"Midwest", "ram":"Meg Flom", "seg":"Big3", "month":"may"},{"py_cm":5335.5, "act_cm":9062.7, "bp_cm":5869, "py_ytd":5335.5, "act_ytd":9062.7, "bp_ytd":5869, "reg":"Midwest", "ram":"Meg Flom", "seg":"CU", "month":"may"},{"py_cm":1390.4, "act_cm":1370.2, "bp_cm":1557.3, "py_ytd":1390.4, "act_ytd":1370.2, "bp_ytd":1557.3, "reg":"Midwest", "ram":"Meg Flom", "seg":"Trvl", "month":"may"},{"py_cm":28137, "act_cm":32443, "bp_cm":32357.5, "py_ytd":28137, "act_ytd":32443, "bp_ytd":32357.5, "reg":"Midwest", "ram":"Meg Flom", "seg":"Vend", "month":"may"},{"py_cm":8614.3, "act_cm":8142.8, "bp_cm":9908.6, "py_ytd":8614.3, "act_ytd":8142.8, "bp_ytd":9908.6, "reg":"Midwest", "ram":"TJ McGowan", "seg":"Big3", "month":"may"},{"py_cm":4642.9, "act_cm":5474.5, "bp_cm":5110.8, "py_ytd":4642.9, "act_ytd":5474.5, "bp_ytd":5110.8, "reg":"Midwest", "ram":"TJ McGowan", "seg":"CU", "month":"may"},{"py_cm":3006.6, "act_cm":1582.3, "bp_cm":3367.4, "py_ytd":3006.6, "act_ytd":1582.3, "bp_ytd":3367.4, "reg":"Midwest", "ram":"TJ McGowan", "seg":"Trvl", "month":"may"},{"py_cm":13316, "act_cm":21867, "bp_cm":15313.4, "py_ytd":13316, "act_ytd":21867, "bp_ytd":15313.4, "reg":"Midwest", "ram":"TJ McGowan", "seg":"Vend", "month":"may"},{"py_cm":11452.3, "act_cm":12730.5, "bp_cm":13175.9, "py_ytd":11452.3, "act_ytd":12730.5, "bp_ytd":13175.9, "reg":"Northeast", "ram":"Chris Trott", "seg":"Big3", "month":"may"},{"py_cm":10591.1, "act_cm":12032.5, "bp_cm":11650.2, "py_ytd":10591.1, "act_ytd":12032.5, "bp_ytd":11650.2, "reg":"Northeast", "ram":"Chris Trott", "seg":"CU", "month":"may"},{"py_cm":861.8, "act_cm":982, "bp_cm":965.3, "py_ytd":861.8, "act_ytd":982, "bp_ytd":965.3, "reg":"Northeast", "ram":"Chris Trott", "seg":"Trvl", "month":"may"},{"py_cm":23345, "act_cm":27066, "bp_cm":26846.8, "py_ytd":23345, "act_ytd":27066, "bp_ytd":26846.8, "reg":"Northeast", "ram":"Chris Trott", "seg":"Vend", "month":"may"},{"py_cm":17400, "act_cm":17934.5, "bp_cm":20059.4, "py_ytd":17400, "act_ytd":17934.5, "bp_ytd":20059.4, "reg":"Northeast", "ram":"Greg Drillock", "seg":"Big3", "month":"may"},{"py_cm":5267.3, "act_cm":5802.3, "bp_cm":5794, "py_ytd":5267.3, "act_ytd":5802.3, "bp_ytd":5794, "reg":"Northeast", "ram":"Greg Drillock", "seg":"CU", "month":"may"},{"py_cm":4101.8, "act_cm":3709.3, "bp_cm":4597.4, "py_ytd":4101.8, "act_ytd":3709.3, "bp_ytd":4597.4, "reg":"Northeast", "ram":"Greg Drillock", "seg":"Trvl", "month":"may"},{"py_cm":30634, "act_cm":36408, "bp_cm":35229.1, "py_ytd":30634, "act_ytd":36408, "bp_ytd":35229.1, "reg":"Northeast", "ram":"Greg Drillock", "seg":"Vend", "month":"may"},{"py_cm":16637.7, "act_cm":15456.8, "bp_cm":19149.5, "py_ytd":16637.7, "act_ytd":15456.8, "bp_ytd":19149.5, "reg":"Northeast", "ram":"Montana Renno", "seg":"Big3", "month":"may"},{"py_cm":5093.5, "act_cm":5749.3, "bp_cm":5628.1, "py_ytd":5093.5, "act_ytd":5749.3, "bp_ytd":5628.1, "reg":"Northeast", "ram":"Montana Renno", "seg":"CU", "month":"may"},{"py_cm":1121, "act_cm":1043.8, "bp_cm":1255.5, "py_ytd":1121, "act_ytd":1043.8, "bp_ytd":1255.5, "reg":"Northeast", "ram":"Montana Renno", "seg":"Trvl", "month":"may"},{"py_cm":19383, "act_cm":20446, "bp_cm":22290.5, "py_ytd":19383, "act_ytd":20446, "bp_ytd":22290.5, "reg":"Northeast", "ram":"Montana Renno", "seg":"Vend", "month":"may"},{"py_cm":13945, "act_cm":16359.3, "bp_cm":16040.1, "py_ytd":13945, "act_ytd":16359.3, "bp_ytd":16040.1, "reg":"Southeast", "ram":"Carroll Jenkins", "seg":"Big3", "month":"may"},{"py_cm":6587.4, "act_cm":7718.3, "bp_cm":7246.2, "py_ytd":6587.4, "act_ytd":7718.3, "bp_ytd":7246.2, "reg":"Southeast", "ram":"Carroll Jenkins", "seg":"CU", "month":"may"},{"py_cm":5673.8, "act_cm":5075.6, "bp_cm":6354.7, "py_ytd":5673.8, "act_ytd":5075.6, "bp_ytd":6354.7, "reg":"Southeast", "ram":"Carroll Jenkins", "seg":"Trvl", "month":"may"},{"py_cm":26758, "act_cm":38492, "bp_cm":30771.7, "py_ytd":26758, "act_ytd":38492, "bp_ytd":30771.7, "reg":"Southeast", "ram":"Carroll Jenkins", "seg":"Vend", "month":"may"},{"py_cm":16313.5, "act_cm":18926.4, "bp_cm":18765.2, "py_ytd":16313.5, "act_ytd":18926.4, "bp_ytd":18765.2, "reg":"Southeast", "ram":"Open Role (SE)", "seg":"Big3", "month":"may"},{"py_cm":11067, "act_cm":12605.3, "bp_cm":12177, "py_ytd":11067, "act_ytd":12605.3, "bp_ytd":12177, "reg":"Southeast", "ram":"Open Role (SE)", "seg":"CU", "month":"may"},{"py_cm":6085.5, "act_cm":5567.5, "bp_cm":6815.7, "py_ytd":6085.5, "act_ytd":5567.5, "bp_ytd":6815.7, "reg":"Southeast", "ram":"Open Role (SE)", "seg":"Trvl", "month":"may"},{"py_cm":21595, "act_cm":26075, "bp_cm":24834.3, "py_ytd":21595, "act_ytd":26075, "bp_ytd":24834.3, "reg":"Southeast", "ram":"Open Role (SE)", "seg":"Vend", "month":"may"},{"py_cm":15304.5, "act_cm":19765.3, "bp_cm":17616.8, "py_ytd":15304.5, "act_ytd":19765.3, "bp_ytd":17616.8, "reg":"West", "ram":"Kendall Braidic", "seg":"Big3", "month":"may"},{"py_cm":20730, "act_cm":26543.5, "bp_cm":22809.6, "py_ytd":20730, "act_ytd":26543.5, "bp_ytd":22809.6, "reg":"West", "ram":"Kendall Braidic", "seg":"CU", "month":"may"},{"py_cm":6720.8, "act_cm":5981.9, "bp_cm":7577.9, "py_ytd":6720.8, "act_ytd":5981.9, "bp_ytd":7577.9, "reg":"West", "ram":"Kendall Braidic", "seg":"Trvl", "month":"may"},{"py_cm":24152, "act_cm":31245, "bp_cm":27774.8, "py_ytd":24152, "act_ytd":31245, "bp_ytd":27774.8, "reg":"West", "ram":"Kendall Braidic", "seg":"Vend", "month":"may"},{"py_cm":31053, "act_cm":26872.3, "bp_cm":35722.4, "py_ytd":31053, "act_ytd":26872.3, "bp_ytd":35722.4, "reg":"West", "ram":"Amy Quinet", "seg":"Big3", "month":"may"},{"py_cm":16028, "act_cm":16465.2, "bp_cm":17630.8, "py_ytd":16028, "act_ytd":16465.2, "bp_ytd":17630.8, "reg":"West", "ram":"Amy Quinet", "seg":"CU", "month":"may"},{"py_cm":5064.2, "act_cm":4025.2, "bp_cm":5673, "py_ytd":5064.2, "act_ytd":4025.2, "bp_ytd":5673, "reg":"West", "ram":"Amy Quinet", "seg":"Trvl", "month":"may"},{"py_cm":46066, "act_cm":54407, "bp_cm":52975.9, "py_ytd":46066, "act_ytd":54407, "bp_ytd":52975.9, "reg":"West", "ram":"Amy Quinet", "seg":"Vend", "month":"may"}];
-var VOLM_NCRAMS = ["Katie Naviaux", "Sierra Ford", "Meg Flom", "Rudy Wagner", "TJ McGowan", "Montana Renno", "Greg Drillock", "Chris Trott", "Carroll Jenkins", "Open Role (SE)", "Amy Quinet", "Kendall Braidic"];
-var VOLM_REG_NCRAMS = {"West": ["Amy Quinet", "Kendall Braidic"], "Central": ["Katie Naviaux", "Sierra Ford"], "Midwest": ["Meg Flom", "Rudy Wagner", "TJ McGowan"], "Northeast": ["Montana Renno", "Greg Drillock", "Chris Trott"], "Southeast": ["Carroll Jenkins", "Open Role (SE)"]};
+var VOLM = [{"py_cm":45559.0, "act_cm":52259.8, "bp_cm":52402.6, "py_ytd":45559.0, "act_ytd":52259.8, "bp_ytd":52402.6, "reg":"Central", "ram":"Sierra Ford", "seg":"Big3", "month":"aug"}, {"py_cm":13523.8, "act_cm":13759.7, "bp_cm":14876.2, "py_ytd":13523.8, "act_ytd":13759.7, "bp_ytd":14876.2, "reg":"Central", "ram":"Sierra Ford", "seg":"CU", "month":"aug"}, {"py_cm":14410.7, "act_cm":16038.4, "bp_cm":16140.0, "py_ytd":14410.7, "act_ytd":16038.4, "bp_ytd":16140.0, "reg":"Central", "ram":"Sierra Ford", "seg":"Trvl", "month":"aug"}, {"py_cm":100477.1, "act_cm":139740, "bp_cm":115548.6, "py_ytd":100477.1, "act_ytd":139740, "bp_ytd":115548.6, "reg":"Central", "ram":"Sierra Ford", "seg":"Vend", "month":"aug"}, {"py_cm":20997.8, "act_cm":27163, "bp_cm":24159.0, "py_ytd":20997.8, "act_ytd":27163, "bp_ytd":24159.0, "reg":"Central", "ram":"Katie Naviaux", "seg":"Big3", "month":"aug"}, {"py_cm":19077.7, "act_cm":21491.8, "bp_cm":20985.4, "py_ytd":19077.7, "act_ytd":21491.8, "bp_ytd":20985.4, "reg":"Central", "ram":"Katie Naviaux", "seg":"CU", "month":"aug"}, {"py_cm":13645.5, "act_cm":12735.7, "bp_cm":15282.9, "py_ytd":13645.5, "act_ytd":12735.7, "bp_ytd":15282.9, "reg":"Central", "ram":"Katie Naviaux", "seg":"Trvl", "month":"aug"}, {"py_cm":38116, "act_cm":51037.1, "bp_cm":43833.4, "py_ytd":38116, "act_ytd":51037.1, "bp_ytd":43833.4, "reg":"Central", "ram":"Katie Naviaux", "seg":"Vend", "month":"aug"}, {"py_cm":19885.8, "act_cm":23496.5, "bp_cm":22888.2, "py_ytd":19885.8, "act_ytd":23496.5, "bp_ytd":22888.2, "reg":"Midwest", "ram":"Rudy Wagner", "seg":"Big3", "month":"aug"}, {"py_cm":8035.2, "act_cm":8652.2, "bp_cm":8866.2, "py_ytd":8035.2, "act_ytd":8652.2, "bp_ytd":8866.2, "reg":"Midwest", "ram":"Rudy Wagner", "seg":"CU", "month":"aug"}, {"py_cm":6272.0, "act_cm":5206.6, "bp_cm":7024.6, "py_ytd":6272.0, "act_ytd":5206.6, "bp_ytd":7024.6, "reg":"Midwest", "ram":"Rudy Wagner", "seg":"Trvl", "month":"aug"}, {"py_cm":57596.0, "act_cm":70588.2, "bp_cm":66235.4, "py_ytd":57596.0, "act_ytd":70588.2, "bp_ytd":66235.4, "reg":"Midwest", "ram":"Rudy Wagner", "seg":"Vend", "month":"aug"}, {"py_cm":18466.4, "act_cm":20047.2, "bp_cm":21254.7, "py_ytd":18466.4, "act_ytd":20047.2, "bp_ytd":21254.7, "reg":"Midwest", "ram":"Open Role (MW)", "seg":"Big3", "month":"aug"}, {"py_cm":7725.6, "act_cm":11498.6, "bp_cm":8498.1, "py_ytd":7725.6, "act_ytd":11498.6, "bp_ytd":8498.1, "reg":"Midwest", "ram":"Open Role (MW)", "seg":"CU", "month":"aug"}, {"py_cm":3110.6, "act_cm":3510.8, "bp_cm":3483.8, "py_ytd":3110.6, "act_ytd":3510.8, "bp_ytd":3483.8, "reg":"Midwest", "ram":"Open Role (MW)", "seg":"Trvl", "month":"aug"}, {"py_cm":46086.5, "act_cm":53100, "bp_cm":52999.5, "py_ytd":46086.5, "act_ytd":53100, "bp_ytd":52999.5, "reg":"Midwest", "ram":"Open Role (MW)", "seg":"Vend", "month":"aug"}, {"py_cm":14113.9, "act_cm":13515.7, "bp_cm":16237.7, "py_ytd":14113.9, "act_ytd":13515.7, "bp_ytd":16237.7, "reg":"Midwest", "ram":"TJ McGowan", "seg":"Big3", "month":"aug"}, {"py_cm":6205.1, "act_cm":7182.8, "bp_cm":6830.4, "py_ytd":6205.1, "act_ytd":7182.8, "bp_ytd":6830.4, "reg":"Midwest", "ram":"TJ McGowan", "seg":"CU", "month":"aug"}, {"py_cm":6672.6, "act_cm":5422.4, "bp_cm":7473.3, "py_ytd":6672.6, "act_ytd":5422.4, "bp_ytd":7473.3, "reg":"Midwest", "ram":"TJ McGowan", "seg":"Trvl", "month":"aug"}, {"py_cm":23579, "act_cm":35467, "bp_cm":27115.8, "py_ytd":23579, "act_ytd":35467, "bp_ytd":27115.8, "reg":"Midwest", "ram":"TJ McGowan", "seg":"Vend", "month":"aug"}, {"py_cm":18296.7, "act_cm":20723.7, "bp_cm":21050.4, "py_ytd":18296.7, "act_ytd":20723.7, "bp_ytd":21050.4, "reg":"Northeast", "ram":"Chris Trott", "seg":"Big3", "month":"aug"}, {"py_cm":12659.6, "act_cm":14298.4, "bp_cm":13925.6, "py_ytd":12659.6, "act_ytd":14298.4, "bp_ytd":13925.6, "reg":"Northeast", "ram":"Chris Trott", "seg":"CU", "month":"aug"}, {"py_cm":2904.7, "act_cm":3051.3, "bp_cm":3253.3, "py_ytd":2904.7, "act_ytd":3051.3, "bp_ytd":3253.3, "reg":"Northeast", "ram":"Chris Trott", "seg":"Trvl", "month":"aug"}, {"py_cm":39423.9, "act_cm":45630, "bp_cm":45337.5, "py_ytd":39423.9, "act_ytd":45630, "bp_ytd":45337.5, "reg":"Northeast", "ram":"Chris Trott", "seg":"Vend", "month":"aug"}, {"py_cm":27627.5, "act_cm":30403.5, "bp_cm":31833.7, "py_ytd":27627.5, "act_ytd":30403.5, "bp_ytd":31833.7, "reg":"Northeast", "ram":"Greg Drillock", "seg":"Big3", "month":"aug"}, {"py_cm":7232.0, "act_cm":7733.3, "bp_cm":7955.2, "py_ytd":7232.0, "act_ytd":7733.3, "bp_ytd":7955.2, "reg":"Northeast", "ram":"Greg Drillock", "seg":"CU", "month":"aug"}, {"py_cm":16141.1, "act_cm":19118.1, "bp_cm":18096.5, "py_ytd":16141.1, "act_ytd":19118.1, "bp_ytd":18096.5, "reg":"Northeast", "ram":"Greg Drillock", "seg":"Trvl", "month":"aug"}, {"py_cm":49232, "act_cm":61281, "bp_cm":56935.4, "py_ytd":49232, "act_ytd":61281, "bp_ytd":56935.4, "reg":"Northeast", "ram":"Greg Drillock", "seg":"Vend", "month":"aug"}, {"py_cm":27433.5, "act_cm":25493.7, "bp_cm":31569.2, "py_ytd":27433.5, "act_ytd":25493.7, "bp_ytd":31569.2, "reg":"Northeast", "ram":"Montana Renno", "seg":"Big3", "month":"aug"}, {"py_cm":7249.7, "act_cm":8043.4, "bp_cm":7999.8, "py_ytd":7249.7, "act_ytd":8043.4, "bp_ytd":7999.8, "reg":"Northeast", "ram":"Montana Renno", "seg":"CU", "month":"aug"}, {"py_cm":4743.4, "act_cm":3923.8, "bp_cm":5312.6, "py_ytd":4743.4, "act_ytd":3923.8, "bp_ytd":5312.6, "reg":"Northeast", "ram":"Montana Renno", "seg":"Trvl", "month":"aug"}, {"py_cm":29301, "act_cm":38407, "bp_cm":33696.2, "py_ytd":29301, "act_ytd":38407, "bp_ytd":33696.2, "reg":"Northeast", "ram":"Montana Renno", "seg":"Vend", "month":"aug"}, {"py_cm":22533.0, "act_cm":27213.7, "bp_cm":25916.4, "py_ytd":22533.0, "act_ytd":27213.7, "bp_ytd":25916.4, "reg":"Southeast", "ram":"Carroll Jenkins", "seg":"Big3", "month":"aug"}, {"py_cm":8594.7, "act_cm":10074.6, "bp_cm":9454.2, "py_ytd":8594.7, "act_ytd":10074.6, "bp_ytd":9454.2, "reg":"Southeast", "ram":"Carroll Jenkins", "seg":"CU", "month":"aug"}, {"py_cm":19337.2, "act_cm":18112.7, "bp_cm":21658.8, "py_ytd":19337.2, "act_ytd":18112.7, "bp_ytd":21658.8, "reg":"Southeast", "ram":"Carroll Jenkins", "seg":"Trvl", "month":"aug"}, {"py_cm":46761, "act_cm":63059, "bp_cm":53775.1, "py_ytd":46761, "act_ytd":63059, "bp_ytd":53775.1, "reg":"Southeast", "ram":"Carroll Jenkins", "seg":"Vend", "month":"aug"}, {"py_cm":26867.5, "act_cm":31342.1, "bp_cm":30905.7, "py_ytd":26867.5, "act_ytd":31342.1, "bp_ytd":30905.7, "reg":"Southeast", "ram":"Open Role (SE)", "seg":"Big3", "month":"aug"}, {"py_cm":14488.3, "act_cm":16128.3, "bp_cm":15940.4, "py_ytd":14488.3, "act_ytd":16128.3, "bp_ytd":15940.4, "reg":"Southeast", "ram":"Open Role (SE)", "seg":"CU", "month":"aug"}, {"py_cm":16556.5, "act_cm":14503.3, "bp_cm":18543.3, "py_ytd":16556.5, "act_ytd":14503.3, "bp_ytd":18543.3, "reg":"Southeast", "ram":"Open Role (SE)", "seg":"Trvl", "month":"aug"}, {"py_cm":33100, "act_cm":39327, "bp_cm":38065.0, "py_ytd":33100, "act_ytd":39327, "bp_ytd":38065.0, "reg":"Southeast", "ram":"Open Role (SE)", "seg":"Vend", "month":"aug"}, {"py_cm":25924.6, "act_cm":31916.5, "bp_cm":29836.9, "py_ytd":25924.6, "act_ytd":31916.5, "bp_ytd":29836.9, "reg":"West", "ram":"Kendall Braidic", "seg":"Big3", "month":"aug"}, {"py_cm":25558.4, "act_cm":32367.6, "bp_cm":28187.1, "py_ytd":25558.4, "act_ytd":32367.6, "bp_ytd":28187.1, "reg":"West", "ram":"Kendall Braidic", "seg":"CU", "month":"aug"}, {"py_cm":18963.7, "act_cm":29998.3, "bp_cm":21290.0, "py_ytd":18963.7, "act_ytd":29998.3, "bp_ytd":21290.0, "reg":"West", "ram":"Kendall Braidic", "seg":"Trvl", "month":"aug"}, {"py_cm":41894, "act_cm":53881, "bp_cm":48178.1, "py_ytd":41894, "act_ytd":53881, "bp_ytd":48178.1, "reg":"West", "ram":"Kendall Braidic", "seg":"Vend", "month":"aug"}, {"py_cm":53248.0, "act_cm":48601.8, "bp_cm":61251.3, "py_ytd":53248.0, "act_ytd":48601.8, "bp_ytd":61251.3, "reg":"West", "ram":"Amy Quinet", "seg":"Big3", "month":"aug"}, {"py_cm":18856.0, "act_cm":19654.1, "bp_cm":20741.6, "py_ytd":18856.0, "act_ytd":19654.1, "bp_ytd":20741.6, "reg":"West", "ram":"Amy Quinet", "seg":"CU", "month":"aug"}, {"py_cm":16496.4, "act_cm":16409.6, "bp_cm":18477.1, "py_ytd":16496.4, "act_ytd":16409.6, "bp_ytd":18477.1, "reg":"West", "ram":"Amy Quinet", "seg":"Trvl", "month":"aug"}, {"py_cm":75405, "act_cm":87332, "bp_cm":86715.8, "py_ytd":75405, "act_ytd":87332, "bp_ytd":86715.8, "reg":"West", "ram":"Amy Quinet", "seg":"Vend", "month":"aug"}];
+var VOLM_NCRAMS = ["Katie Naviaux", "Sierra Ford", "Open Role (MW)", "Rudy Wagner", "TJ McGowan", "Montana Renno", "Greg Drillock", "Chris Trott", "Carroll Jenkins", "Open Role (SE)", "Amy Quinet", "Kendall Braidic"];
+var VOLM_REG_NCRAMS = {"West": ["Amy Quinet", "Kendall Braidic"], "Central": ["Katie Naviaux", "Sierra Ford"], "Midwest": ["Open Role (MW)", "Rudy Wagner", "TJ McGowan"], "Northeast": ["Montana Renno", "Greg Drillock", "Chris Trott"], "Southeast": ["Carroll Jenkins", "Open Role (SE)"]};
 
 /* ---- utilities ---- */
 var CH = {};
@@ -1222,15 +1276,17 @@ var curFNcram = 'all';
 var curAWNcram = 'all';
 
 function pct(v) { if (v == null || isNaN(v)) return ''; return (v >= 0 ? '+' : '') + Math.round(v * 100) + '%'; }
-function fmt(v) { if (v == null || isNaN(v)) return ''; return v >= 1000 ? (v / 1000).toFixed(1) + 'K' : String(Math.round(v)); }
+function fmt(v) { if (v == null || isNaN(v)) return ''; return v >= 1e6 ? (v / 1e6).toFixed(2) + 'M' : v >= 1000 ? (v / 1000).toFixed(1) + 'K' : String(Math.round(v)); }
 function vc(v)  { if (v == null || isNaN(v)) return ''; return v > 0 ? 'pos' : 'neg'; }
 function nn(v)  { if (v == null || v === '' || (typeof v === 'string' && v.toLowerCase() === 'nan') || (typeof v === 'number' && isNaN(v))) return ''; return v; }
 function dc(id) { if (CH[id]) { CH[id].destroy(); delete CH[id]; } }
 
+var VOLM_META = {'Open Role (MW)': {n:'Open Role (MW)', reg:'Midwest', ini:'OR', c:'#1D9E75'}};
 function gr(name) {
   for (var i = 0; i < RAMS.length; i++) {
     if (RAMS[i].n === name) return RAMS[i];
   }
+  if (VOLM_META[name]) return VOLM_META[name];
   return {ini:'?', c:'#888', reg:'--'};
 }
 
@@ -2717,7 +2773,7 @@ function setVPSeg(seg, btn){
 function initVolPerfFilters(){
   var md=document.getElementById('vpMoDrop');
   if(md && !md.dataset.built){
-    md.innerHTML='<div style="padding:8px 12px;font-size:11px;color:#73726c">YTD Through May<br>Data is a cumulative rollup.</div>';
+    md.innerHTML='<div style="padding:8px 12px;font-size:11px;color:#73726c">YTD Through August<br>Data is a cumulative rollup.</div>';
     md.dataset.built='1';
   }
 
@@ -2780,7 +2836,7 @@ function toggleAllVpMo(cb){ vpChanged(); }
 function renderVolPerf(){
   initVolPerfFilters();
 
-  var mos=['may']; // YTD rollup — all records are May YTD cumulative
+  var mos=[VP_MO]; // YTD rollup — all records are cumulative through VP_MO
 
   var regs=getChecked('vp-reg'); if(!regs.length) regs=REGS.slice();
 
@@ -2879,7 +2935,139 @@ agg[r.ram][r.seg].act += act;
   if(segPick==='all' || segPick==='Vend') segChart('VPV','Vend','Vending'); else dc('VPV');
   if(segPick==='all' || segPick==='CU') segChart('VPCU','CU','Collegiate'); else dc('VPCU');
   if(segPick==='all' || segPick==='Trvl') segChart('VPT','Trvl','Travel'); else dc('VPT');
+  try{ renderVolInsights(); }catch(e){ console.error('Volume insights', e); }
 }
+
+/* ---- VOLUME INSIGHTS ---- */
+var VP_MO='aug', VP_MO_LBL='August';
+var VI_SEGS=['Big3','Vend','CU','Trvl'];
+var VI_SL={Big3:'At Work/B&I/HC',Vend:'Vending',CU:'Collegiate',Trvl:'Travel'};
+var viSel=null;
+function viSigned(v){return (v>=0?'+':'\u2212')+fmt(Math.abs(v));}
+function viP(v){return (v>=0?'+':'\u2212')+Math.abs(v*100).toFixed(1)+'%';}
+function viRk(n){var s=['th','st','nd','rd'],v=n%100;return n+(s[(v-20)%10]||s[v]||s[0]);}
+function viHeat(vb,vp){
+  var a=Math.min(Math.abs(vb)/0.2,1), bg=vb>=0?'rgba(29,158,117,'+(0.1+a*0.45)+')':'rgba(226,75,74,'+(0.1+a*0.45)+')';
+  var col=a>0.6?'#fff':(vb>=0?'#0f5a40':'#7a1c1c');
+  return '<span class="vi-cell" style="background:'+bg+';color:'+col+'">'+viP(vb)+'<small>'+viP(vp)+' PY</small></span>';
+}
+function viModel(){
+  var rams={},team={a:0,p:0,b:0,segs:{}},regs={};
+  VI_SEGS.forEach(function(s){team.segs[s]={a:0,p:0,b:0};});
+  VOLM.forEach(function(r){
+    if(r.month!==VP_MO||VI_SEGS.indexOf(r.seg)<0) return;
+    var R=rams[r.ram]||(rams[r.ram]={n:r.ram,reg:r.reg,a:0,p:0,b:0,segs:{}});
+    var G=regs[r.reg]||(regs[r.reg]={n:r.reg,a:0,p:0,b:0,segs:{}});
+    [R,G].forEach(function(o){var s=o.segs[r.seg]||(o.segs[r.seg]={a:0,p:0,b:0});s.a+=r.act_ytd;s.p+=r.py_ytd;s.b+=r.bp_ytd;o.a+=r.act_ytd;o.p+=r.py_ytd;o.b+=r.bp_ytd;});
+    var t=team.segs[r.seg];t.a+=r.act_ytd;t.p+=r.py_ytd;t.b+=r.bp_ytd;team.a+=r.act_ytd;team.p+=r.py_ytd;team.b+=r.bp_ytd;
+  });
+  function fin(o){o.vp=o.p?o.a/o.p-1:0;o.vb=o.b?o.a/o.b-1:0;o.gap=o.a-o.b;o.grow=o.a-o.p;
+    VI_SEGS.forEach(function(s){var x=o.segs[s]||(o.segs[s]={a:0,p:0,b:0});x.vp=x.p?x.a/x.p-1:0;x.vb=x.b?x.a/x.b-1:0;x.gap=x.a-x.b;x.grow=x.a-x.p;x.mix=o.a?x.a/o.a:0;});}
+  var list=Object.keys(rams).map(function(k){fin(rams[k]);return rams[k];});
+  Object.keys(regs).forEach(function(k){fin(regs[k]);}); fin(team);
+  function rank(key,getter){var arr=list.slice().sort(function(x,y){return getter(y)-getter(x);});arr.forEach(function(o,i){o[key]=i+1;});}
+  rank('rkP',function(o){return o.vp;}); rank('rkB',function(o){return o.vb;});
+  VI_SEGS.forEach(function(s){
+    var arr=list.filter(function(o){return o.segs[s].p>0;}).sort(function(x,y){return y.segs[s].vp-x.segs[s].vp;});
+    arr.forEach(function(o,i){o.segs[s].rk=i+1;o.segs[s].of=arr.length;});
+  });
+  return {rams:rams,list:list,regs:regs,team:team};
+}
+
+function renderVolInsights(){
+  var M=viModel(), T=M.team, L=M.list, N=L.length;
+  if(!N) return;
+  document.getElementById('VIsub').textContent='YTD Through '+VP_MO_LBL+' \u00b7 full-team view, independent of filters above';
+
+  // --- Macro tiles
+  var bySegGrow=VI_SEGS.slice().sort(function(x,y){return T.segs[y].grow-T.segs[x].grow;});
+  var eng=bySegGrow[0], engShare=T.grow>0?T.segs[eng].grow/T.grow:0;
+  var miss=VI_SEGS.filter(function(s){return T.segs[s].gap<0;}).sort(function(x,y){return T.segs[x].gap-T.segs[y].gap;});
+  var missUnits=miss.reduce(function(t,s){return t+T.segs[s].gap;},0);
+  var aboveBP=L.filter(function(o){return o.vb>=0;}).length, aboveP=L.filter(function(o){return o.vp>=0;}).length;
+  var segBreadth=VI_SEGS.map(function(s){return {s:s,n:L.filter(function(o){return o.segs[s].b>0&&o.segs[s].a>=o.segs[s].b;}).length};}).sort(function(x,y){return x.n-y.n;});
+  var tiles=[];
+  tiles.push({c:T.vb>=0?'pos':'neg',k:'TEAM PACE',v:fmt(T.a),t:'Team volume runs <b>'+viP(T.vp)+'</b> vs PY and <b>'+viP(T.vb)+'</b> vs BP, '+viSigned(T.gap)+' units '+(T.gap>=0?'ahead of':'behind')+' plan.'});
+  tiles.push({c:'pos',k:'GROWTH ENGINE',v:VI_SL[eng],t:VI_SL[eng]+' adds '+viSigned(T.segs[eng].grow)+' units vs PY and drives <b>'+Math.round(engShare*100)+'%</b> of total team growth at '+viP(T.segs[eng].vb)+' vs BP.'});
+  if(miss.length){
+    tiles.push({c:'neg',k:'PLAN GAP',v:viSigned(missUnits),t:miss.map(function(s){return VI_SL[s]+' '+viSigned(T.segs[s].gap)+' ('+viP(T.segs[s].vb)+')';}).join(' and ')+' hold the full plan gap. Closing it lifts team vs BP to '+viP((T.a-missUnits)/T.b-1)+'.'});
+  } else {
+    tiles.push({c:'pos',k:'PLAN GAP',v:'None',t:'Every segment runs at or above BP. Protect the lead in '+VI_SL[bySegGrow[0]]+'.'});
+  }
+  tiles.push({c:'neu',k:'BREADTH',v:aboveBP+' / '+N+' at BP',t:aboveP+' of '+N+' NCRAMs grow vs PY. '+VI_SL[segBreadth[0].s]+' is the narrowest win: only <b>'+segBreadth[0].n+' of '+N+'</b> NCRAMs at or above BP.'});
+  document.getElementById('VIMacro').innerHTML=tiles.map(function(x){return '<div class="vi-tile '+x.c+'"><div class="k">'+x.k+'</div><div class="v">'+x.v+'</div><div class="t">'+x.t+'</div></div>';}).join('');
+
+  // --- Region heat
+  var RL=REGS.filter(function(r){return M.regs[r];}).map(function(r){return M.regs[r];}).sort(function(x,y){return y.vb-x.vb;});
+  var rh='<thead><tr><th>Region</th>'+VI_SEGS.map(function(s){return '<th>'+VI_SL[s]+'</th>';}).join('')+'<th>Total</th><th>vs BP Units</th></tr></thead><tbody>';
+  RL.forEach(function(g){rh+='<tr><td>'+dot(RC[g.n])+g.n+'</td>'+VI_SEGS.map(function(s){var x=g.segs[s];return '<td>'+(x.b?viHeat(x.vb,x.vp):'&ndash;')+'</td>';}).join('')+'<td>'+viHeat(g.vb,g.vp)+'</td><td style="font-weight:600;color:'+(g.gap>=0?'#0f6e4f':'#8c2020')+'">'+viSigned(g.gap)+'</td></tr>';});
+  rh+='<tr><td style="font-weight:600">Team</td>'+VI_SEGS.map(function(s){var x=T.segs[s];return '<td>'+viHeat(x.vb,x.vp)+'</td>';}).join('')+'<td>'+viHeat(T.vb,T.vp)+'</td><td style="font-weight:600;color:'+(T.gap>=0?'#0f6e4f':'#8c2020')+'">'+viSigned(T.gap)+'</td></tr></tbody>';
+  document.getElementById('VIReg').innerHTML=rh;
+  var top=RL[0], bot=RL[RL.length-1];
+  var botWorst=VI_SEGS.slice().sort(function(x,y){return bot.segs[x].gap-bot.segs[y].gap;})[0];
+  var topBest=VI_SEGS.slice().sort(function(x,y){return top.segs[y].gap-top.segs[x].gap;})[0];
+  document.getElementById('VIRegNote').innerHTML='<b>'+top.n+'</b> leads the team at '+viP(top.vb)+' vs BP, powered by '+VI_SL[topBest]+' ('+viSigned(top.segs[topBest].gap)+' units over plan). <b>'+bot.n+'</b> trails at '+viP(bot.vb)+'; '+VI_SL[botWorst]+' accounts for '+viSigned(bot.segs[botWorst].gap)+' units of its plan position.';
+
+  // --- Chips
+  if(!viSel||!M.rams[viSel]) viSel=L.slice().sort(function(x,y){return REGS.indexOf(x.reg)-REGS.indexOf(y.reg)||x.n.localeCompare(y.n);})[0].n;
+  var ordered=L.slice().sort(function(x,y){return REGS.indexOf(x.reg)-REGS.indexOf(y.reg)||x.n.localeCompare(y.n);});
+  document.getElementById('VIChips').innerHTML=ordered.map(function(o){return '<button class="vi-chip'+(o.n===viSel?' on':'')+'" onclick="viPick(\''+o.n.replace(/'/g,"\\'")+'\')">'+dot(RC[o.reg])+o.n+'</button>';}).join('');
+
+  // --- Deep dive
+  var R=M.rams[viSel], G=M.regs[R.reg];
+  var col=function(v){return v>=0?'#0f6e4f':'#8c2020';};
+  var dd='<div class="vi-stats">'
+    +'<div class="vi-stat"><div class="k">YTD VOLUME</div><div class="v">'+fmt(R.a)+'</div></div>'
+    +'<div class="vi-stat"><div class="k">VS PY</div><div class="v" style="color:'+col(R.vp)+'">'+viP(R.vp)+'</div></div>'
+    +'<div class="vi-stat"><div class="k">VS BP</div><div class="v" style="color:'+col(R.vb)+'">'+viP(R.vb)+'</div></div>'
+    +'<div class="vi-stat"><div class="k">UNITS VS BP</div><div class="v" style="color:'+col(R.gap)+'">'+viSigned(R.gap)+'</div></div>'
+    +'<div class="vi-stat"><div class="k">TEAM RANK</div><div class="v">#'+R.rkP+' PY &middot; #'+R.rkB+' BP</div></div></div>';
+  dd+='<div style="overflow-x:auto"><table><thead><tr><th>Segment</th><th class="r">ACT</th><th class="r">vs PY</th><th class="r">Team vs PY</th><th class="r">vs BP</th><th class="r">Units vs BP</th><th class="r">Growth Rank</th><th class="r">Mix</th><th class="r">Team Mix</th></tr></thead><tbody>';
+  VI_SEGS.forEach(function(s){var x=R.segs[s],t=T.segs[s];
+    dd+='<tr><td>'+VI_SL[s]+'</td><td class="r">'+fmt(x.a)+'</td><td class="r">'+bdg(x.vp>=0?'bG':'bR',viP(x.vp))+'</td><td class="r" style="color:#73726c">'+viP(t.vp)+'</td><td class="r">'+bdg(x.vb>=0?'bG':'bR',viP(x.vb))+'</td><td class="r" style="font-weight:600;color:'+col(x.gap)+'">'+viSigned(x.gap)+'</td><td class="r">'+(x.rk?('#'+x.rk+' of '+x.of):'&ndash;')+'</td><td class="r">'+Math.round(x.mix*100)+'%</td><td class="r" style="color:#73726c">'+Math.round(t.mix*100)+'%</td></tr>';});
+  dd+='</tbody></table></div>';
+
+  var wins=[],gaps=[];
+  if(R.rkP<=3) wins.push({w:100,t:'Ranks <b>'+viRk(R.rkP)+' of '+N+'</b> in total growth at '+viP(R.vp)+' vs PY.'});
+  if(R.vp>G.vp&&G.n) wins.push({w:50,t:'Outgrows the '+G.n+' region ('+viP(R.vp)+' vs '+viP(G.vp)+').'});
+  VI_SEGS.forEach(function(s){var x=R.segs[s],t=T.segs[s];if(!x.b) return;
+    var diff=x.vp-t.vp;
+    if(x.vb>=0.03) wins.push({w:x.gap,t:'<b>'+VI_SL[s]+'</b> beats BP by '+viP(x.vb)+' ('+viSigned(x.gap)+' units)'+(x.rk<=3?', '+viRk(x.rk)+' of '+x.of+' in growth.':'.')});
+    else if(x.rk<=3) wins.push({w:x.grow,t:'<b>'+VI_SL[s]+'</b> growth ranks '+viRk(x.rk)+' of '+x.of+' at '+viP(x.vp)+' vs team '+viP(t.vp)+'.'});
+    if(x.gap<0) gaps.push({w:-x.gap,t:'<b>'+VI_SL[s]+'</b> sits '+fmt(-x.gap)+' units under BP ('+viP(x.vb)+'); growth '+viP(x.vp)+' vs team '+viP(t.vp)+', '+viRk(x.rk)+' of '+x.of+'.'});
+    else if(diff<=-0.05) gaps.push({w:(-diff)*1000,t:'<b>'+VI_SL[s]+'</b> clears BP but growth trails the team by '+Math.round(-diff*100)+' pts ('+viP(x.vp)+' vs '+viP(t.vp)+').'});
+    if(x.mix<=t.mix-0.05) gaps.push({w:1,t:'<b>'+VI_SL[s]+'</b> makes up '+Math.round(x.mix*100)+'% of volume vs '+Math.round(t.mix*100)+'% team-wide: untapped share to win.'});
+  });
+  if(R.rkP>N-3) gaps.push({w:1e6,t:'Ranks <b>'+viRk(R.rkP)+' of '+N+'</b> in total growth; team runs '+viP(T.vp)+' vs PY.'});
+  wins.sort(function(a,b){return b.w-a.w;}); gaps.sort(function(a,b){return b.w-a.w;});
+  if(!wins.length) wins.push({t:'No segment clears BP by 3%+ or ranks top 3 in growth yet. Build the first stand-out in '+VI_SL[VI_SEGS.slice().sort(function(a,b){return R.segs[b].vb-R.segs[a].vb;})[0]]+'.'});
+  if(!gaps.length) gaps.push({t:'Every segment runs at or above BP and in step with team growth. Hold the pace.'});
+  dd+='<div class="vi-two"><div class="vi-list pos"><h4>Stand-Outs</h4><ul>'+wins.slice(0,4).map(function(x){return '<li>'+x.t+'</li>';}).join('')+'</ul></div>'
+     +'<div class="vi-list neg"><h4>Gaps to Close</h4><ul>'+gaps.slice(0,4).map(function(x){return '<li>'+x.t+'</li>';}).join('')+'</ul></div></div>';
+
+  var worst=VI_SEGS.filter(function(s){return R.segs[s].b>0;}).sort(function(a,b){return R.segs[a].gap-R.segs[b].gap;})[0];
+  var lever;
+  if(R.segs[worst].gap<0){
+    var newVb=(R.a-R.segs[worst].gap)/R.b-1;
+    var newRk=1+L.filter(function(o){return o.n!==R.n&&o.vb>newVb;}).length;
+    lever='<b>Biggest lever:</b> close the '+fmt(-R.segs[worst].gap)+'-unit '+VI_SL[worst]+' gap and total vs BP moves from '+viP(R.vb)+' to '+viP(newVb)+(newRk<R.rkB?', lifting plan rank from #'+R.rkB+' to #'+newRk+' of '+N+'.':', widening the #'+R.rkB+' plan position.');
+  } else {
+    var best=VI_SEGS.slice().sort(function(a,b){return R.segs[b].gap-R.segs[a].gap;})[0];
+    lever='<b>Biggest lever:</b> every segment clears BP. Scale the '+VI_SL[best]+' playbook ('+viSigned(R.segs[best].gap)+' units over plan) across the '+R.reg+' region.';
+  }
+  dd+='<div class="vi-lever">'+lever+'</div>';
+  document.getElementById('VIDeep').innerHTML=dd;
+
+  // --- Full team matrix
+  var mx='<thead><tr><th>NCRAM</th>'+VI_SEGS.map(function(s){return '<th>'+VI_SL[s]+'</th>';}).join('')+'<th>Total</th><th>vs BP Units</th></tr></thead><tbody>';
+  L.slice().sort(function(a,b){return b.vb-a.vb;}).forEach(function(o){
+    mx+='<tr class="'+(o.n===viSel?'sel':'')+'" onclick="viPick(\''+o.n.replace(/'/g,"\\'")+'\',1)"><td>'+dot(RC[o.reg])+o.n+'<br><span style="font-size:10px;color:#888780">'+o.reg+'</span></td>'
+      +VI_SEGS.map(function(s){var x=o.segs[s];return '<td>'+(x.b?viHeat(x.vb,x.vp):'&ndash;')+'</td>';}).join('')
+      +'<td>'+viHeat(o.vb,o.vp)+'</td><td style="font-weight:600;color:'+col(o.gap)+'">'+viSigned(o.gap)+'</td></tr>';
+  });
+  document.getElementById('VIMx').innerHTML=mx+'</tbody>';
+}
+function viPick(n,scroll){viSel=n;renderVolInsights();if(scroll){var el=document.getElementById('VIChips');if(el&&el.scrollIntoView)el.scrollIntoView({behavior:'smooth',block:'start'});}}
 
 // renderNat(); // disabled (national section not present)
 
